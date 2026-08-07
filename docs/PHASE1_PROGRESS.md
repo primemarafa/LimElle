@@ -1,35 +1,61 @@
 # Lim'Elle V2 - Phase 1 Progress
 
-## Completed
+## Statut
+Phase 1 : en cours.
 
-- [x] Branch `phase-1-architecture` created from `master`.
-- [x] Central configuration added in `src/config/limelle.js`.
-- [x] Niger WhatsApp number centralized: `22799205739`.
-- [x] Initial transport configuration centralized: 4 000 FCFA/kg, minimum 1 kg.
-- [x] Catalog data separated into `src/data/catalog.js`.
-- [x] Business calculation utilities added in `src/utils/limelle.js`.
-- [x] WhatsApp service layer added in `src/services/whatsapp.js`.
-- [x] Order, payment and role models added in `src/types/models.js`.
-- [x] `src/App.jsx` added as the future application entry point.
+## Réalisé
 
-## Important migration rule
+- [x] Branche `phase-1-architecture` créée depuis `master`.
+- [x] Configuration centralisée dans `src/config/limelle.js`.
+- [x] WhatsApp Niger centralisé : `22799205739`.
+- [x] Transport de référence centralisé : 4 000 FCFA/kg.
+- [x] Poids minimum centralisé : 1 kg.
+- [x] Catalogue et catégories séparés dans `src/data/catalog.js`.
+- [x] Calcul du transport isolé dans `src/utils/limelle.js`.
+- [x] Calcul du prix global isolé dans `src/utils/limelle.js`.
+- [x] Service WhatsApp ajouté dans `src/services/whatsapp.js`.
+- [x] Modèles métier préparatoires ajoutés dans `src/types/models.js`.
+- [x] `src/App.jsx` utilise maintenant la configuration, le catalogue et les utilitaires de Phase 1.
+- [x] Le nouveau frontend utilise le numéro WhatsApp validé.
+- [x] Le nouveau frontend affiche un prix global indicatif incluant le transport de référence.
+- [x] Le parcours personal shopping et la demande sur-mesure sont intégrés au nouveau point d'entrée.
 
-The current `LimElleSite.jsx` remains untouched during this first extraction step. This protects the existing prototype while the new architecture is introduced incrementally.
+## Ancien prototype
 
-## Known prototype inconsistencies to correct during the next step
+`LimElleSite.jsx` reste conservé à la racine comme sauvegarde du prototype initial.
 
-- WhatsApp number is still hard-coded in the legacy component.
-- The legacy transport calculator still uses 3 500 FCFA/kg.
-- Some legacy text promises a 5 to 9 day delivery window.
-- The legacy UI exposes article prices separately from the future global Lim'Elle price.
-- Social links are placeholders.
-- The legacy component still contains catalog data and UI logic together.
+Il n'est plus utilisé par `src/App.jsx`.
 
-## Next work
+Il contient encore les anciennes valeurs et ne doit plus servir de source de vérité.
 
-1. Migrate the legacy component to use the centralized configuration.
-2. Replace legacy catalog constants with imports from `src/data/catalog.js`.
-3. Replace the 3 500 FCFA/kg calculator with the configurable transport utility.
-4. Move reusable UI blocks into `src/components/`.
-5. Add a basic validation/build workflow once the project tooling is identified.
-6. Review the resulting UI against the Phase 0 commercial rules.
+## Points à vérifier
+
+- [ ] Identifier et valider le système de build du dépôt.
+- [ ] Vérifier les dépendances React, lucide-react et Tailwind.
+- [ ] Lancer le build local.
+- [ ] Vérifier les liens WhatsApp.
+- [ ] Vérifier les calculs de transport.
+- [ ] Vérifier le rendu mobile.
+- [ ] Vérifier les erreurs console.
+- [ ] Déplacer les blocs UI réutilisables dans `src/components/`.
+- [ ] Préparer les pages dédiées.
+
+## Règles métier respectées
+
+- Personal shopping comme activité initiale.
+- Vêtements et chaussures prioritaires.
+- Niger uniquement au lancement.
+- Point de retrait à Niamey comme mode initial.
+- Paiement après confirmation.
+- Prix global côté cliente.
+- Coûts internes et marge réservés à l'administration future.
+- 4 000 FCFA/kg comme hypothèse de transport configurable.
+- Pas de tracking GP complexe au lancement.
+
+## Journal
+
+2026-08-07
+- Accès GitHub en écriture rétabli.
+- Branche `phase-1-architecture` opérationnelle.
+- Entrée frontend migrée vers les modules Phase 1.
+- Ancien prototype conservé pour retour arrière.
