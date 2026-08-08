@@ -8,6 +8,8 @@ import TransportEstimator from "./components/TransportEstimator";
 import FaqList from "./components/FaqList";
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
+import OrderForm from "./components/OrderForm";
+import OrderConfirmation from "./components/OrderConfirmation";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}::${product.selectedColor ?? "Standard"}`;
@@ -19,6 +21,8 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [checkout, setCheckout] = useState(false);
+  const [order, setOrder] = useState(null);
   const products = useMemo(() => filter === "all" ? PRODUCTS : PRODUCTS.filter((product) => product.cat === filter), [filter]);
 
   const addToCart = (product, quantity = 1) => {
@@ -34,6 +38,11 @@ export default function App() {
   const updateQuantity = (key, quantity) => setCart((current) => current.map((item) => cartKey(item.product) === key ? { ...item, quantity } : item));
   const removeFromCart = (key) => setCart((current) => current.filter((item) => cartKey(item.product) !== key));
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const startCheckout = () => { setCartOpen(false); setCheckout(true); };
+  const completeOrder = (nextOrder) => { setOrder(nextOrder); setCheckout(false); setCart([]); };
+
+  if (order) return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
 
   return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]">
     <header className="sticky top-0 z-40 border-b border-black/10 bg-[#F5F0E6]/95 backdrop-blur"><div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4"><div><div className="text-2xl font-semibold">Lim'Elle</div><div className="text-[10px] font-bold tracking-[.14em] text-[#5B5348]">SHOPPING DAKAR → NIAMEY</div></div><div className="flex items-center gap-2"><button onClick={() => setCartOpen(true)} className="relative rounded-full bg-white p-3" aria-label="Ouvrir le panier"><ShoppingBag size={18} />{cartCount > 0 && <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#C1613F] px-1 text-[10px] font-bold text-white">{cartCount}</span>}</button><WhatsAppButton className="bg-[#3FBF63] text-white" message={WA_TEXT}>WhatsApp</WhatsAppButton></div></div></header>
@@ -46,6 +55,6 @@ export default function App() {
       <section className="mx-auto max-w-5xl px-5 pb-16"><h2 className="text-3xl font-semibold">Questions fréquentes</h2><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></section>
     </>}
     <footer className="bg-[#2B2620] px-5 py-10 text-white"><div className="mx-auto max-w-5xl"><div className="text-2xl font-semibold">Lim'Elle</div><p className="mt-2 text-sm text-white/70">Ton shopping à Dakar, livré à Niamey.</p><p className="mt-5 text-sm">WhatsApp : +227 99 20 57 39</p><p className="mt-2 text-xs text-white/50">© 2026 Lim'Elle. Les prix affichés restent indicatifs jusqu'à confirmation de disponibilité.</p></div></footer>
-    {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart}/>} 
+    {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>} 
   </main>;
 }
