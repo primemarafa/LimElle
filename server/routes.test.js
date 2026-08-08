@@ -14,7 +14,7 @@ function makeApp() {
   return app;
 }
 
-test("orders are retrievable by reference", async () => {
+test("orders are retrievable by their random lookup token", async () => {
   const app = makeApp();
   const created = await app.inject({
     method: "POST",
@@ -26,9 +26,15 @@ test("orders are retrievable by reference", async () => {
     },
   });
 
-  const reference = created.json().reference;
-  const fetched = await app.inject({ method: "GET", url: `/api/orders/${reference}` });
+  assert.equal(created.statusCode, 201);
+  const body = created.json();
+  assert.match(body.lookupToken, /^[a-f0-9]{64}$/);
+
+  const fetched = await app.inject({ method: "GET", url: `/api/orders/${body.lookupToken}` });
   assert.equal(fetched.statusCode, 200);
-  assert.equal(fetched.json().reference, reference);
+  assert.equal(fetched.json().reference, body.reference);
+
+  const predictableLookup = await app.inject({ method: "GET", url: `/api/orders/${body.reference}` });
+  assert.equal(predictableLookup.statusCode, 404);
   await app.close();
 });
