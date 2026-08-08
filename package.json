@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "latest",
     "fastify": "latest",
     "lucide-react": "latest",
+    "pg": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
