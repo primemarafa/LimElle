@@ -2,6 +2,9 @@ import { randomBytes } from "node:crypto";
 
 const DELIVERY_MODES = new Set(["point_retrait", "domicile"]);
 const MAX_ITEM_QUANTITY = 20;
+const MAX_ORDER_ITEMS = 50;
+const MAX_IN_MEMORY_ORDERS = 5000;
+const ORDER_TTL_MS = 24 * 60 * 60 * 1000;
 
 function createReference(sequence, date = new Date()) {
   const stamp = date.toISOString().slice(0, 10).replaceAll("-", "");
@@ -12,6 +15,17 @@ function createLookupToken() {
   return randomBytes(32).toString("hex");
 }
 
+function cleanupOrders(orders, now = Date.now()) {
+  for (const [token, order] of orders) {
+    if (now - Date.parse(order.createdAt) > ORDER_TTL_MS) orders.delete(token);
+  }
+  while (orders.size >= MAX_IN_MEMORY_ORDERS) {
+    const oldestToken = orders.keys().next().value;
+    if (!oldestToken) break;
+    orders.delete(oldestToken);
+  }
+}
+
 function validateOrderPayload(payload) {
   if (!payload || typeof payload !== "object") return "Corps de requête invalide.";
   const { customer, items, deliveryMode, deliveryAddress } = payload;
@@ -20,7 +34,7 @@ function validateOrderPayload(payload) {
     if (typeof customer[field] !== "string" || !customer[field].trim()) return `Le champ ${field} est requis.`;
   }
   if (!Array.isArray(items) || items.length === 0) return "La commande doit contenir au moins un produit.";
-  if (items.length > 50) return "La commande contient trop d'articles.";
+  if (items.length > MAX_ORDER_ITEMS) return `La commande est limitée à ${MAX_ORDER_ITEMS} articles.`;
   if (!DELIVERY_MODES.has(deliveryMode)) return "Mode de livraison invalide.";
   if (deliveryMode === "domicile" && (typeof deliveryAddress !== "string" || !deliveryAddress.trim())) {
     return "L'adresse de livraison est requise.";
@@ -73,6 +87,7 @@ export function registerRoutes(app, { products, productRepository, orders = new 
     const transport = Math.max(1, Math.ceil(weight)) * 4000;
     const reference = createReference(sequence++);
     const lookupToken = createLookupToken();
+    const createdAt = new Date().toISOString();
     const order = {
       reference,
       lookupToken,
@@ -83,8 +98,9 @@ export function registerRoutes(app, { products, productRepository, orders = new 
       deliveryAddress: payload.deliveryAddress || "",
       notes: typeof payload.notes === "string" ? payload.notes : "",
       totals: { productTotal, weight, transport, total: productTotal + transport },
-      createdAt: new Date().toISOString(),
+      createdAt,
     };
+    cleanupOrders(orders);
     orders.set(lookupToken, order);
     return reply.code(201).send(order);
   });
@@ -92,6 +108,7 @@ export function registerRoutes(app, { products, productRepository, orders = new 
   app.get("/api/orders/:lookupToken", { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } }, async (request, reply) => {
     const token = String(request.params.lookupToken);
     if (!/^[a-f0-9]{64}$/.test(token)) return reply.code(404).send({ message: "Commande introuvable." });
+    cleanupOrders(orders);
     const order = orders.get(token);
     if (!order) return reply.code(404).send({ message: "Commande introuvable." });
     return order;
