@@ -1,1 +1,0 @@
-Correction de la Phase 4 backend : validation des commandes, recalcul serveur des totaux, recherche par référence, CORS, tests automatisés et CI backend.
