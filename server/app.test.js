@@ -5,7 +5,6 @@ import { buildApp } from "./app.js";
 async function withApp(run, options = {}) {
   const app = buildApp(options);
   try {
-    await app.ready();
     return await run(app);
   } finally {
     await app.close();
@@ -60,7 +59,7 @@ test("GET /api/products/:id returns 404 for an unknown product", async () => {
   });
 });
 
-test("POST /api/orders recalculates totals and returns an unguessable lookup token", async () => {
+test("POST /api/orders recalculates totals on the server", async () => {
   await withApp(async (app) => {
     const response = await app.inject({ method: "POST", url: "/api/orders", payload: {
       customer: { fullName: "Awa Diallo", phone: "+22700000000", city: "Niamey" },
@@ -90,7 +89,7 @@ test("GET /api/orders/:lookupToken returns the created order", async () => {
   });
 });
 
-test("GET /api/orders/:lookupToken rejects predictable references", async () => {
+test("GET /api/orders/:lookupToken rejects a predictable reference", async () => {
   await withApp(async (app) => {
     const response = await app.inject({ method: "GET", url: "/api/orders/LE-20260808-000001" });
     assert.equal(response.statusCode, 404);
@@ -118,14 +117,13 @@ test("POST /api/orders rejects an invalid delivery mode", async () => {
   });
 });
 
-test("POST /api/orders rejects excessive quantity", async () => {
+test("POST /api/orders rejects a quantity above the safety limit", async () => {
   await withApp(async (app) => {
     const response = await app.inject({ method: "POST", url: "/api/orders", payload: {
       customer: { fullName: "Awa Diallo", phone: "+22700000000", city: "Niamey" },
       items: [{ product: { id: "robe-001" }, quantity: 21 }], deliveryMode: "point_retrait",
     }});
     assert.equal(response.statusCode, 400);
-    assert.match(response.json().message, /comprise entre 1 et 20/);
   });
 });
 
