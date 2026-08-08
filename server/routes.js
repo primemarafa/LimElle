@@ -8,39 +8,35 @@ function createReference(sequence, date = new Date()) {
 function validateOrderPayload(payload) {
   if (!payload || typeof payload !== "object") return "Corps de requête invalide.";
   const { customer, items, deliveryMode, deliveryAddress } = payload;
-
   if (!customer || typeof customer !== "object") return "Les informations client sont requises.";
   for (const field of ["fullName", "phone", "city"]) {
-    if (typeof customer[field] !== "string" || !customer[field].trim()) {
-      return `Le champ ${field} est requis.`;
-    }
+    if (typeof customer[field] !== "string" || !customer[field].trim()) return `Le champ ${field} est requis.`;
   }
-
   if (!Array.isArray(items) || items.length === 0) return "La commande doit contenir au moins un produit.";
   if (!DELIVERY_MODES.has(deliveryMode)) return "Mode de livraison invalide.";
   if (deliveryMode === "domicile" && (typeof deliveryAddress !== "string" || !deliveryAddress.trim())) {
     return "L'adresse de livraison est requise.";
   }
-
   for (const item of items) {
-    if (!item || typeof item !== "object" || !item.product || typeof item.product.id !== "string") {
-      return "Un article de la commande est invalide.";
-    }
+    if (!item || typeof item !== "object" || !item.product || typeof item.product.id !== "string") return "Un article de la commande est invalide.";
     if (!Number.isInteger(item.quantity) || item.quantity < 1) return "La quantité d'un article est invalide.";
   }
-
   return null;
 }
 
-export function registerRoutes(app, { products, orders = new Map() }) {
+export function registerRoutes(app, { products, productRepository, orders = new Map() }) {
   let sequence = 1;
-
   app.get("/api/health", async () => ({ status: "ok", service: "limelle-api" }));
 
-  app.get("/api/products", async () => ({ products }));
+  app.get("/api/products", async (_request, reply) => {
+    if (productRepository) return { products: await productRepository.findAll() };
+    return { products };
+  });
 
   app.get("/api/products/:id", async (request, reply) => {
-    const product = products.find((item) => String(item.id) === String(request.params.id));
+    const product = productRepository
+      ? await productRepository.findById(String(request.params.id))
+      : products.find((item) => String(item.id) === String(request.params.id));
     if (!product) return reply.code(404).send({ message: "Produit introuvable." });
     return product;
   });
@@ -52,7 +48,9 @@ export function registerRoutes(app, { products, orders = new Map() }) {
 
     const normalizedItems = [];
     for (const item of payload.items) {
-      const product = products.find((entry) => entry.id === item.product.id);
+      const product = productRepository
+        ? await productRepository.findById(item.product.id)
+        : products.find((entry) => entry.id === item.product.id);
       if (!product) return reply.code(400).send({ message: `Produit introuvable: ${item.product.id}.` });
       normalizedItems.push({
         product: { id: product.id, name: product.name, price: product.price, weight: product.weight },
@@ -75,7 +73,6 @@ export function registerRoutes(app, { products, orders = new Map() }) {
       totals: { productTotal, weight, transport, total: productTotal + transport },
       createdAt: new Date().toISOString(),
     };
-
     orders.set(reference, order);
     return reply.code(201).send(order);
   });
