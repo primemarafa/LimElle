@@ -1,0 +1,9 @@
+{
+  "name": "lim-elle-api",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "dependencies": {
+    "fastify": "^5.0.0"
+  }
+}
