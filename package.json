@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "node server/server.js",
     "build": "vite build",
     "preview": "vite preview",
     "test:server": "NODE_ENV=test node --test server/*.test.js"
@@ -12,11 +13,11 @@
   "dependencies": {
     "@vitejs/plugin-react": "latest",
     "@tailwindcss/vite": "latest",
+    "fastify": "latest",
     "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
-    "vite": "latest",
-    "fastify": "latest"
+    "vite": "latest"
   }
 }
