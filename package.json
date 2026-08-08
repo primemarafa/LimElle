@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:server": "NODE_ENV=test node --test server/*.test.js"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -15,6 +16,7 @@
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
-    "vite": "latest"
+    "vite": "latest",
+    "fastify": "latest"
   }
 }
