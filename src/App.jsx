@@ -10,6 +10,7 @@ import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
+const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}::${product.selectedColor ?? "Standard"}`;
 
 export default function App() {
   const [filter, setFilter] = useState("all");
@@ -22,15 +23,16 @@ export default function App() {
 
   const addToCart = (product, quantity = 1) => {
     setCart((current) => {
-      const existing = current.find((item) => item.product.id === product.id && item.product.selectedSize === product.selectedSize && item.product.selectedColor === product.selectedColor);
-      if (existing) return current.map((item) => item === existing ? { ...item, quantity: item.quantity + quantity } : item);
+      const key = cartKey(product);
+      const existing = current.find((item) => cartKey(item.product) === key);
+      if (existing) return current.map((item) => cartKey(item.product) === key ? { ...item, quantity: item.quantity + quantity } : item);
       return [...current, { product, quantity }];
     });
     setCartOpen(true);
     setSelectedProduct(null);
   };
-  const updateQuantity = (id, quantity) => setCart((current) => current.map((item) => item.product.id === id ? { ...item, quantity } : item));
-  const removeFromCart = (id) => setCart((current) => current.filter((item) => item.product.id !== id));
+  const updateQuantity = (key, quantity) => setCart((current) => current.map((item) => cartKey(item.product) === key ? { ...item, quantity } : item));
+  const removeFromCart = (key) => setCart((current) => current.filter((item) => cartKey(item.product) !== key));
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]">
