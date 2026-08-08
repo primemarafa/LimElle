@@ -15,6 +15,7 @@
     "test:server": "NODE_ENV=test node --test server/*.test.js"
   },
   "dependencies": {
+    "@fastify/rate-limit": "latest",
     "@vitejs/plugin-react": "latest",
     "@tailwindcss/vite": "latest",
     "fastify": "latest",
