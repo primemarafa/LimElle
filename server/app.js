@@ -12,6 +12,7 @@ export function buildApp() {
     reply.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   });
 
+  app.options("/*", async (_request, reply) => reply.code(204).send());
   registerRoutes(app, { products, orders });
   return app;
 }
