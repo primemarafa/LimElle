@@ -3,11 +3,11 @@ import rateLimit from "@fastify/rate-limit";
 import { products } from "./data/products.js";
 import { registerRoutes } from "./routes.js";
 
-export async function buildApp({ productRepository = null } = {}) {
+export function buildApp({ productRepository = null } = {}) {
   const app = Fastify({ logger: true });
   const orders = new Map();
 
-  await app.register(rateLimit, {
+  app.register(rateLimit, {
     global: true,
     max: 60,
     timeWindow: "1 minute",
