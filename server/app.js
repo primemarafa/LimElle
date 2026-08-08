@@ -4,7 +4,15 @@ import { registerRoutes } from "./routes.js";
 
 export function buildApp() {
   const app = Fastify({ logger: true });
-  registerRoutes(app, { products });
+  const orders = new Map();
+
+  app.addHook("onSend", async (_request, reply) => {
+    reply.header("Access-Control-Allow-Origin", "*");
+    reply.header("Access-Control-Allow-Headers", "Content-Type");
+    reply.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  });
+
+  registerRoutes(app, { products, orders });
   return app;
 }
 
