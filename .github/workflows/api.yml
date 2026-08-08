@@ -1,0 +1,26 @@
+name: Lim'Elle API
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  api:
+    name: api
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install API dependencies
+        run: npm install
+      - name: Validate API modules
+        run: node --input-type=module -e "import('./app.js').then(({ buildApp }) => buildApp().close())"
