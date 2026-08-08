@@ -5,6 +5,7 @@ import { buildApp } from "./app.js";
 async function withApp(run, options = {}) {
   const app = buildApp(options);
   try {
+    await app.ready();
     return await run(app);
   } finally {
     await app.close();
@@ -59,7 +60,7 @@ test("GET /api/products/:id returns 404 for an unknown product", async () => {
   });
 });
 
-test("POST /api/orders recalculates totals on the server", async () => {
+test("POST /api/orders recalculates totals and returns an unguessable lookup token", async () => {
   await withApp(async (app) => {
     const response = await app.inject({ method: "POST", url: "/api/orders", payload: {
       customer: { fullName: "Awa Diallo", phone: "+22700000000", city: "Niamey" },
@@ -69,22 +70,30 @@ test("POST /api/orders recalculates totals on the server", async () => {
     assert.equal(response.statusCode, 201);
     const order = response.json();
     assert.match(order.reference, /^LE-\d{8}-\d{6}$/);
+    assert.match(order.lookupToken, /^[a-f0-9]{64}$/);
     assert.equal(order.status, "EN_ATTENTE");
     assert.deepEqual(order.totals, { productTotal: 70000, weight: 1.6, transport: 8000, total: 78000 });
     assert.equal(order.items[0].product.price, 35000);
   });
 });
 
-test("GET /api/orders/:reference returns the created order", async () => {
+test("GET /api/orders/:lookupToken returns the created order", async () => {
   await withApp(async (app) => {
     const createResponse = await app.inject({ method: "POST", url: "/api/orders", payload: {
       customer: { fullName: "Awa Diallo", phone: "+22700000000", city: "Niamey" },
       items: [{ product: { id: "robe-001" }, quantity: 1 }], deliveryMode: "point_retrait",
     }});
-    const reference = createResponse.json().reference;
-    const response = await app.inject({ method: "GET", url: `/api/orders/${reference}` });
+    const { lookupToken, reference } = createResponse.json();
+    const response = await app.inject({ method: "GET", url: `/api/orders/${lookupToken}` });
     assert.equal(response.statusCode, 200);
     assert.equal(response.json().reference, reference);
+  });
+});
+
+test("GET /api/orders/:lookupToken rejects predictable references", async () => {
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "GET", url: "/api/orders/LE-20260808-000001" });
+    assert.equal(response.statusCode, 404);
   });
 });
 
@@ -106,6 +115,17 @@ test("POST /api/orders rejects an invalid delivery mode", async () => {
       items: [{ product: { id: "robe-001" }, quantity: 1 }], deliveryMode: "unknown",
     }});
     assert.equal(response.statusCode, 400);
+  });
+});
+
+test("POST /api/orders rejects excessive quantity", async () => {
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "POST", url: "/api/orders", payload: {
+      customer: { fullName: "Awa Diallo", phone: "+22700000000", city: "Niamey" },
+      items: [{ product: { id: "robe-001" }, quantity: 21 }], deliveryMode: "point_retrait",
+    }});
+    assert.equal(response.statusCode, 400);
+    assert.match(response.json().message, /comprise entre 1 et 20/);
   });
 });
 
