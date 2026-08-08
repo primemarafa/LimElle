@@ -3,18 +3,24 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "dev": "vite",
     "dev:api": "node server/server.js",
     "build": "vite build",
     "preview": "vite preview",
+    "db:migrate": "node server/db/migrate.js",
     "test:server": "NODE_ENV=test node --test server/*.test.js"
   },
   "dependencies": {
+    "@fastify/rate-limit": "latest",
     "@vitejs/plugin-react": "latest",
     "@tailwindcss/vite": "latest",
     "fastify": "latest",
     "lucide-react": "latest",
+    "pg": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwindcss": "latest",
