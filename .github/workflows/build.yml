@@ -2,12 +2,17 @@ name: Lim'Elle build
 
 on:
   push:
-    branches: [master, phase-2-catalogue]
+    branches:
+      - master
+      - phase-3-orders
+      - ci-status-check-test
   pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
