@@ -6,9 +6,9 @@ const MAX_ORDER_ITEMS = 50;
 const MAX_IN_MEMORY_ORDERS = 5000;
 const ORDER_TTL_MS = 24 * 60 * 60 * 1000;
 
-function createReference(sequence, date = new Date()) {
+function createReference(date = new Date()) {
   const stamp = date.toISOString().slice(0, 10).replaceAll("-", "");
-  return `LE-${stamp}-${String(sequence).padStart(6, "0")}`;
+  return `LE-${stamp}-${randomBytes(4).toString("hex")}`;
 }
 
 function createLookupToken() {
@@ -48,8 +48,7 @@ function validateOrderPayload(payload) {
   return null;
 }
 
-export function registerRoutes(app, { products, productRepository, orders = new Map() }) {
-  let sequence = 1;
+export function registerRoutes(app, { products, productRepository, orderRepository, orders = new Map() }) {
   app.get("/api/health", async () => ({ status: "ok", service: "limelle-api" }));
 
   app.get("/api/products", async () => {
@@ -85,12 +84,9 @@ export function registerRoutes(app, { products, productRepository, orders = new 
     const productTotal = normalizedItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
     const weight = normalizedItems.reduce((sum, item) => sum + item.product.weight * item.quantity, 0);
     const transport = Math.max(1, Math.ceil(weight)) * 4000;
-    const reference = createReference(sequence++);
-    const lookupToken = createLookupToken();
-    const createdAt = new Date().toISOString();
     const order = {
-      reference,
-      lookupToken,
+      reference: createReference(),
+      lookupToken: createLookupToken(),
       status: "EN_ATTENTE",
       customer: payload.customer,
       items: normalizedItems,
@@ -98,16 +94,26 @@ export function registerRoutes(app, { products, productRepository, orders = new 
       deliveryAddress: payload.deliveryAddress || "",
       notes: typeof payload.notes === "string" ? payload.notes : "",
       totals: { productTotal, weight, transport, total: productTotal + transport },
-      createdAt,
+      createdAt: new Date().toISOString(),
     };
+
+    if (orderRepository) return reply.code(201).send(await orderRepository.create(order));
+
     cleanupOrders(orders);
-    orders.set(lookupToken, order);
+    orders.set(order.lookupToken, order);
     return reply.code(201).send(order);
   });
 
   app.get("/api/orders/:lookupToken", { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } }, async (request, reply) => {
     const token = String(request.params.lookupToken);
     if (!/^[a-f0-9]{64}$/.test(token)) return reply.code(404).send({ message: "Commande introuvable." });
+
+    if (orderRepository) {
+      const order = await orderRepository.findByLookupToken(token);
+      if (!order) return reply.code(404).send({ message: "Commande introuvable." });
+      return order;
+    }
+
     cleanupOrders(orders);
     const order = orders.get(token);
     if (!order) return reply.code(404).send({ message: "Commande introuvable." });
