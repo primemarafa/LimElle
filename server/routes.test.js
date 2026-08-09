@@ -35,6 +35,6 @@ test("orders are retrievable by their random lookup token", async () => {
   assert.equal(fetched.json().reference, body.reference);
 
   const predictableLookup = await app.inject({ method: "GET", url: `/api/orders/${body.reference}` });
-  assert.equal(predictableLookup.statusCode, 404);
+  assert.equal(predictableLookup.statusCode, 400);
   await app.close();
 });
