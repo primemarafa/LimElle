@@ -9,7 +9,7 @@ const db = await getDb();
 try {
   await db.query(`
     CREATE TABLE IF NOT EXISTS schema_migrations (
-      name TEXT PRIMARY KEY,
+      version TEXT PRIMARY KEY,
       applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
@@ -19,7 +19,11 @@ try {
     .sort();
 
   for (const file of files) {
-    const { rows } = await db.query("SELECT 1 FROM schema_migrations WHERE name = $1", [file]);
+    const version = file.replace(/\.sql$/, "");
+    const { rows } = await db.query(
+      "SELECT 1 FROM schema_migrations WHERE version = $1",
+      [version],
+    );
     if (rows.length > 0) continue;
 
     const sql = await readFile(path.resolve(migrationsDir, file), "utf8");
@@ -27,7 +31,10 @@ try {
     try {
       await client.query("BEGIN");
       await client.query(sql);
-      await client.query("INSERT INTO schema_migrations (name) VALUES ($1)", [file]);
+      await client.query(
+        "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT (version) DO NOTHING",
+        [version],
+      );
       await client.query("COMMIT");
       console.log(`Database migration ${file} applied.`);
     } catch (error) {
