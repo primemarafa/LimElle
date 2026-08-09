@@ -3,7 +3,7 @@ import rateLimit from "@fastify/rate-limit";
 import { products } from "./data/products.js";
 import { registerRoutes } from "./routes.js";
 
-export function buildApp({ productRepository = null } = {}) {
+export function buildApp({ productRepository = null, orderRepository = null } = {}) {
   const app = Fastify({ logger: true });
   const orders = new Map();
 
@@ -27,6 +27,6 @@ export function buildApp({ productRepository = null } = {}) {
   });
 
   app.options("/*", async (_request, reply) => reply.code(204).send());
-  registerRoutes(app, { products, productRepository, orders });
+  registerRoutes(app, { products, productRepository, orderRepository, orders });
   return app;
 }
