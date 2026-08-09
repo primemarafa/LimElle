@@ -19,6 +19,36 @@ test("GET /api/health returns API status", async () => {
   });
 });
 
+test("GET /api/health/db reports an unconfigured database", async () => {
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "GET", url: "/api/health/db" });
+    assert.equal(response.statusCode, 503);
+    assert.deepEqual(response.json(), { status: "error", service: "limelle-api", database: "unconfigured" });
+  });
+});
+
+test("GET /api/health/db reports a healthy database", async () => {
+  const db = { query: async (sql) => {
+    assert.equal(sql, "SELECT 1");
+    return { rows: [{ '?column?': 1 }] };
+  } };
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "GET", url: "/api/health/db" });
+    assert.equal(response.statusCode, 200);
+    assert.deepEqual(response.json(), { status: "ok", service: "limelle-api", database: "ok" });
+  }, { db });
+});
+
+test("GET /api/health/db reports database outage without exposing internals", async () => {
+  const db = { query: async () => { throw new Error("password=secret host=db.internal"); } };
+  await withApp(async (app) => {
+    const response = await app.inject({ method: "GET", url: "/api/health/db" });
+    assert.equal(response.statusCode, 503);
+    assert.deepEqual(response.json(), { status: "error", service: "limelle-api", database: "unavailable" });
+    assert.doesNotMatch(response.body, /secret|db\.internal/);
+  }, { db });
+});
+
 test("GET /api/products uses the injected repository", async () => {
   const repository = {
     findAll: async () => [{ id: "db-product-1", name: "Produit DB", price: 42000 }],
