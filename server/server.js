@@ -8,6 +8,16 @@ const host = process.env.HOST || "0.0.0.0";
 
 let db;
 let app;
+let shuttingDown = false;
+
+const shutdown = async (signal) => {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  app?.log.info({ signal }, "Shutting down API");
+  await app?.close().catch(() => {});
+  await closeDb().catch(() => {});
+  process.exit(0);
+};
 
 try {
   db = await getDb();
@@ -15,20 +25,12 @@ try {
 
   const productRepository = createProductRepository(db);
   const orderRepository = createOrderRepository(db);
-  app = buildApp({ productRepository, orderRepository });
+  app = buildApp({ productRepository, orderRepository, db });
+  process.once("SIGINT", () => shutdown("SIGINT"));
+  process.once("SIGTERM", () => shutdown("SIGTERM"));
   await app.listen({ port, host });
-
-  const shutdown = async (signal) => {
-    app.log.info({ signal }, "Shutting down API");
-    await app.close();
-    await closeDb();
-    process.exit(0);
-  };
-
-  process.once("SIGINT", shutdown);
-  process.once("SIGTERM", shutdown);
 } catch (error) {
-  if (app) await app.close().catch(() => {});
+  await app?.close().catch(() => {});
   await closeDb().catch(() => {});
   console.error(error);
   process.exit(1);
