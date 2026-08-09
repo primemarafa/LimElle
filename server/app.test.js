@@ -68,7 +68,7 @@ test("POST /api/orders recalculates totals on the server", async () => {
     }});
     assert.equal(response.statusCode, 201);
     const order = response.json();
-    assert.match(order.reference, /^LE-\d{8}-\d{6}$/);
+    assert.match(order.reference, /^LE-\d{8}-[a-f0-9]{8}$/);
     assert.match(order.lookupToken, /^[a-f0-9]{64}$/);
     assert.equal(order.status, "EN_ATTENTE");
     assert.deepEqual(order.totals, { productTotal: 70000, weight: 1.6, transport: 8000, total: 78000 });
