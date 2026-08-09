@@ -48,8 +48,18 @@ function validateOrderPayload(payload) {
   return null;
 }
 
-export function registerRoutes(app, { products, productRepository, orderRepository, orders = new Map() }) {
+export function registerRoutes(app, { products, productRepository, orderRepository, db = null, orders = new Map() }) {
   app.get("/api/health", async () => ({ status: "ok", service: "limelle-api" }));
+
+  app.get("/api/health/db", async (_request, reply) => {
+    if (!db) return reply.code(503).send({ status: "error", service: "limelle-api", database: "unconfigured" });
+    try {
+      await db.query("SELECT 1");
+      return { status: "ok", service: "limelle-api", database: "ok" };
+    } catch {
+      return reply.code(503).send({ status: "error", service: "limelle-api", database: "unavailable" });
+    }
+  });
 
   app.get("/api/products", async () => {
     if (productRepository) return { products: await productRepository.findAll() };
