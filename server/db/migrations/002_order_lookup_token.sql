@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 ALTER TABLE orders
   ADD COLUMN IF NOT EXISTS lookup_token TEXT;
 
