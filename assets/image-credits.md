@@ -5,7 +5,7 @@ Les visuels culturels utilisés par le catalogue proviennent de Wikimedia Common
 - `Senegalese fashion.jpg`, auteur Jeemala, CC BY-SA 4.0
 - `Femmes peulh portant l'accoutrement traditionnel au Niger.jpg`, auteur Amadouibrahim2, CC BY-SA 4.0
 - `Femmes senegalaises.jpg`, auteur Bagaya, CC BY-SA 4.0
-- `Femme peulh du Niger.jpg`, licence et auteur à vérifier sur la page source avant publication finale
+- `Femme peulh du Niger.jpg`, CC BY-SA 4.0
 
 Sources :
 - https://commons.wikimedia.org/wiki/File:Senegalese_fashion.jpg
