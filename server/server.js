@@ -1,6 +1,7 @@
 import { buildApp } from "./app.js";
 import { getDb, closeDb } from "./db/client.js";
 import { createProductRepository } from "./repositories/productRepository.js";
+import { createOrderRepository } from "./repositories/orderRepository.js";
 
 const port = Number(process.env.PORT || 3001);
 const host = process.env.HOST || "0.0.0.0";
@@ -13,7 +14,8 @@ try {
   await db.query("SELECT 1");
 
   const productRepository = createProductRepository(db);
-  app = buildApp({ productRepository });
+  const orderRepository = createOrderRepository(db);
+  app = buildApp({ productRepository, orderRepository });
   await app.listen({ port, host });
 
   const shutdown = async (signal) => {
