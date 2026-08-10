@@ -49,5 +49,8 @@ jobs:
       - name: Test API
         run: npm run test:server
 
+      - name: Test frontend API client
+        run: npm run test:frontend-api
+
       - name: Build frontend
         run: npm run build
