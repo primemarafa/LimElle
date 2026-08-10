@@ -1,6 +1,6 @@
-const API_BASE_URL = typeof import.meta.env === "object" && import.meta.env
-  ? import.meta.env.VITE_API_BASE_URL || ""
-  : "";
+const viteEnv = typeof import.meta.env === "object" && import.meta.env ? import.meta.env : {};
+const nodeEnv = typeof process !== "undefined" && process.env ? process.env : {};
+const API_BASE_URL = viteEnv.VITE_API_BASE_URL || nodeEnv.API_BASE_URL || "";
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
