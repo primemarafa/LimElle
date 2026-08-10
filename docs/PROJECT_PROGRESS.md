@@ -79,7 +79,7 @@ Phase 6 en cours.
 - [x] Refonte visuelle Lim'Elle selon la direction artistique validée
 - [ ] Remplacement des visuels génériques par des visuels africains modernes et élégants
 - [x] Validation du parcours commande frontend → API → PostgreSQL en CI
-- [ ] Passe sécurité finale frontend et API
+- [x] Passe sécurité finale frontend et API
 - [ ] Vérification de la gestion future du champ notes côté back-office
 - [ ] Audit final avant mise en production
 
@@ -89,6 +89,20 @@ Phase 6 en cours.
 - Direction visuelle retenue : élégante, moderne, africaine et premium
 - Référence visuelle retenue : première proposition de maquette
 - Marchés mis en avant : Sénégal et Niger
+
+## Préparation production
+
+Le checklist de référence est dans `docs/PRODUCTION_READINESS.md`.
+
+- [x] Checklist production ajoutée
+- [ ] Hébergement choisi
+- [ ] Base PostgreSQL de production provisionnée
+- [ ] Domaine configuré
+- [ ] HTTPS actif
+- [ ] Variables d'environnement production configurées
+- [ ] Sauvegardes PostgreSQL configurées
+- [ ] Test commande en production
+- [ ] Audit final avant mise en ligne
 
 ## Historique PR important
 
@@ -110,7 +124,8 @@ Phase 6 en cours.
 - [x] PR #31, audit sécurité API ciblé
 - [x] PR #32, tests de régression sécurité API
 - [x] PR #34, refonte visuelle éditoriale Lim'Elle
-- [ ] PR #35, passe sécurité finale frontend et API
+- [x] PR #35, passe sécurité finale frontend et API
+- [ ] Prochain PR, préparation production
 
 ## Règles de suivi
 
