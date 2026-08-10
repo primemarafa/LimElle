@@ -22,7 +22,7 @@ test("createOrder sends a JSON POST to the orders API", async () => {
   const order = {
     items: [{ productId: "LE-001", quantity: 2 }],
     customer: { fullName: "Awa Diop", phone: "+221700000000", city: "Dakar" },
-    deliveryMode: "pickup",
+    deliveryMode: "point_retrait",
     deliveryAddress: "",
     notes: "Appeler à l'arrivée",
   };
@@ -30,7 +30,7 @@ test("createOrder sends a JSON POST to the orders API", async () => {
   const result = await api.createOrder(order);
 
   assert.equal(result.lookupToken, "secure-token");
-  assert.equal(request.url, "/api/orders");
+  assert.ok(request.url.endsWith("/api/orders"));
   assert.equal(request.options.method, "POST");
   assert.equal(request.options.headers["Content-Type"], "application/json");
   assert.deepEqual(JSON.parse(request.options.body), order);
@@ -57,5 +57,5 @@ test("order lookup encodes the lookup token", async () => {
   };
 
   await api.order("token/with spaces");
-  assert.equal(requestedUrl, "/api/orders/token%2Fwith%20spaces");
+  assert.ok(requestedUrl.endsWith("/api/orders/token%2Fwith%20spaces"));
 });

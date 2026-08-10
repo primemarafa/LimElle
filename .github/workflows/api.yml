@@ -28,6 +28,7 @@ jobs:
     env:
       DATABASE_URL: postgresql://limelle:limelle@localhost:5432/limelle_test
       DATABASE_SSL: "false"
+      API_BASE_URL: http://127.0.0.1:3001
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -49,8 +50,17 @@ jobs:
       - name: Test API
         run: npm run test:server
 
+      - name: Start API for frontend integration
+        run: node server/server.js > /tmp/limelle-api.log 2>&1 &
+
+      - name: Wait for API
+        run: node --input-type=module -e "const deadline=Date.now()+30000; const run=async()=>{while(Date.now()<deadline){try{const r=await fetch('http://127.0.0.1:3001/api/health');if(r.ok)process.exit(0)}catch{} await new Promise(r=>setTimeout(r,500));} process.exit(1)}; run()"
+
       - name: Test frontend API client
         run: npm run test:frontend-api
+
+      - name: Test real frontend API order flow
+        run: npm run test:frontend-integration
 
       - name: Build frontend
         run: npm run build
