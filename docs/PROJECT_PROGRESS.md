@@ -69,20 +69,22 @@ Phase 6 en cours.
 ## Phase 6, stabilisation
 
 - [x] Modernisation des actions GitHub
-- [ ] Raccord complet du frontend à l'API
-- [ ] Tests frontend avec API réelle
-- [ ] Validation finale du parcours commande
+- [x] Raccord frontend à l'API via src/services/api.js
+- [x] Tests du client API frontend
+- [x] Validation du parcours frontend vers l'API et PostgreSQL en CI
+- [x] Schémas de validation Fastify
+- [x] Tests des invariants de sécurité des schémas
+- [ ] Validation finale du parcours commande en conditions proches production
 - [ ] Validation sécurité frontend et API
-- [ ] Schémas de validation API
+- [ ] Vérification de la gestion future du champ notes côté back-office
 - [ ] Audit final avant mise en production
 
 ## Points encore ouverts
 
-- [ ] OrderForm.jsx doit utiliser src/services/api.js
-- [ ] Le frontend doit envoyer les commandes à PostgreSQL via l'API
-- [ ] Ajouter des schémas Fastify ou Zod
+- [ ] Faire une passe sécurité finale frontend et API
+- [ ] Tester le parcours commande complet avec PostgreSQL dans un environnement proche production
 - [ ] Vérifier la gestion future du champ notes côté back-office
-- [ ] Faire une passe sécurité finale
+- [ ] Faire un audit final avant mise en production
 
 ## Historique PR important
 
@@ -90,14 +92,19 @@ Phase 6 en cours.
 - [x] PR #14, fondation PostgreSQL
 - [x] PR #15, service PostgreSQL et validation des migrations
 - [x] PR #17, lookup token et repository PostgreSQL
+- [x] PR #20, raccord frontend à l'API
 - [x] PR #21, raccordements backend et tests
 - [x] PR #22, corrections API et catalogue
 - [x] PR #23, couverture transactionnelle PostgreSQL
 - [x] PR #24, tests PostgreSQL réels
 - [x] PR #25, modernisation CI Node.js
+- [x] PR #26, suivi global centralisé
+- [x] PR #27, tests du client API frontend
+- [x] PR #28, validation du parcours frontend vers l'API et PostgreSQL
+- [x] PR #29, durcissement des schémas API
 
 ## Règles de suivi
 
 Chaque étape importante doit être cochée ici après validation CI et merge.
 Les éléments non terminés restent décochés.
-Le frontend ne sera considéré raccordé qu'après un test réel de création de commande via l'API.
+Le prochain travail doit être choisi après lecture de ce fichier et vérification du code réel.
