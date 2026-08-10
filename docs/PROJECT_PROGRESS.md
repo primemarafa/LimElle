@@ -76,9 +76,9 @@ Phase 6 en cours.
 - [x] Tests des invariants de sécurité des schémas
 - [x] Audit sécurité API ciblé
 - [x] Régressions sécurité API
-- [ ] Refonte visuelle Lim'Elle selon la direction artistique validée
+- [x] Refonte visuelle Lim'Elle selon la direction artistique validée
 - [ ] Remplacement des visuels génériques par des visuels africains modernes et élégants
-- [ ] Validation finale du parcours commande en conditions proches production
+- [x] Validation du parcours commande frontend → API → PostgreSQL en CI
 - [ ] Passe sécurité finale frontend et API
 - [ ] Vérification de la gestion future du champ notes côté back-office
 - [ ] Audit final avant mise en production
@@ -109,7 +109,8 @@ Phase 6 en cours.
 - [x] PR #30, synchronisation du suivi projet
 - [x] PR #31, audit sécurité API ciblé
 - [x] PR #32, tests de régression sécurité API
-- [ ] Prochain PR, refonte visuelle Lim'Elle
+- [x] PR #34, refonte visuelle éditoriale Lim'Elle
+- [ ] PR #35, passe sécurité finale frontend et API
 
 ## Règles de suivi
 
