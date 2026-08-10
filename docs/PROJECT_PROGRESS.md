@@ -1,4 +1,4 @@
-# Lim'Elle V2, suivi global du projet
+# Lim'Elle, suivi global du projet
 
 ## Statut actuel
 
@@ -66,7 +66,7 @@ Phase 6 en cours.
 - [x] Tests PostgreSQL réels dans CI
 - [x] Nettoyage des données de test
 
-## Phase 6, stabilisation
+## Phase 6, stabilisation et finition
 
 - [x] Modernisation des actions GitHub
 - [x] Raccord frontend à l'API via src/services/api.js
@@ -74,17 +74,21 @@ Phase 6 en cours.
 - [x] Validation du parcours frontend vers l'API et PostgreSQL en CI
 - [x] Schémas de validation Fastify
 - [x] Tests des invariants de sécurité des schémas
+- [x] Audit sécurité API ciblé
+- [x] Régressions sécurité API
+- [ ] Refonte visuelle Lim'Elle selon la direction artistique validée
+- [ ] Remplacement des visuels génériques par des visuels africains modernes et élégants
 - [ ] Validation finale du parcours commande en conditions proches production
-- [ ] Validation sécurité frontend et API
+- [ ] Passe sécurité finale frontend et API
 - [ ] Vérification de la gestion future du champ notes côté back-office
 - [ ] Audit final avant mise en production
 
-## Points encore ouverts
+## Identité officielle
 
-- [ ] Faire une passe sécurité finale frontend et API
-- [ ] Tester le parcours commande complet avec PostgreSQL dans un environnement proche production
-- [ ] Vérifier la gestion future du champ notes côté back-office
-- [ ] Faire un audit final avant mise en production
+- Nom officiel : Lim'Elle
+- Direction visuelle retenue : élégante, moderne, africaine et premium
+- Référence visuelle retenue : première proposition de maquette
+- Marchés mis en avant : Sénégal et Niger
 
 ## Historique PR important
 
@@ -102,9 +106,13 @@ Phase 6 en cours.
 - [x] PR #27, tests du client API frontend
 - [x] PR #28, validation du parcours frontend vers l'API et PostgreSQL
 - [x] PR #29, durcissement des schémas API
+- [x] PR #30, synchronisation du suivi projet
+- [x] PR #31, audit sécurité API ciblé
+- [x] PR #32, tests de régression sécurité API
+- [ ] Prochain PR, refonte visuelle Lim'Elle
 
 ## Règles de suivi
 
-Chaque étape importante doit être cochée ici après validation CI et merge.
+Chaque étape importante est cochée après validation CI et merge.
 Les éléments non terminés restent décochés.
-Le prochain travail doit être choisi après lecture de ce fichier et vérification du code réel.
+Le prochain travail est choisi après lecture de ce fichier et vérification du code réel.
