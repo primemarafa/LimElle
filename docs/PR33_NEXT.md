@@ -1,0 +1,1 @@
+PR #33 ajoute des tests de regression securite API. Validation CI et merge requis avant de cocher le suivi global.
