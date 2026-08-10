@@ -23,6 +23,7 @@
     "pg": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "tailwindcss": "latest",
     "vite": "latest"
   }
 }
