@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "db:migrate": "node server/db/migrate.js",
     "test:server": "NODE_ENV=test node --test server/*.test.js server/repositories/*.test.js",
-    "test:frontend-api": "node --test src/services/*.test.js"
+    "test:frontend-api": "node --test src/services/*.test.js",
+    "test:frontend-integration": "API_BASE_URL=http://127.0.0.1:3001 node --test src/services/api.integration.test.js"
   },
   "dependencies": {
     "@fastify/rate-limit": "latest",
