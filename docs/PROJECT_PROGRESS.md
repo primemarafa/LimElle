@@ -89,10 +89,12 @@ Phase 6 en cours.
 - Direction visuelle retenue : élégante, moderne, africaine et premium
 - Référence visuelle retenue : première proposition de maquette
 - Marchés mis en avant : Sénégal et Niger
+- Guide visuel : `docs/IMAGE_GUIDELINES.md`
 
 ## Préparation production
 
 Le checklist de référence est dans `docs/PRODUCTION_READINESS.md`.
+Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
 
 - [x] Checklist production ajoutée
 - [ ] Hébergement choisi
@@ -125,7 +127,8 @@ Le checklist de référence est dans `docs/PRODUCTION_READINESS.md`.
 - [x] PR #32, tests de régression sécurité API
 - [x] PR #34, refonte visuelle éditoriale Lim'Elle
 - [x] PR #35, passe sécurité finale frontend et API
-- [ ] Prochain PR, préparation production
+- [x] PR #36, préparation production
+- [ ] Prochain PR, finition visuelle et préparation finale
 
 ## Règles de suivi
 
