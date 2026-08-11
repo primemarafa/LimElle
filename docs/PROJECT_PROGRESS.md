@@ -81,6 +81,7 @@ Phase 6 en cours.
 - [x] Validation du parcours commande frontend → API → PostgreSQL en CI
 - [x] Passe sécurité finale frontend et API
 - [ ] Vérification de la gestion future du champ notes côté back-office
+- [ ] Génération de facture client
 - [ ] Audit final avant mise en production
 
 ## Identité officielle
@@ -133,6 +134,7 @@ Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
 - [x] PR #38, centralisation des références visuelles
 - [x] PR #39, template des variables de production
 - [ ] PR #40, alignement complet avec la direction artistique
+- [ ] PR #41, génération de facture client
 
 ## Règles de suivi
 
