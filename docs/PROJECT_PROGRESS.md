@@ -90,6 +90,7 @@ Phase 6 en cours.
 - Référence visuelle retenue : première proposition de maquette
 - Marchés mis en avant : Sénégal et Niger
 - Guide visuel : `docs/IMAGE_GUIDELINES.md`
+- Direction artistique définitive : `docs/ART_DIRECTION.md`
 
 ## Préparation production
 
@@ -129,7 +130,9 @@ Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
 - [x] PR #35, passe sécurité finale frontend et API
 - [x] PR #36, préparation production
 - [x] PR #37, guide visuel et préparation déploiement
-- [ ] PR #38, centralisation des références visuelles
+- [x] PR #38, centralisation des références visuelles
+- [x] PR #39, template des variables de production
+- [ ] PR #40, alignement complet avec la direction artistique
 
 ## Règles de suivi
 
