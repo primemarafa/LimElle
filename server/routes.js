@@ -1,5 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { lookupTokenParamsSchema, orderBodySchema, productIdParamsSchema } from "./schemas.js";
+import { renderInvoice } from "./invoice.js";
 
 const DELIVERY_MODES = new Set(["point_retrait", "domicile"]);
 const MAX_ITEM_QUANTITY = 20;
@@ -43,6 +44,12 @@ function validateOrderPayload(payload) {
     if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > MAX_ITEM_QUANTITY) return `La quantité d'un article doit être comprise entre 1 et ${MAX_ITEM_QUANTITY}.`;
   }
   return null;
+}
+
+async function findOrderByLookupToken({ token, orderRepository, orders }) {
+  if (orderRepository) return orderRepository.findByLookupToken(token);
+  cleanupOrders(orders);
+  return orders.get(token) || null;
 }
 
 export function registerRoutes(app, { products, productRepository, orderRepository, db = null, orders = new Map() }) {
@@ -96,14 +103,15 @@ export function registerRoutes(app, { products, productRepository, orderReposito
 
   app.get("/api/orders/:lookupToken", { schema: { params: lookupTokenParamsSchema }, config: { rateLimit: { max: 30, timeWindow: "1 minute" } } }, async (request, reply) => {
     const token = String(request.params.lookupToken);
-    if (orderRepository) {
-      const order = await orderRepository.findByLookupToken(token);
-      if (!order) return reply.code(404).send({ message: "Commande introuvable." });
-      return order;
-    }
-    cleanupOrders(orders);
-    const order = orders.get(token);
+    const order = await findOrderByLookupToken({ token, orderRepository, orders });
     if (!order) return reply.code(404).send({ message: "Commande introuvable." });
     return order;
+  });
+
+  app.get("/api/orders/:lookupToken/invoice", { schema: { params: lookupTokenParamsSchema }, config: { rateLimit: { max: 10, timeWindow: "1 minute" } } }, async (request, reply) => {
+    const token = String(request.params.lookupToken);
+    const order = await findOrderByLookupToken({ token, orderRepository, orders });
+    if (!order) return reply.code(404).send({ message: "Commande introuvable." });
+    return reply.type("text/html; charset=utf-8").header("Content-Disposition", `inline; filename="facture-${order.reference}.html"`).send(renderInvoice(order));
   });
 }
