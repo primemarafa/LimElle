@@ -19,7 +19,7 @@ test("WhatsApp invoice link contains invoice reference, total and URL", () => {
     total: 49000,
     invoiceUrl: "https://limelle.example/api/orders/token/invoice",
   });
-  assert.match(url, /^https:\/\/wa\.me\/2279000000\?text=/);
+  assert.match(url, /^https:\/\/wa\.me\/22790000000\?text=/);
   assert.match(decodeURIComponent(url), /LE-20260811-abcd1234/);
   assert.match(decodeURIComponent(url), /49000 FCFA/);
   assert.match(decodeURIComponent(url), /https:\/\/limelle\.example\/api\/orders\/token\/invoice/);
