@@ -128,7 +128,8 @@ Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
 - [x] PR #34, refonte visuelle éditoriale Lim'Elle
 - [x] PR #35, passe sécurité finale frontend et API
 - [x] PR #36, préparation production
-- [ ] Prochain PR, finition visuelle et préparation finale
+- [x] PR #37, guide visuel et préparation déploiement
+- [ ] PR #38, centralisation des références visuelles
 
 ## Règles de suivi
 
