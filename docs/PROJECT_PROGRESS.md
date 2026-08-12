@@ -2,7 +2,7 @@
 
 ## Statut actuel
 
-Phase 6 en cours.
+Phase 7, audit de préparation production en cours.
 
 ## Phase 1, architecture et socle frontend
 
@@ -81,8 +81,9 @@ Phase 6 en cours.
 - [x] Validation du parcours commande frontend → API → PostgreSQL en CI
 - [x] Passe sécurité finale frontend et API
 - [ ] Vérification de la gestion future du champ notes côté back-office
-- [ ] Génération de facture client
-- [ ] Audit final avant mise en production
+- [x] Génération de facture client
+- [x] Partage de facture WhatsApp
+- [x] Partage de facture par email
 
 ## Identité officielle
 
@@ -97,8 +98,10 @@ Phase 6 en cours.
 
 Le checklist de référence est dans `docs/PRODUCTION_READINESS.md`.
 Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
+L'audit détaillé est dans `docs/PRODUCTION_AUDIT.md`.
 
 - [x] Checklist production ajoutée
+- [ ] Audit production en cours
 - [ ] Hébergement choisi
 - [ ] Base PostgreSQL de production provisionnée
 - [ ] Domaine configuré
@@ -133,8 +136,10 @@ Le plan de déploiement est dans `docs/DEPLOYMENT_PLAN.md`.
 - [x] PR #37, guide visuel et préparation déploiement
 - [x] PR #38, centralisation des références visuelles
 - [x] PR #39, template des variables de production
-- [ ] PR #40, alignement complet avec la direction artistique
-- [ ] PR #41, génération de facture client
+- [x] PR #40, alignement complet avec la direction artistique
+- [x] PR #41, génération de facture client
+- [x] PR #42, partage de facture WhatsApp et email
+- [ ] PR #43, audit de préparation production
 
 ## Règles de suivi
 
