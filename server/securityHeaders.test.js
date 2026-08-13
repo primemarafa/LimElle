@@ -13,6 +13,10 @@ test("security headers are present on API responses", async () => {
   assert.equal(response.headers["x-frame-options"], "DENY");
   assert.equal(response.headers["referrer-policy"], "strict-origin-when-cross-origin");
   assert.equal(response.headers["permissions-policy"], "camera=(), microphone=(), geolocation=()");
+  assert.match(response.headers["content-security-policy"], /default-src 'self'/);
+  assert.match(response.headers["content-security-policy"], /img-src 'self' https:\/\/images\.unsplash\.com/);
+  assert.match(response.headers["content-security-policy"], /script-src 'self'/);
+  assert.match(response.headers["content-security-policy"], /object-src 'none'/);
 
   await app.close();
 });
