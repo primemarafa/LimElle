@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import rateLimit from "@fastify/rate-limit";
 import { products } from "./data/products.js";
 import { registerRoutes } from "./routes.js";
+import { registerSecurityHeaders } from "./securityHeaders.js";
 
 export function buildApp({ productRepository = null, orderRepository = null, db = null } = {}) {
   const app = Fastify({ logger: true });
@@ -25,6 +26,8 @@ export function buildApp({ productRepository = null, orderRepository = null, db 
     reply.header("Access-Control-Allow-Headers", "Content-Type");
     reply.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   });
+
+  registerSecurityHeaders(app);
 
   app.options("/*", async (_request, reply) => reply.code(204).send());
   registerRoutes(app, { products, productRepository, orderRepository, db, orders });
