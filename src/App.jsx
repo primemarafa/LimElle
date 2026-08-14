@@ -3,6 +3,7 @@ import { HeartHandshake, Menu, Search, ShoppingBag, ShieldCheck, Truck, UserRoun
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
+import { normalizeProduct } from "./utils/normalizeProduct";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
@@ -32,7 +33,7 @@ export default function App() {
   useEffect(() => {
     let active = true;
     api.products()
-      .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products : []); })
+      .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); })
       .catch((error) => { if (active) setCatalogError(error.message || "Impossible de charger le catalogue."); });
     return () => { active = false; };
   }, []);
