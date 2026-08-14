@@ -1,3 +1,4 @@
+import { ShoppingBag } from "lucide-react";
 import { formatXof, buildGlobalPrice } from "../utils/limelle";
 
 export default function ProductCard({ product, onSelect }) {
@@ -5,17 +6,23 @@ export default function ProductCard({ product, onSelect }) {
   const availability = product.availability === "sur_demande" ? "Sur demande" : product.stock > 0 ? "Disponible" : "À vérifier";
 
   return (
-    <button type="button" onClick={() => onSelect(product)} className="w-full overflow-hidden rounded-3xl bg-white text-left transition hover:-translate-y-1">
-      <img src={product.img} alt={product.name} className="aspect-[3/4] w-full object-cover" loading="lazy" />
-      <div className="p-5">
-        <div className="mb-2 flex flex-wrap gap-2">
-          <span className="inline-flex rounded-full bg-[#EBE3D2] px-3 py-1 text-xs font-bold">{product.badge}</span>
-          <span className="inline-flex rounded-full bg-[#F5F0E6] px-3 py-1 text-xs font-bold text-[#5B5348]">{availability}</span>
+    <button type="button" onClick={() => onSelect(product)} className="group w-full overflow-hidden rounded-2xl border border-[#E7DDCE] bg-white text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="relative aspect-[.86] overflow-hidden bg-[#EEE4D5]">
+        <img src={product.img} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold text-[#173F34] backdrop-blur">{product.badge}</span>
+      </div>
+      <div className="p-4 sm:p-5">
+        <h3 className="text-sm font-bold leading-5 text-[#173F34] sm:text-base">{product.name}</h3>
+        <p className="mt-1.5 line-clamp-1 text-xs text-[#8A7765]">{product.description}</p>
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[.12em] text-[#B8753C]">{availability}</p>
+            <p className="mt-1 text-base font-extrabold text-[#173F34]">{formatXof(globalPrice)}</p>
+          </div>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B8753C]/50 text-[#B8753C] transition group-hover:bg-[#173F34] group-hover:text-white">
+            <ShoppingBag size={17} />
+          </span>
         </div>
-        <h3 className="text-lg font-semibold">{product.name}</h3>
-        <p className="mt-2 text-sm text-[#5B5348]">Poids estimé : {product.weight} kg</p>
-        <p className="mt-3 text-lg font-extrabold text-[#A6512F]">À partir de {formatXof(globalPrice)}</p>
-        <p className="mt-1 text-xs leading-5 text-[#5B5348]">Prix indicatif, confirmé avant paiement.</p>
       </div>
     </button>
   );
