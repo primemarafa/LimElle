@@ -7,6 +7,7 @@ import { normalizeProduct } from "./utils/normalizeProduct";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
+import TrustStrip from "./components/TrustStrip";
 import TransportEstimator from "./components/TransportEstimator";
 import FaqList from "./components/FaqList";
 import ProductDetails from "./components/ProductDetails";
@@ -129,9 +130,11 @@ export default function App() {
           {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}</div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
 
-        <section id="a-propos" className="bg-[#F1E8DB] px-5 py-14">
+        <TrustStrip />
+
+        <section id="a-propos" className="bg-[#F8F3EA] px-5 py-14">
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.1fr_.9fr] md:items-center">
-            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-3 font-serif text-4xl text-[#173F34]">La beauté n'est pas un luxe, c'est votre droit.</h2><p className="mt-4 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
+            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-3 font-serif text-4xl text-[#173F34]">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-4 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
             <div className="grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white p-5"><ShieldCheck className="text-[#B8753C]"/><p className="mt-4 font-bold text-[#173F34]">Paiement sécurisé</p><p className="mt-1 text-xs text-[#8A7765]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-5"><Truck className="text-[#B8753C]"/><p className="mt-4 font-bold text-[#173F34]">Dakar → Niamey</p><p className="mt-1 text-xs text-[#8A7765]">Expédition organisée selon la disponibilité.</p></div></div>
           </div>
         </section>
@@ -154,6 +157,13 @@ export default function App() {
           <div className="mx-auto max-w-7xl"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-2 font-serif text-4xl text-[#173F34]">Questions fréquentes</h2><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
         </section>
       </>}
+
+      <section className="bg-[#123D32] px-5 py-8 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
+          <p className="font-serif text-xl sm:text-2xl">La beauté n'est pas un luxe, c'est votre droit.</p>
+          <button onClick={() => scrollTo("catalogue")} className="shrink-0 rounded-xl border border-[#C8894E] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button>
+        </div>
+      </section>
 
       <footer className="bg-[#123D32] px-5 py-10 text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">

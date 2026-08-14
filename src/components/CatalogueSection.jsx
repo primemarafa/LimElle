@@ -7,11 +7,6 @@ const CATEGORY_VISUALS = {
     subtitle: "Pièces féminines choisies à Dakar",
     image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop",
   },
-  chaussures: {
-    title: "Chaussures",
-    subtitle: "Silhouettes et détails soignés",
-    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-  },
   sacs: {
     title: "Sacs",
     subtitle: "L'élégance dans les détails",
@@ -21,6 +16,11 @@ const CATEGORY_VISUALS = {
     title: "Bijoux",
     subtitle: "Une touche précieuse au quotidien",
     image: "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?q=80&w=1000&auto=format&fit=crop",
+  },
+  beaute: {
+    title: "Beauté",
+    subtitle: "Soins et cosmétiques sélectionnés",
+    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1000&auto=format&fit=crop",
   },
 };
 
