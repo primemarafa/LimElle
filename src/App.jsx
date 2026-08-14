@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { MessageCircle, Plane, Search, PackageCheck, ShoppingBag } from "lucide-react";
+import { HeartHandshake, Menu, Search, ShoppingBag, ShieldCheck, Truck, UserRound, X, Gem, MessageCircle } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
+import { normalizeProduct } from "./utils/normalizeProduct";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
@@ -27,11 +28,12 @@ export default function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [order, setOrder] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
     api.products()
-      .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products : []); })
+      .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); })
       .catch((error) => { if (active) setCatalogError(error.message || "Impossible de charger le catalogue."); });
     return () => { active = false; };
   }, []);
@@ -52,22 +54,117 @@ export default function App() {
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const startCheckout = () => { setCartOpen(false); setCheckout(true); };
   const completeOrder = (nextOrder) => { setOrder(nextOrder); setCheckout(false); setCart([]); };
-  const scrollToCatalogue = () => document.getElementById("catalogue")?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  if (order) return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#F5F0E6] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
+  if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
 
-  return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]">
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-[#F8F4EC]/95 backdrop-blur"><div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4"><div><div className="text-2xl font-semibold tracking-[-.03em]">Lim'Elle</div><div className="text-[10px] font-bold tracking-[.16em] text-[#6A5A4A]">DAKAR → NIAMEY</div></div><div className="flex items-center gap-2"><button onClick={() => setCartOpen(true)} className="relative rounded-full bg-white p-3 shadow-sm" aria-label="Ouvrir le panier"><ShoppingBag size={18} />{cartCount > 0 && <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#A6512F] px-1 text-[10px] font-bold text-white">{cartCount}</span>}</button><WhatsAppButton className="bg-[#3FBF63] text-white" message={WA_TEXT}>WhatsApp</WhatsAppButton></div></div></header>
-    {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
-      <BrandHero onCatalogue={scrollToCatalogue} />
-      <section className="mx-auto max-w-6xl px-5 pb-14"><div className="mb-7 flex items-end justify-between gap-5"><div><p className="text-xs font-bold uppercase tracking-[.18em] text-[#6A5A4A]">L'expérience Lim'Elle</p><h2 className="mt-2 text-3xl font-semibold tracking-[-.025em] md:text-4xl">De Dakar à Niamey, avec simplicité.</h2></div><p className="hidden max-w-sm text-right text-sm leading-6 text-[#6A5A4A] md:block">Une sélection pensée pour une clientèle qui aime le style, la qualité et les belles pièces africaines contemporaines.</p></div><div className="grid gap-3 md:grid-cols-4">{[[Search,"Tu recherches","Choisis une pièce ou envoie une demande précise."],[MessageCircle,"On confirme","Disponibilité et prix global avant paiement."],[PackageCheck,"On achète","L'approvisionnement est effectué à Dakar."],[Plane,"On expédie","Ton colis rejoint Niamey par GP ou particulier."]].map(([Icon,title,text])=><div key={title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm"><Icon size={21} className="text-[#A6512F]"/><h3 className="mt-5 font-bold">{title}</h3><p className="mt-2 text-sm leading-5 text-[#6A5A4A]">{text}</p></div>)}</div></section>
-      <div id="catalogue">{catalogError ? <section className="mx-auto max-w-6xl px-5 pb-14"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}</div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>}</div>
-      <TransportEstimator config={LIMELLE_CONFIG} weight={kg} onWeightChange={setKg}/>
-      <section className="mx-auto max-w-6xl px-5 pb-16"><div className="overflow-hidden rounded-[2rem] bg-[#2B2620] p-7 text-white md:p-10"><div className="max-w-2xl"><span className="text-xs font-bold uppercase tracking-[.18em] text-white/60">Sur-mesure</span><h2 className="mt-3 text-3xl font-semibold tracking-[-.025em] md:text-4xl">Une pièce précise en tête ?</h2><p className="mt-4 leading-7 text-white/70">Envoie une photo, une description, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis te propose un prix global.</p><WhatsAppButton className="mt-7 bg-[#3FBF63] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div></div></section>
-      <section className="mx-auto max-w-6xl px-5 pb-16"><p className="text-xs font-bold uppercase tracking-[.18em] text-[#6A5A4A]">Besoin d'aide</p><h2 className="mt-2 text-3xl font-semibold tracking-[-.025em]">Questions fréquentes</h2><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></section>
-    </>}
-    <footer className="bg-[#2B2620] px-5 py-10 text-white"><div className="mx-auto max-w-6xl"><div className="text-2xl font-semibold">Lim'Elle</div><p className="mt-2 text-sm text-white/70">Ton shopping à Dakar, livré à Niamey.</p><p className="mt-5 text-sm">WhatsApp : +227 99 20 57 39</p><p className="mt-2 text-xs text-white/50">© 2026 Lim'Elle. Les prix affichés restent indicatifs jusqu'à confirmation de disponibilité.</p></div></footer>
-    {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>} 
-  </main>;
+  return (
+    <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]">
+      <header className="sticky top-0 z-50 border-b border-[#173F34]/10 bg-[#F8F3EA]/95 backdrop-blur">
+        <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 lg:px-8">
+          <button onClick={() => scrollTo("accueil")} className="text-left">
+            <div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#173F34]">Lim'Elle <span className="font-normal text-[#B8753C]">♢</span></div>
+            <div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div>
+          </button>
+
+          <nav className="hidden items-center gap-8 lg:flex">
+            <button onClick={() => scrollTo("accueil")} className="border-b-2 border-[#B8753C] pb-1 text-sm font-semibold text-[#173F34]">Accueil</button>
+            <button onClick={() => scrollTo("catalogue")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Boutique</button>
+            <button onClick={() => scrollTo("catalogue")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Catégories</button>
+            <button onClick={() => scrollTo("a-propos")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">À propos</button>
+            <button onClick={() => scrollTo("journal")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Journal</button>
+            <button onClick={() => scrollTo("contact")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Contact</button>
+          </nav>
+
+          <div className="flex items-center gap-1.5">
+            <button type="button" aria-label="Rechercher" onClick={() => scrollTo("catalogue")} className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:block"><Search size={20} /></button>
+            <button type="button" aria-label="Compte" onClick={() => scrollTo("contact")} className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:block"><UserRound size={20} /></button>
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white">
+              <ShoppingBag size={21} />
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B8753C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+            </button>
+            <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#173F34] lg:hidden"><Menu size={21} /></button>
+          </div>
+        </div>
+      </header>
+
+      {menuOpen && (
+        <div className="fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
+          <div className="flex items-center justify-between">
+            <div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div>
+            <button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button>
+          </div>
+          <nav className="mt-10 flex flex-col">
+            {[['Accueil','accueil'],['Boutique','catalogue'],['Catégories','catalogue'],['À propos','a-propos'],['Journal','journal'],['Contact','contact']].map(([label,id]) => (
+              <button key={`${label}-${id}`} onClick={() => scrollTo(id)} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">{label}</button>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
+        <div id="accueil"><BrandHero onCatalogue={() => scrollTo("catalogue")} /></div>
+
+        <section className="bg-[#123D32] text-white">
+          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-5 py-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
+            {[
+              [HeartHandshake, "Ingrédients naturels", "Sains et respectueux de votre peau"],
+              [Gem, "Qualité premium", "Sélection rigoureuse des meilleures pièces"],
+              [Truck, "Livraison rapide", "Partout au Sénégal et au Niger"],
+              [MessageCircle, "Service attentionné", "À votre écoute tous les jours"],
+            ].map(([Icon, title, text]) => (
+              <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7">
+                <Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#C8894E]" />
+                <div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div id="catalogue">
+          {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}</div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
+        </div>
+
+        <section id="a-propos" className="bg-[#F1E8DB] px-5 py-14">
+          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.1fr_.9fr] md:items-center">
+            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-3 font-serif text-4xl text-[#173F34]">La beauté n'est pas un luxe, c'est votre droit.</h2><p className="mt-4 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
+            <div className="grid grid-cols-2 gap-3"><div className="rounded-2xl bg-white p-5"><ShieldCheck className="text-[#B8753C]"/><p className="mt-4 font-bold text-[#173F34]">Paiement sécurisé</p><p className="mt-1 text-xs text-[#8A7765]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-5"><Truck className="text-[#B8753C]"/><p className="mt-4 font-bold text-[#173F34]">Dakar → Niamey</p><p className="mt-1 text-xs text-[#8A7765]">Expédition organisée selon la disponibilité.</p></div></div>
+          </div>
+        </section>
+
+        <section id="journal" className="bg-[#F8F3EA] px-5 py-14">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-center text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Nos services</p>
+            <h2 className="mt-2 text-center font-serif text-4xl text-[#173F34]">Un accompagnement pensé pour vous</h2>
+            <TransportEstimator config={LIMELLE_CONFIG} weight={kg} onWeightChange={setKg}/>
+            <div className="mt-8 rounded-[2rem] bg-[#173F34] p-7 text-white md:p-10">
+              <p className="text-xs font-bold uppercase tracking-[.2em] text-[#C8894E]">Sur-mesure</p>
+              <h3 className="mt-3 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3>
+              <p className="mt-4 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p>
+              <WhatsAppButton className="mt-7 bg-white text-[#173F34]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="bg-[#F8F3EA] px-5 pb-16">
+          <div className="mx-auto max-w-7xl"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-2 font-serif text-4xl text-[#173F34]">Questions fréquentes</h2><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
+        </section>
+      </>}
+
+      <footer className="bg-[#123D32] px-5 py-10 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
+          <div><div className="font-serif text-3xl">Lim'Elle</div><p className="mt-2 text-sm text-white/70">L'élégance au féminin, naturellement.</p></div>
+          <div className="flex flex-col gap-3 sm:flex-row"><WhatsAppButton message={WA_TEXT} className="border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton><button onClick={() => scrollTo("catalogue")} className="rounded-xl border border-[#C8894E] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button></div>
+        </div>
+        <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/50">© 2026 Lim'Elle. Tous droits réservés.</div>
+      </footer>
+
+      <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} aria-label="WhatsApp"><MessageCircle size={25}/></WhatsAppButton>
+      {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>} 
+    </main>
+  );
 }
