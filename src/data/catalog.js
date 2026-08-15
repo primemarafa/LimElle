@@ -8,14 +8,10 @@ export const CATEGORIES = [
   { id: "surmesure", label: "Sur demande", emoji: "✨", desc: "Une recherche précise à Dakar" },
 ];
 
-export const PRODUCTS = [
-  { id: "LE-001", cat: "tenues", name: "Boubou Bazin rhapsodie terracotta", description: "Boubou féminin recherché à Dakar, adapté aux occasions et cérémonies.", price: 35000, weight: 0.8, badge: "Nouveau", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format&fit=crop", sizes: ["M", "L", "XL"], colors: ["Terracotta", "Bordeaux", "Noir"], availability: "sur_demande", stock: 0 },
-  { id: "LE-002", cat: "tenues", name: "Ensemble wax & pagne tissé main", description: "Ensemble féminin en wax et pagne tissé, selon disponibilité chez le fournisseur.", price: 30000, weight: 0.9, badge: "Sélection", img: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?q=80&w=900&auto=format&fit=crop", sizes: ["S", "M", "L", "XL"], colors: ["Multicolore"], availability: "sur_demande", stock: 0 },
-  { id: "LE-003", cat: "sacs", name: "Sac cuir tanné & fermoir doré", description: "Sac féminin à vérifier auprès des vendeurs partenaires à Dakar.", price: 24000, weight: 1.1, badge: "Coup de cœur", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=900&auto=format&fit=crop", sizes: ["Unique"], colors: ["Camel", "Noir"], availability: "sur_demande", stock: 0 },
-  { id: "LE-004", cat: "bijoux", name: "Parure Touareg argent & corail", description: "Parure inspirée de l'artisanat sahélien, disponibilité à confirmer à Dakar.", price: 17000, weight: 0.3, badge: "Sélection", img: "https://images.unsplash.com/photo-1611955167811-4711904bb9f8?q=80&w=900&auto=format&fit=crop", sizes: ["Unique"], colors: ["Argent"], availability: "sur_demande", stock: 0 },
-  { id: "LE-005", cat: "beaute", name: "Beurre de karité & sérum éclat", description: "Produits de soin à vérifier selon la disponibilité et les conditions de transport.", price: 12000, weight: 0.4, badge: "Sélection", img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=900&auto=format&fit=crop", sizes: ["Unique"], colors: ["Standard"], availability: "sur_demande", stock: 0 },
-  { id: "LE-006", cat: "accessoires", name: "Foulard Fouta teinture naturelle", description: "Foulard léger sélectionné selon les pièces disponibles à Dakar.", price: 13000, weight: 0.2, badge: "Sélection", img: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=900&auto=format&fit=crop", sizes: ["Unique"], colors: ["Selon disponibilité"], availability: "sur_demande", stock: 0 },
-];
+// Le catalogue affiché sur le site vient de l'API (voir src/services/api.js,
+// api.products()), pas de ce fichier. PRODUCTS a été retiré : il n'était
+// plus utilisé nulle part et risquait de désynchroniser avec le vrai
+// catalogue en base (voir server/db/migrations/003_catalog_images.sql).
 
 export const STEPS = [
   { key: "browse", num: "ÉTAPE 1", title: "Parcourez", text: "Choisis tes articles ou envoie une recherche précise." },
