@@ -16,7 +16,7 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
   const handleAdd = () => onAddToCart?.(selectedProduct, quantity);
 
   return (
-    <section className="mx-auto max-w-5xl px-5 pb-16 pt-8">
+    <section className="view-transition mx-auto max-w-5xl px-5 pb-16 pt-8">
       <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-bold"><ArrowLeft size={17} /> Retour au catalogue</button>
       <div className="grid gap-8 md:grid-cols-2">
         <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover" />
