@@ -31,13 +31,25 @@ export default function App() {
   const [order, setOrder] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
+  const loadCatalog = () => {
+    setCatalogError("");
     let active = true;
-    api.products()
-      .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); })
-      .catch((error) => { if (active) setCatalogError(error.message || "Impossible de charger le catalogue."); });
+    const attempt = (retriesLeft) => {
+      api.products()
+        .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); })
+        .catch((error) => {
+          if (!active) return;
+          // L'API (tier gratuit Render) peut être en veille et mettre 30-50s à répondre :
+          // on retente automatiquement avant d'afficher une erreur définitive.
+          if (retriesLeft > 0) { setTimeout(() => active && attempt(retriesLeft - 1), 4000); return; }
+          setCatalogError(error.message || "Impossible de charger le catalogue.");
+        });
+    };
+    attempt(3);
     return () => { active = false; };
-  }, []);
+  };
+
+  useEffect(() => loadCatalog(), []);
 
   const filteredProducts = useMemo(() => filter === "all" ? products : products.filter((product) => product.cat === filter), [filter, products]);
   const addToCart = (product, quantity = 1) => {
@@ -115,7 +127,7 @@ export default function App() {
           </div>
         </section>
         <div id="catalogue">
-          {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}</div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
+          {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
         <TrustStrip />
         <section id="a-propos" className="bg-[#F8F3EA] px-5 py-20">
