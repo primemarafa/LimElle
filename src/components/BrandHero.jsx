@@ -1,3 +1,4 @@
+import { Truck, MapPin } from "lucide-react";
 import WhatsAppButton from "./WhatsAppButton";
 
 const HERO_IMAGE = "/images/hero-portrait.jpg";
@@ -24,13 +25,14 @@ export default function BrandHero({ onCatalogue }) {
             </WhatsAppButton>
           </div>
           <div className="mt-9 grid max-w-md grid-cols-2 gap-5 text-xs text-[#403A33]">
-            <div className="flex gap-3"><span className="text-[#B8753C]">▣</span><div><strong className="block">Livraison rapide</strong><span>Partout au Sénégal & au Niger</span></div></div>
-            <div className="flex gap-3"><span className="text-[#B8753C]">⌖</span><div><strong className="block">Expédié depuis</strong><span>Dakar · Niamey</span></div></div>
+            <div className="flex gap-3"><Truck size={20} strokeWidth={1.75} className="shrink-0 text-[#B8753C]" /><div><strong className="block">Livraison rapide</strong><span>Partout au Sénégal & au Niger</span></div></div>
+            <div className="flex gap-3"><MapPin size={20} strokeWidth={1.75} className="shrink-0 text-[#B8753C]" /><div><strong className="block">Expédié depuis</strong><span>Dakar · Niamey</span></div></div>
           </div>
         </div>
         <div className="relative min-h-[520px] overflow-hidden md:min-h-[640px]">
-          <img src={HERO_IMAGE} alt="Portrait éditorial Lim'Elle" className="absolute inset-0 h-full w-full object-cover object-center" loading="eager" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8F3EA]/15 via-transparent to-[#173F34]/10" />
+          <img src={HERO_IMAGE} alt="Portrait éditorial Lim'Elle" className="absolute inset-0 h-full w-full object-cover object-[50%_20%]" loading="eager" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#F8F3EA_0%,transparent_14%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#173F34]/25 via-transparent to-transparent" />
           <div className="absolute right-8 top-12 flex h-32 w-32 items-center justify-center rounded-full border border-[#B8753C]/70 bg-[#F8F3EA]/10 p-5 text-center font-serif text-lg leading-6 text-white backdrop-blur-[2px] sm:right-12">
             L'élégance
             <br />au féminin,

@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { HeartHandshake, Menu, Search, ShoppingBag, ShieldCheck, Truck, UserRound, X, Gem, MessageCircle } from "lucide-react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
+import { HeartHandshake, Menu, Search, ShoppingBag, ShieldCheck, Truck, X, Gem, MessageCircle } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
@@ -30,6 +30,9 @@ export default function App() {
   const [checkout, setCheckout] = useState(false);
   const [order, setOrder] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeSection, setActiveSection] = useState("accueil");
 
   const loadCatalog = () => {
     setCatalogError("");
@@ -51,7 +54,12 @@ export default function App() {
 
   useEffect(() => loadCatalog(), []);
 
-  const filteredProducts = useMemo(() => filter === "all" ? products : products.filter((product) => product.cat === filter), [filter, products]);
+  const filteredProducts = useMemo(() => {
+    const byCategory = filter === "all" ? products : products.filter((product) => product.cat === filter);
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return byCategory;
+    return byCategory.filter((product) => product.name?.toLowerCase().includes(term) || product.description?.toLowerCase().includes(term));
+  }, [filter, products, searchTerm]);
   const addToCart = (product, quantity = 1) => {
     setCart((current) => {
       const key = cartKey(product);
@@ -74,6 +82,23 @@ export default function App() {
   const openCategories = () => { setFilter("all"); scrollTo("categories"); };
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
+  useEffect(() => {
+    const ids = ["accueil", "categories", "products", "a-propos", "services", "contact"];
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (sections.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-84px 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [products]);
+
+  const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
+
   if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
   if (checkout) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
 
@@ -86,16 +111,15 @@ export default function App() {
             <div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div>
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
-            <button onClick={() => scrollTo("accueil")} className="border-b-2 border-[#B8753C] pb-1 text-sm font-semibold text-[#173F34]">Accueil</button>
-            <button onClick={openBoutique} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Boutique</button>
-            <button onClick={openCategories} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Catégories</button>
-            <button onClick={() => scrollTo("a-propos")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">À propos</button>
-            <button onClick={() => scrollTo("services")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Services</button>
-            <button onClick={() => scrollTo("contact")} className="text-sm font-semibold text-[#403A33] hover:text-[#173F34]">Contact</button>
+            <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
+            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
+            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
+            <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
+            <button onClick={() => scrollTo("services")} className={navLinkClass("services")}>Services</button>
+            <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
-            <button type="button" aria-label="Rechercher dans la boutique" onClick={openBoutique} className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:block"><Search size={20} /></button>
-            <button type="button" aria-label="Aide et contact" onClick={() => scrollTo("contact")} className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:block"><UserRound size={20} /></button>
+            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"}`}><Search size={20} /></button>
             <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white">
               <ShoppingBag size={21} />
               {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B8753C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
@@ -105,16 +129,34 @@ export default function App() {
         </div>
       </header>
 
+      {searchOpen && (
+        <div className="border-b border-[#173F34]/10 bg-[#F8F3EA] px-5 py-3">
+          <div className="mx-auto flex max-w-7xl items-center gap-3">
+            <Search size={18} className="text-[#8A7765]" />
+            <input
+              autoFocus
+              type="text"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              onKeyDown={(event) => { if (event.key === "Enter") openBoutique(); }}
+              placeholder="Rechercher un produit (nom, description...)"
+              className="flex-1 bg-transparent text-sm text-[#173F34] placeholder:text-[#8A7765] focus:outline-none"
+            />
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7765]">Effacer</button>}
+          </div>
+        </div>
+      )}
+
       {menuOpen && (
         <div className="fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
           <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
-            <button onClick={() => scrollTo("accueil")} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">Accueil</button>
-            <button onClick={openBoutique} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">Boutique</button>
-            <button onClick={openCategories} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">Catégories</button>
-            <button onClick={() => scrollTo("a-propos")} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">À propos</button>
-            <button onClick={() => scrollTo("services")} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">Services</button>
-            <button onClick={() => scrollTo("contact")} className="border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl text-[#173F34]">Contact</button>
+            <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
+            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
+            <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
+            <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
+            <button onClick={() => scrollTo("services")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "services" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Services</button>
+            <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
           </nav>
         </div>
       )}
@@ -126,7 +168,7 @@ export default function App() {
             {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleures pièces"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#C8894E]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
           </div>
         </section>
-        <div id="catalogue">
+        <div id="catalogue-wrapper">
           {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
         <TrustStrip />
