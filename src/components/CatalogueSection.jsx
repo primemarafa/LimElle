@@ -2,17 +2,10 @@ import CategoryFilter from "./CategoryFilter";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
-<<<<<<< HEAD
   tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "/images/category-tenues.jpg" },
   sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "/images/category-sacs.jpg" },
   bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "/images/category-sacs.jpg" },
   beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "/images/category-beaute.jpg" },
-=======
-  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Senegalese_fashion.jpg" },
-  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "https://commons.wikimedia.org/wiki/Special:FilePath/African_woman_fashion.jpg" },
-  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Femme_aux_bijoux.jpg" },
-  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "https://commons.wikimedia.org/wiki/Special:FilePath/African_woman_portrait.jpg" },
->>>>>>> ea91342e61f6e19da4c88635b5861910c419c3be
 };
 
 export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onProductSelect }) {
