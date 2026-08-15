@@ -8,10 +8,10 @@ function WhatsAppIcon({ size = 18 }) {
   );
 }
 
-export default function WhatsAppButton({ children, message, className = "" }) {
+export default function WhatsAppButton({ children, message, className = "", iconSize = 18, ...rest }) {
   return (
-    <a href={buildWhatsAppLink(message)} target="_blank" rel="noreferrer" className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-bold transition hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 ${className}`}>
-      <WhatsAppIcon />
+    <a href={buildWhatsAppLink(message)} target="_blank" rel="noreferrer" className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-bold transition hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 ${className}`} {...rest}>
+      <WhatsAppIcon size={iconSize} />
       {children}
     </a>
   );
