@@ -1,0 +1,1 @@
+Boutique and Catégories now have distinct anchors. Services replaces Journal. Footer duplicate CTA removed. Major section spacing increased.
