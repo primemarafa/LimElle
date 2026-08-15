@@ -14,3 +14,19 @@ a,
 input {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Réaction visuelle cohérente sur tous les boutons et liens interactifs,
+   sans avoir à ajouter la classe transition à chaque composant. */
+button:not(:disabled),
+a {
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+button:not(:disabled):active,
+a:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}

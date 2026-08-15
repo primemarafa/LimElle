@@ -1,6 +1,6 @@
 import WhatsAppButton from "./WhatsAppButton";
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1594736797933-d0c6b6f5bcf5?q=80&w=1600&auto=format&fit=crop";
+const HERO_IMAGE = "/images/hero-portrait.jpg";
 
 export default function BrandHero({ onCatalogue }) {
   return (
