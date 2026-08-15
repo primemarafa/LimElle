@@ -197,10 +197,31 @@ export default function App() {
       </>}
 
       <footer className="bg-[#123D32] px-5 py-12 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-center md:justify-between"><div><div className="font-serif text-3xl">Lim'Elle</div><p className="mt-2 text-sm text-white/70">L'élégance au féminin, naturellement.</p></div><div className="flex flex-col gap-3 sm:flex-row"><WhatsAppButton message={WA_TEXT} className="border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton><button onClick={openBoutique} className="rounded-xl border border-[#C8894E] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button></div></div>
+        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
+          <div>
+            <div className="font-serif text-3xl">Lim'Elle</div>
+            <p className="mt-2 max-w-xs text-sm text-white/70">L'élégance au féminin, naturellement. Personal shopping entre Dakar et Niamey.</p>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Navigation</p>
+            <nav className="mt-4 flex flex-col gap-2 text-sm text-white/80">
+              <button onClick={openBoutique} className="text-left hover:text-white">Boutique</button>
+              <button onClick={openCategories} className="text-left hover:text-white">Catégories</button>
+              <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white">À propos</button>
+              <button onClick={() => scrollTo("services")} className="text-left hover:text-white">Services</button>
+            </nav>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Contact</p>
+            <div className="mt-4 flex flex-col gap-3 text-sm text-white/80">
+              <WhatsAppButton message={WA_TEXT} className="w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
+              <button onClick={openBoutique} className="w-fit rounded-xl border border-[#C8894E] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button>
+            </div>
+          </div>
+        </div>
         <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/50">© 2026 Lim'Elle. Tous droits réservés.</div>
       </footer>
-      <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} aria-label="WhatsApp"><MessageCircle size={25}/></WhatsAppButton>
+      <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
       {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>} 
     </main>
   );
