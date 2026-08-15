@@ -7,6 +7,7 @@ import { normalizeProduct } from "./utils/normalizeProduct";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
+import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
 import TransportEstimator from "./components/TransportEstimator";
 import FaqList from "./components/FaqList";
@@ -33,24 +34,29 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSection, setActiveSection] = useState("accueil");
+  const [catalogLoading, setCatalogLoading] = useState(true);
 
   const loadCatalog = () => {
     setCatalogError("");
+    setCatalogLoading(true);
     let active = true;
     const attempt = (retriesLeft) => {
       api.products()
-        .then((payload) => { if (active) setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); })
+        .then((payload) => { if (active) { setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); setCatalogLoading(false); } })
         .catch((error) => {
           if (!active) return;
           // L'API (tier gratuit Render) peut être en veille et mettre 30-50s à répondre :
           // on retente automatiquement avant d'afficher une erreur définitive.
           if (retriesLeft > 0) { setTimeout(() => active && attempt(retriesLeft - 1), 4000); return; }
           setCatalogError(error.message || "Impossible de charger le catalogue.");
+          setCatalogLoading(false);
         });
     };
     attempt(3);
     return () => { active = false; };
   };
+
+  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" }); }, [selectedProduct]);
 
   useEffect(() => loadCatalog(), []);
 
@@ -148,7 +154,7 @@ export default function App() {
       )}
 
       {menuOpen && (
-        <div className="fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
+        <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
           <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
@@ -162,30 +168,30 @@ export default function App() {
       )}
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
-        <div id="accueil"><BrandHero onCatalogue={openBoutique} /></div>
+        <div id="accueil" className="scroll-mt-20"><BrandHero onCatalogue={openBoutique} /></div>
         <section className="bg-[#123D32] text-white">
           <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-5 py-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
             {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleures pièces"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#C8894E]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
           </div>
         </section>
         <div id="catalogue-wrapper">
-          {catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
+          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
         <TrustStrip />
-        <section id="a-propos" className="bg-[#F8F3EA] px-5 py-20">
+        <section id="a-propos" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
           <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.1fr_.9fr] md:items-center">
             <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-[#173F34] md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
             <div className="grid grid-cols-2 gap-4"><div className="rounded-2xl bg-white p-6"><ShieldCheck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Paiement sécurisé</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-6"><Truck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Dakar → Niamey</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Expédition organisée selon la disponibilité.</p></div></div>
           </div>
         </section>
-        <section id="services" className="bg-[#F1E8DB] px-5 py-20">
+        <section id="services" className="scroll-mt-24 bg-[#F1E8DB] px-5 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 text-center"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Nos services</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Un accompagnement pensé pour vous</h2></div>
             <TransportEstimator config={LIMELLE_CONFIG} weight={kg} onWeightChange={setKg}/>
             <div className="mt-10 rounded-[2rem] bg-[#173F34] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#C8894E]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#173F34]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
           </div>
         </section>
-        <section id="contact" className="bg-[#F8F3EA] px-5 py-20">
+        <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
           <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
         </section>
       </>}

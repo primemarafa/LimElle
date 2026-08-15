@@ -30,3 +30,32 @@ a:active {
 button:disabled {
   cursor: not-allowed;
 }
+
+/* Fondu doux pour les changements de vue (catalogue <-> fiche produit),
+   pour éviter un saut brutal quand le contenu bascule instantanément. */
+@keyframes fade-in-view {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.view-transition {
+  animation: fade-in-view 0.25s ease;
+}
+
+@keyframes fade-in-backdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer-backdrop {
+  animation: fade-in-backdrop 0.2s ease;
+}
+
+.drawer-panel {
+  animation: slide-in-right 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
