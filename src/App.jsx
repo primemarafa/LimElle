@@ -9,7 +9,6 @@ import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
 import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
-import TransportEstimator from "./components/TransportEstimator";
 import FaqList from "./components/FaqList";
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
@@ -21,7 +20,6 @@ const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}
 
 export default function App() {
   const [filter, setFilter] = useState("all");
-  const [kg, setKg] = useState(LIMELLE_CONFIG.transport.minimumWeightKg);
   const [faq, setFaq] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
@@ -146,10 +144,9 @@ export default function App() {
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
+            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
-            <button onClick={() => scrollTo("services")} className={navLinkClass("services")}>Services</button>
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
@@ -186,10 +183,9 @@ export default function App() {
           <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
-            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
             <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
+            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
-            <button onClick={() => scrollTo("services")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "services" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Services</button>
             <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
           </nav>
         </div>
@@ -211,13 +207,7 @@ export default function App() {
             <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-[#173F34] md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
             <div className="grid grid-cols-2 gap-4"><div className="rounded-2xl bg-white p-6"><ShieldCheck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Paiement sécurisé</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-6"><Truck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Dakar → Niamey</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Expédition organisée selon la disponibilité.</p></div></div>
           </div>
-        </section>
-        <section id="services" className="scroll-mt-24 bg-[#F1E8DB] px-5 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 text-center"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Nos services</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Un accompagnement pensé pour vous</h2></div>
-            <TransportEstimator config={LIMELLE_CONFIG} weight={kg} onWeightChange={setKg}/>
-            <div className="mt-10 rounded-[2rem] bg-[#173F34] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#C8894E]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#173F34]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
-          </div>
+          <div className="mx-auto mt-10 max-w-7xl rounded-[2rem] bg-[#173F34] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#C8894E]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#173F34]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
         </section>
         <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
           <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
@@ -233,10 +223,9 @@ export default function App() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Navigation</p>
             <nav className="mt-4 flex flex-col gap-2 text-sm text-white/80">
-              <button onClick={openBoutique} className="text-left hover:text-white">Boutique</button>
               <button onClick={openCategories} className="text-left hover:text-white">Catégories</button>
+              <button onClick={openBoutique} className="text-left hover:text-white">Boutique</button>
               <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white">À propos</button>
-              <button onClick={() => scrollTo("services")} className="text-left hover:text-white">Services</button>
             </nav>
           </div>
           <div>
