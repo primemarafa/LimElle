@@ -9,7 +9,7 @@ export default function FaqList({ items, activeIndex, onToggle }) {
             {item.q}
             <ChevronDown size={18} className={activeIndex === index ? "rotate-180" : ""} />
           </button>
-          {activeIndex === index && <p className="pt-3 text-sm leading-6 text-[#6B5E54]">{item.a}</p>}
+          {activeIndex === index && <p className="pt-3 text-sm leading-6 text-[#5B5348]">{item.a}</p>}
         </div>
       ))}
     </div>
