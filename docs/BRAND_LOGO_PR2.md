@@ -1,0 +1,1 @@
+Logo asset and favicon integration are ready for review.
