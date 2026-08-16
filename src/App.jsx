@@ -129,18 +129,18 @@ export default function App() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products]);
 
-  const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
+  const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#96654C] pb-1 text-[#3A2E28]" : "text-[#4A3D35] hover:text-[#3A2E28]"}`;
 
-  if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
+  if (order) return <main className="min-h-screen bg-[#FAF5EE] text-[#3A2E28]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#FAF5EE] text-[#3A2E28]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
 
   return (
-    <main className="min-h-screen bg-[#F8F3EA] text-[#2B2620]">
-      <header className="sticky top-0 z-50 border-b border-[#173F34]/10 bg-[#F8F3EA]/95 backdrop-blur">
+    <main className="min-h-screen bg-[#FAF5EE] text-[#3A2E28]">
+      <header className="sticky top-0 z-50 border-b border-[#3A2E28]/10 bg-[#FAF5EE]/95 backdrop-blur">
         <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 lg:px-8">
           <button onClick={() => scrollTo("accueil")} className="text-left">
-            <div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#173F34]">Lim'Elle <span className="font-normal text-[#B8753C]">♢</span></div>
-            <div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div>
+            <div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#3A2E28]">Lim'Elle <span className="font-normal text-[#96654C]">♢</span></div>
+            <div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#4A3D35]">L'ÉLÉGANCE AU FÉMININ</div>
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
@@ -150,20 +150,20 @@ export default function App() {
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
-            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"}`}><Search size={20} /></button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white">
+            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#96654C]" : "text-[#3A2E28] hover:bg-white"}`}><Search size={20} /></button>
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#3A2E28] hover:bg-white">
               <ShoppingBag size={21} />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B8753C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#96654C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#173F34] lg:hidden"><Menu size={21} /></button>
+            <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#3A2E28] lg:hidden"><Menu size={21} /></button>
           </div>
         </div>
       </header>
 
       {searchOpen && (
-        <div className="border-b border-[#173F34]/10 bg-[#F8F3EA] px-5 py-3">
+        <div className="border-b border-[#3A2E28]/10 bg-[#FAF5EE] px-5 py-3">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <Search size={18} className="text-[#8A7765]" />
+            <Search size={18} className="text-[#78685D]" />
             <input
               autoFocus
               type="text"
@@ -171,50 +171,50 @@ export default function App() {
               onChange={(event) => setSearchTerm(event.target.value)}
               onKeyDown={(event) => { if (event.key === "Enter") openBoutique(); }}
               placeholder="Rechercher un produit (nom, description...)"
-              className="flex-1 bg-transparent text-sm text-[#173F34] placeholder:text-[#8A7765] focus:outline-none"
+              className="flex-1 bg-transparent text-sm text-[#3A2E28] placeholder:text-[#78685D] focus:outline-none"
             />
-            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7765]">Effacer</button>}
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#78685D]">Effacer</button>}
           </div>
         </div>
       )}
 
       {menuOpen && (
-        <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
-          <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
+        <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#FAF5EE] p-6 lg:hidden">
+          <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#3A2E28]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
-            <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
-            <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
-            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
-            <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
-            <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
+            <button onClick={() => scrollTo("accueil")} className={`border-b border-[#3A2E28]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#96654C]" : "text-[#3A2E28]"}`}>Accueil</button>
+            <button onClick={openCategories} className={`border-b border-[#3A2E28]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#96654C]" : "text-[#3A2E28]"}`}>Catégories</button>
+            <button onClick={openBoutique} className={`border-b border-[#3A2E28]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#96654C]" : "text-[#3A2E28]"}`}>Boutique</button>
+            <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#3A2E28]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#96654C]" : "text-[#3A2E28]"}`}>À propos</button>
+            <button onClick={() => scrollTo("contact")} className={`border-b border-[#3A2E28]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#96654C]" : "text-[#3A2E28]"}`}>Contact</button>
           </nav>
         </div>
       )}
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
         <div id="accueil" className="scroll-mt-20"><BrandHero onCatalogue={openBoutique} /></div>
-        <section className="bg-[#123D32] text-white">
+        <section className="bg-[#3A2E28] text-white">
           <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-5 py-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
-            {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleures pièces"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#C8894E]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
+            {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleures pièces"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#96654C]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
           </div>
         </section>
         <div id="catalogue-wrapper">
           {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
         <TrustStrip />
-        <section id="a-propos" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
+        <section id="a-propos" className="scroll-mt-24 bg-[#FAF5EE] px-5 py-20">
           <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.1fr_.9fr] md:items-center">
-            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Lim'Elle</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-[#173F34] md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-[#403A33]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
-            <div className="grid grid-cols-2 gap-4"><div className="rounded-2xl bg-white p-6"><ShieldCheck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Paiement sécurisé</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-6"><Truck className="text-[#B8753C]"/><p className="mt-5 font-bold text-[#173F34]">Dakar → Niamey</p><p className="mt-2 text-xs leading-5 text-[#8A7765]">Expédition organisée selon la disponibilité.</p></div></div>
+            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#96654C]">Lim'Elle</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-[#3A2E28] md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-[#4A3D35]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
+            <div className="grid grid-cols-2 gap-4"><div className="rounded-2xl bg-white p-6"><ShieldCheck className="text-[#96654C]"/><p className="mt-5 font-bold text-[#3A2E28]">Paiement sécurisé</p><p className="mt-2 text-xs leading-5 text-[#78685D]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-6"><Truck className="text-[#96654C]"/><p className="mt-5 font-bold text-[#3A2E28]">Dakar → Niamey</p><p className="mt-2 text-xs leading-5 text-[#78685D]">Expédition organisée selon la disponibilité.</p></div></div>
           </div>
-          <div className="mx-auto mt-10 max-w-7xl rounded-[2rem] bg-[#173F34] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#C8894E]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#173F34]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
+          <div className="mx-auto mt-10 max-w-7xl rounded-[2rem] bg-[#3A2E28] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#96654C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#3A2E28]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
         </section>
-        <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
-          <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
+        <section id="contact" className="scroll-mt-24 bg-[#FAF5EE] px-5 py-20">
+          <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#96654C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#3A2E28] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
         </section>
       </>}
 
-      <footer className="bg-[#123D32] px-5 py-12 text-white">
+      <footer className="bg-[#3A2E28] px-5 py-12 text-white">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
             <div className="font-serif text-3xl">Lim'Elle</div>
@@ -232,7 +232,7 @@ export default function App() {
             <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Contact</p>
             <div className="mt-4 flex flex-col gap-3 text-sm text-white/80">
               <WhatsAppButton message={WA_TEXT} className="w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
-              <button onClick={openBoutique} className="w-fit rounded-xl border border-[#C8894E] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button>
+              <button onClick={openBoutique} className="w-fit rounded-xl border border-[#96654C] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button>
             </div>
           </div>
         </div>
