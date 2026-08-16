@@ -90,17 +90,34 @@ export default function App() {
 
   useEffect(() => {
     const ids = ["accueil", "categories", "products", "a-propos", "services", "contact"];
-    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (sections.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActiveSection(visible[0].target.id);
-      },
-      { rootMargin: "-84px 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    // Approche déterministe plutôt qu'IntersectionObserver par ratio : ce dernier
+    // gérait mal les sections courtes (ex. "À propos"), faisant clignoter le lien
+    // actif de façon imprévisible. Ici on prend simplement la dernière section
+    // dont le haut a franchi la ligne de référence (juste sous le header collant).
+    const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
+    let sections = getSections();
+
+    const updateActiveSection = () => {
+      const referenceLine = 96;
+      let current = sections[0]?.id;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= referenceLine) current = section.id;
+      }
+      if (current) setActiveSection(current);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { updateActiveSection(); ticking = false; });
+    };
+
+    sections = getSections();
+    updateActiveSection();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products]);
 
   const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
