@@ -26,7 +26,14 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [catalogError, setCatalogError] = useState("");
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      const saved = window.localStorage.getItem("limelle-cart");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [cartOpen, setCartOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [order, setOrder] = useState(null);
@@ -57,6 +64,10 @@ export default function App() {
   };
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" }); }, [selectedProduct]);
+
+  useEffect(() => {
+    try { window.localStorage.setItem("limelle-cart", JSON.stringify(cart)); } catch { /* stockage indisponible (navigation privée...), on ignore silencieusement */ }
+  }, [cart]);
 
   useEffect(() => loadCatalog(), []);
 
