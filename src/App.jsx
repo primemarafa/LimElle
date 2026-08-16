@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import { HeartHandshake, Menu, Search, ShoppingBag, ShieldCheck, Truck, X, Gem, MessageCircle } from "lucide-react";
+import { HeartHandshake, Menu, Search, ShoppingBag, Truck, X, Gem, MessageCircle } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
@@ -202,12 +202,14 @@ export default function App() {
           {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
         </div>
         <TrustStrip />
-        <section id="a-propos" className="scroll-mt-24 bg-[#FAF5EE] px-5 py-20">
-          <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.1fr_.9fr] md:items-center">
-            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#96654C]">Lim'Elle</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-[#3A2E28] md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-[#4A3D35]">Une sélection féminine pensée entre Dakar et Niamey, avec une attention particulière portée au style, à la qualité et à la relation client.</p></div>
-            <div className="grid grid-cols-2 gap-4"><div className="rounded-2xl bg-white p-6"><ShieldCheck className="text-[#96654C]"/><p className="mt-5 font-bold text-[#3A2E28]">Paiement sécurisé</p><p className="mt-2 text-xs leading-5 text-[#78685D]">Transactions confirmées avant expédition.</p></div><div className="rounded-2xl bg-white p-6"><Truck className="text-[#96654C]"/><p className="mt-5 font-bold text-[#3A2E28]">Dakar → Niamey</p><p className="mt-2 text-xs leading-5 text-[#78685D]">Expédition organisée selon la disponibilité.</p></div></div>
+        <section id="a-propos" className="scroll-mt-24 bg-[#3A2E28] px-5 py-24 text-white">
+          <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1fr_1fr] md:items-center">
+            <div className="overflow-hidden rounded-[2rem]"><img src="/images/hero-portrait.jpg" alt="L'univers Lim'Elle" className="h-full max-h-[420px] w-full object-cover object-[50%_20%]" loading="lazy" /></div>
+            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#C9967D]">Notre histoire</p><h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-white/75">Lim'Elle est née d'une envie simple : rendre accessible, depuis Niamey, une mode féminine que l'on trouve d'ordinaire à Dakar. Chaque pièce est choisie à la main, pas produite en série.</p></div>
           </div>
-          <div className="mx-auto mt-10 max-w-7xl rounded-[2rem] bg-[#3A2E28] p-8 text-white md:p-12"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#96654C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-white/75">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-white text-[#3A2E28]" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
+        </section>
+        <section className="bg-[#F5E1DC] px-5 py-20">
+          <div className="mx-auto max-w-7xl rounded-[2rem] bg-white p-8 md:p-14"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#96654C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl text-[#3A2E28] md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-[#4A3D35]">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-[#3A2E28] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
         </section>
         <section id="contact" className="scroll-mt-24 bg-[#FAF5EE] px-5 py-20">
           <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#96654C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#3A2E28] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
