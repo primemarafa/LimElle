@@ -1,0 +1,1 @@
+Official Lim'Elle brand mark is stored in public/brand/limelle-logo.svg. The favicon uses the same mark.
