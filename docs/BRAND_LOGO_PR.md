@@ -1,0 +1,1 @@
+Official Lim'Elle brand mark added as a scalable SVG and used by the favicon. A reusable BrandLogo component is available for the next header/footer integration pass.
