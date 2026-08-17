@@ -12,6 +12,7 @@ import TrustStrip from "./components/TrustStrip";
 import FaqList from "./components/FaqList";
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
+import BrandLogo from "./components/BrandLogo";
 import OrderForm from "./components/OrderForm";
 import OrderConfirmation from "./components/OrderConfirmation";
 
@@ -138,9 +139,9 @@ export default function App() {
     <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]">
       <header className="sticky top-0 z-50 border-b border-[#173F34]/10 bg-[#F8F3EA]/95 backdrop-blur">
         <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 lg:px-8">
-          <button onClick={() => scrollTo("accueil")} className="text-left">
-            <div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#173F34]">Lim'Elle <span className="font-normal text-[#B8753C]">♢</span></div>
-            <div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div>
+          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2 text-left">
+            <BrandLogo className="h-9 w-auto" />
+            <div><div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#173F34]">Lim'Elle</div><div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div></div>
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
@@ -180,7 +181,7 @@ export default function App() {
 
       {menuOpen && (
         <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
-          <div className="flex items-center justify-between"><div className="font-serif text-3xl text-[#173F34]">Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
+          <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
             <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
@@ -219,7 +220,7 @@ export default function App() {
       <footer className="bg-[#173F34] px-5 py-12 text-white">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
-            <div className="font-serif text-3xl">Lim'Elle</div>
+            <div className="flex items-center gap-2 font-serif text-3xl"><BrandLogo className="h-9 w-auto" />Lim'Elle</div>
             <p className="mt-2 max-w-xs text-sm text-white/70">L'élégance au féminin, naturellement. Personal shopping entre Dakar et Niamey.</p>
           </div>
           <div>
