@@ -238,7 +238,7 @@ export default function App() {
             <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Contact</p>
             <div className="mt-4 flex flex-col gap-3 text-sm text-white/80">
               <WhatsAppButton message={WA_TEXT} className="w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
-              <button onClick={openBoutique} className="w-fit rounded-xl border border-[#B8753C] px-6 py-3 text-sm font-bold text-white">Découvrir la boutique <span className="ml-2">→</span></button>
+              <button onClick={openBoutique} className="w-fit rounded-xl border border-white/40 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10">Découvrir la boutique <span className="ml-2">→</span></button>
             </div>
           </div>
         </div>
