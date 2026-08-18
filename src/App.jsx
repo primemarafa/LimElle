@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { HeartHandshake, Menu, Search, ShoppingBag, Truck, X, Gem, MessageCircle } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
@@ -99,7 +99,7 @@ export default function App() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "a-propos", "services", "contact"];
+    const ids = ["accueil", "categories", "products", "a-propos", "sur-mesure", "contact"];
     // Approche déterministe plutôt qu'IntersectionObserver par ratio : ce dernier
     // gérait mal les sections courtes (ex. "À propos"), faisant clignoter le lien
     // actif de façon imprévisible. Ici on prend simplement la dernière section
@@ -148,6 +148,7 @@ export default function App() {
             <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
+            <button onClick={() => scrollTo("sur-mesure")} className={navLinkClass("sur-mesure")}>Sur-mesure</button>
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
@@ -181,12 +182,13 @@ export default function App() {
 
       {menuOpen && (
         <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
-          <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
+          <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" aria-label="Fermer le menu" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
             <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
             <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
+            <button onClick={() => scrollTo("sur-mesure")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "sur-mesure" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Sur-mesure</button>
             <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
           </nav>
         </div>
@@ -209,7 +211,7 @@ export default function App() {
             <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#C8894E]">Notre histoire</p><h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-white/75">Lim'Elle est née d'une envie simple : rendre accessible, depuis Niamey, une mode féminine que l'on trouve d'ordinaire à Dakar. Chaque pièce est choisie à la main, pas produite en série.</p></div>
           </div>
         </section>
-        <section className="bg-[#F1E8DB] px-5 py-20">
+        <section className="scroll-mt-24 bg-[#F1E8DB] px-5 py-20" id="sur-mesure">
           <div className="mx-auto max-w-7xl rounded-[2rem] bg-white p-8 md:p-14"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#B8753C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl text-[#173F34] md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-[#403A33]">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-[#173F34] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
         </section>
         <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
@@ -229,6 +231,7 @@ export default function App() {
               <button onClick={openCategories} className="text-left hover:text-white">Catégories</button>
               <button onClick={openBoutique} className="text-left hover:text-white">Boutique</button>
               <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white">À propos</button>
+              <button onClick={() => scrollTo("sur-mesure")} className="text-left hover:text-white">Sur-mesure</button>
             </nav>
           </div>
           <div>
