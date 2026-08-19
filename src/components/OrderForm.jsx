@@ -294,6 +294,7 @@ export default function OrderForm({ items, onBack, onComplete }) {
               "Envoyer la commande"
             )}
           </button>
+          </form>
         </div>
 
         <aside className="h-fit rounded-3xl bg-[#EBE3D2] p-6">
