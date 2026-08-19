@@ -3,10 +3,10 @@ import CategoryFilter from "./CategoryFilter";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
-  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "/images/category-tenues.jpg", Icon: Shirt },
-  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "/images/category-sacs.jpg", Icon: ShoppingBag },
-  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "/images/category-sacs.jpg", Icon: Gem },
-  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "/images/category-beaute.jpg", Icon: Sparkles },
+  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80", Icon: Shirt },
+  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80", Icon: ShoppingBag },
+  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "https://images.unsplash.com/photo-1617038220319-276d3cfab534?auto=format&fit=crop&w=1200&q=80", Icon: Gem },
+  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80", Icon: Sparkles },
 };
 
 export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onProductSelect }) {
@@ -23,14 +23,14 @@ export default function CatalogueSection({ categories, products, activeCategory,
           {visualCategories.map((category) => {
             const visual = CATEGORY_VISUALS[category.id];
             return (
-              <button key={category.id} type="button" onClick={() => onCategoryChange(category.id)} className="group relative aspect-[.88] overflow-hidden rounded-2xl text-left shadow-sm ring-1 ring-[#173F34]/10">
+              <button key={category.id} type="button" onClick={() => onCategoryChange(category.id)} className="group relative aspect-[.88] overflow-hidden rounded-[1.75rem] text-left shadow-[0_18px_36px_rgba(23,63,52,0.08)] ring-1 ring-[#173F34]/10">
                 <img src={visual.image} alt={visual.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/80 via-[#1B1712]/15 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/80 via-[#1B1712]/16 to-transparent" />
                 <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 text-[#173F34] backdrop-blur-sm"><visual.Icon size={18} strokeWidth={1.75} /></span>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                   <h3 className="font-serif text-2xl">{visual.title}</h3>
                   <p className="mt-1 text-xs text-white/85">{visual.subtitle}</p>
-                  <span className="mt-4 inline-flex rounded-lg border border-white/70 px-3 py-2 text-xs font-bold">Découvrir</span>
+                          <span className="mt-4 inline-flex rounded-xl border border-white/70 bg-white/10 px-3 py-2 text-xs font-bold backdrop-blur-sm">Découvrir</span>
                 </div>
               </button>
             );
