@@ -294,8 +294,8 @@ export default function OrderForm({ items, onBack, onComplete }) {
               "Envoyer la commande"
             )}
           </button>
-          </form>
-        </div>
+        </form>
+      </div>
 
         <aside className="h-fit rounded-3xl bg-[#EBE3D2] p-6">
           <h2 className="text-xl font-semibold">Résumé indicatif</h2>
@@ -327,7 +327,6 @@ export default function OrderForm({ items, onBack, onComplete }) {
             Le serveur recalcule les produits, le transport et le total avant d'enregistrer la commande.
           </p>
         </aside>
-      </div>
     </section>
   );
 }
