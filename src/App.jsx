@@ -271,7 +271,7 @@ export default function App() {
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {featuredProducts.map((product) => (
                 <button key={product.id} type="button" onClick={() => setSelectedProduct(product)} className="group overflow-hidden rounded-[1.75rem] border border-[#173F34]/10 bg-white text-left shadow-[0_18px_40px_rgba(23,63,52,0.06)] transition hover:-translate-y-1">
-                  <img src={product.image || "/images/hero-portrait.jpg"} alt={product.name} className="h-64 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
+                  <img src={product.img || "/images/hero-portrait.jpg"} alt={product.name} className="h-64 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
                   <div className="p-5">
                     <div className="flex items-center justify-between gap-3">
                       <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#B8753C]">{product.cat}</span>
