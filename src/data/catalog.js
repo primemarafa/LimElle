@@ -1,11 +1,10 @@
 export const CATEGORIES = [
-  { id: "tenues", label: "Tenues", emoji: "👗", desc: "Robes, ensembles et tenues féminines" },
-  { id: "chaussures", label: "Chaussures", emoji: "👠", desc: "Chaussures femme recherchées à Dakar" },
-  { id: "sacs", label: "Sacs", emoji: "👜", desc: "Sacs et maroquinerie" },
-  { id: "bijoux", label: "Bijoux", emoji: "💎", desc: "Bijoux et accessoires précieux" },
-  { id: "accessoires", label: "Accessoires", emoji: "🧣", desc: "Foulards, ceintures et accessoires" },
-  { id: "beaute", label: "Beauté", emoji: "💄", desc: "Soins et cosmétiques" },
-  { id: "surmesure", label: "Sur demande", emoji: "✨", desc: "Une recherche précise à Dakar" },
+  { id: "soins-visage", label: "Soins visage", emoji: "✨", desc: "Sérums, crèmes, nettoyants pour un éclat naturel" },
+  { id: "soins-corps", label: "Soins corps", emoji: "🧴", desc: "Beurres, huiles, lotions pour une peau nourrie" },
+  { id: "parfums", label: "Parfums", emoji: "🌸", desc: "Eaux de toilette et parfums d'exception" },
+  { id: "accessoires", label: "Accessoires", emoji: "💍", desc: "Pinceaux, éponges, coffrets beauté" },
+  { id: "maquillage", label: "Maquillage", emoji: "💄", desc: "Rouges à lèvres, poudres, fonds de teint" },
+  { id: "surmesure", label: "Sur demande", emoji: "💎", desc: "Une recherche précise à Dakar" },
 ];
 
 // Le catalogue affiché sur le site vient de l'API (voir src/services/api.js,
