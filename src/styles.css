@@ -1,16 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+@import "./styles/design-tokens.css";
 
 :root {
   color-scheme: light;
-  --luxury-ivory: #f7f2ea;
-  --luxury-coffee: #173f34;
-  --luxury-gold: #b8753c;
-  --luxury-cream: #f1e8db;
-  --luxury-sand: #efe4d3;
-  --luxury-text: #2d2a27;
-  --luxury-soft: #5b5348;
+  /* Map legacy variables to new token system for backward compatibility */
+  --luxury-ivory: var(--color-primary-50);
+  --luxury-coffee: var(--color-primary-800);
+  --luxury-gold: var(--color-primary-500);
+  --luxury-cream: var(--color-neutral-100);
+  --luxury-sand: var(--color-neutral-200);
+  --luxury-text: var(--color-neutral-800);
+  --luxury-soft: var(--color-neutral-500);
   --luxury-glow: rgba(184, 117, 60, 0.18);
+  /* Accessibility improvements */
+  --luxury-focus-ring: 0 0 0 3px rgba(184, 117, 60, 0.5);
+  --luxury-focus-ring-offset: 2px;
+}
+
+/* Enhanced focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--luxury-gold);
+  outline-offset: 2px;
+}
+
+/* Override Tailwind's default focus to ensure consistency */
+*:focus {
+  outline: 2px solid var(--luxury-gold);
+  outline-offset: 2px;
+}
+
+/* Ensure sufficient touch target size */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Improve color contrast for text on backgrounds */
+.text-white\/85,
+.text-white\/90,
+.bg-white\/10 {
+  /* These may need adjustment based on actual contrast testing */
 }
 
 html {
@@ -61,6 +91,7 @@ a:active {
 
 button:disabled {
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 ::selection {
@@ -76,5 +107,18 @@ button:disabled {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support - prepares for future implementation */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --luxury-ivory: #1a1a1a;
+    --luxury-coffee: #f3d5ad;
+    --luxury-gold: #d4af37;
+    --luxury-cream: #2d2d2d;
+    --luxury-sand: #3a3a3a;
+    --luxury-text: #f0f0f0;
+    --luxury-soft: #c0c0c0;
   }
 }
