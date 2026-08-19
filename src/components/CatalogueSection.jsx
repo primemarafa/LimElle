@@ -3,10 +3,10 @@ import CategoryFilter from "./CategoryFilter";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
-  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80", Icon: Shirt },
-  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80", Icon: ShoppingBag },
-  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "https://images.unsplash.com/photo-1617038220319-276d3cfab534?auto=format&fit=crop&w=1200&q=80", Icon: Gem },
-  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80", Icon: Sparkles },
+  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "/images/category-tenues.jpg", Icon: Shirt },
+  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "/images/category-sacs.jpg", Icon: ShoppingBag },
+  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "/images/category-sacs.jpg", Icon: Gem },
+  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "/images/category-beaute.jpg", Icon: Sparkles },
 };
 
 export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onProductSelect }) {
