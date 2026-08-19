@@ -1,59 +1,55 @@
-import { ShieldCheck, Star, MessageCircle } from "lucide-react";
-import { LIMELLE_CONFIG } from "../config/limelle";
+import { Trophy, Truck, ShieldCheck, RotateCcw } from "lucide-react";
 
-const ITEMS = [
+const FEATURES = [
+  {
+    Icon: Trophy,
+    title: "Qualité premium",
+    text: "Sélection rigoureuse des meilleurs produits naturels et de qualité.",
+  },
+  {
+    Icon: Truck,
+    title: "Livraison rapide",
+    text: "Expédition en 24-48h depuis Dakar vers Niamey et alentours.",
+  },
   {
     Icon: ShieldCheck,
     title: "Paiement sécurisé",
     text: "Transactions 100% sécurisées via Orange Money, MTN MoMo et carte bancaire.",
   },
   {
-    Icon: Star,
-    title: `${LIMELLE_CONFIG.stats.satisfiedClients}+ clientes satisfaites`,
-    text: `Notée ${LIMELLE_CONFIG.stats.rating}/5 sur nos produits. Votre confiance est notre fierté.`,
-    stars: true,
-  },
-  {
-    Icon: MessageCircle,
-    title: "Besoin d'aide ?",
-    text: "Notre équipe est disponible pour vous conseiller et répondre à vos questions.",
-    cta: true,
+    Icon: RotateCcw,
+    title: "Retours faciles",
+    text: "Politique de retour simple sous 7 jours sans complication.",
   },
 ];
 
 export default function TrustStrip() {
   return (
-    <section className="bg-[#F1E8DB] px-5 py-10">
-      <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-3">
-        {ITEMS.map(({ Icon, title, text, stars, cta }) => (
-          <div key={title} className="flex flex-col items-center gap-4 rounded-[1.5rem] border border-[#173F34]/10 bg-white/70 p-7 text-center shadow-[0_18px_32px_rgba(23,63,52,0.04)] backdrop-blur-sm">
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#173F34] text-[#f3d5ad] shadow-[0_12px_24px_rgba(23,63,52,0.12)]">
-              <Icon size={22} strokeWidth={1.75} />
-            </span>
-            <div>
-              <p className="text-sm font-bold text-[#173F34]">{title}</p>
-              {stars && (
-                <div className="my-2 flex justify-center gap-1 text-[#D4A03E]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} fill={i < 4 ? "currentColor" : "none"} strokeWidth={1.5} />
-                  ))}
-                </div>
-              )}
-              <p className="mt-1 text-xs leading-5 text-[#5B5348]">{text}</p>
-              {cta && (
-                <a
-                  href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}?text=${encodeURIComponent("Bonjour, je viens du site Lim'Elle 🌸")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#3FBF63] px-5 py-2.5 text-xs font-bold text-white transition hover:bg-[#2da84f]"
-                >
-                  <MessageCircle size={14} />
-                  Nous écrire
-                </a>
-              )}
+    <section className="px-5 pt-20 md:pt-32">
+      <div className="mx-auto max-w-4xl">
+        <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">
+          Pourquoi nous choisir
+        </h2>
+        <p className="mt-4 text-center text-base text-black/50 max-w-md mx-auto">
+          Des produits de qualité premium, soigneusement sélectionnés pour vous.
+        </p>
+
+        <div className="mt-14 grid gap-5 md:grid-cols-2">
+          {FEATURES.map(({ Icon, title, text }) => (
+            <div
+              key={title}
+              className="flex items-start gap-4 rounded-xl border border-black/10 p-5"
+            >
+              <div className="shrink-0 rounded-lg bg-black/5 p-3">
+                <Icon size={24} strokeWidth={1.5} className="text-[#173F34]" />
+              </div>
+              <div>
+                <h3 className="text-base font-medium text-black">{title}</h3>
+                <p className="mt-1 text-sm text-black/50 line-clamp-2">{text}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
