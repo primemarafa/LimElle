@@ -1,4 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --luxury-ivory: #f7f2ea;
+  --luxury-coffee: #173f34;
+  --luxury-gold: #b8753c;
+  --luxury-cream: #f1e8db;
+  --luxury-sand: #efe4d3;
+  --luxury-text: #2d2a27;
+  --luxury-soft: #5b5348;
+  --luxury-glow: rgba(184, 117, 60, 0.18);
+}
 
 html {
   scroll-behavior: smooth;
@@ -7,17 +20,27 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: linear-gradient(180deg, #f7f2ea 0%, #f4ecdf 100%);
-  color: #173F34;
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(184, 117, 60, 0.08), transparent 28%),
+    linear-gradient(180deg, var(--luxury-ivory) 0%, #f3ebdf 100%);
+  color: var(--luxury-text);
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: "Cormorant", Georgia, "Times New Roman", serif;
+  letter-spacing: -0.04em;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 img {
   display: block;
-}
-
-::selection {
-  background: rgba(184, 117, 60, 0.2);
+  max-width: 100%;
 }
 
 button,
@@ -26,8 +49,6 @@ input {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Réaction visuelle cohérente sur tous les boutons et liens interactifs,
-   sans avoir à ajouter la classe transition à chaque composant. */
 button:not(:disabled),
 a {
   transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
@@ -42,31 +63,18 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Fondu doux pour les changements de vue (catalogue <-> fiche produit),
-   pour éviter un saut brutal quand le contenu bascule instantanément. */
-@keyframes fade-in-view {
-  from { opacity: 0; }
-  to { opacity: 1; }
+::selection {
+  background: rgba(184, 117, 60, 0.20);
 }
 
-.view-transition {
-  animation: fade-in-view 0.25s ease;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-@keyframes fade-in-backdrop {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-in-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-.drawer-backdrop {
-  animation: fade-in-backdrop 0.2s ease;
-}
-
-.drawer-panel {
-  animation: slide-in-right 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
