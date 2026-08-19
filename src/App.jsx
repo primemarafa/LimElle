@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { HeartHandshake, Menu, Search, ShoppingBag, Truck, X, Gem, MessageCircle, User, Package, RotateCcw, Mail } from "lucide-react";
+﻿import React, { useEffect, useMemo, useState } from "react";
+import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
@@ -9,6 +9,8 @@ import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
 import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
+import TestimonialsSection from "./components/TestimonialsSection";
+import StatsSection from "./components/StatsSection";
 import FaqList from "./components/FaqList";
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
@@ -110,7 +112,7 @@ export default function App() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "a-propos", "journal", "contact"];
+    const ids = ["accueil", "categories", "products", "contact"];
     const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
     let sections = getSections();
 
@@ -137,293 +139,171 @@ export default function App() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products]);
 
-  const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
+  const navLinkClass = (id) => `text-sm font-medium transition ${activeSection === id ? "text-[#173F34] font-semibold" : "text-black/60 hover:text-black"}`;
 
-  const trustHighlights = [
-    { title: "Sélection vérifiée à Dakar", text: "Chaque produit est choisi avec soin pour ses ingrédients naturels et sa qualité." },
-    { title: "Paiement après validation", text: "Nous confirmons la disponibilité et le prix global avant toute transaction." },
-    { title: "Conseil personnalisé", text: "Notre équipe vous guide pour trouver les produits adaptés à votre peau." },
-  ];
-
-  const processSteps = [
-    { number: "1", title: "Choisissez vos produits", text: "Parcourez les catégories et ajoutez les soins que vous aimez." },
-    { number: "2", title: "Validez votre panier", text: "Nous confirmons le prix final, le transport et la disponibilité." },
-    { number: "3", title: "Recevez votre commande", text: "Votre colis part de Dakar et rejoint Niamey en toute sécurité." },
-  ];
-
-  const featuredProducts = products.slice(0, 3);
-
-  if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder}/></main>;
+  if (order) return <main className="min-h-screen bg-white text-black"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-white text-black"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]">
-      {/* Skip to main content link for accessibility */}
+    <main className="min-h-screen bg-white text-black">
       <SkipLink />
 
-      <header className="sticky top-0 z-50 border-b border-[#173F34]/10 bg-[#F8F3EA]/95 backdrop-blur">
-        <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 lg:px-8">
-          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2 text-left">
-            <BrandLogo className="h-9 w-auto" />
-            <div><div className="font-serif text-3xl leading-none tracking-[-.04em] text-[#173F34]">Lim'Elle</div><div className="mt-1 text-[9px] font-semibold tracking-[.12em] text-[#403A33]">L'ÉLÉGANCE AU FÉMININ</div></div>
+      <div className="bg-[#173F34] px-5 py-2.5 text-center text-xs font-medium text-white">
+        Livraison offerte a Niamey pour toute commande de +50 000 FCFA
+      </div>
+
+      <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2">
+            <BrandLogo className="h-8 w-auto" />
+            <span className="text-xl font-semibold tracking-tight text-[#173F34]">Lim'Elle</span>
           </button>
-          <nav className="hidden items-center gap-8 lg:flex">
+
+          <nav className="hidden items-center gap-7 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
-            <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
-            <button onClick={() => scrollTo("journal")} className={navLinkClass("journal")}>Journal</button>
+            <button onClick={openCategories} className={navLinkClass("categories")}>Categories</button>
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
-          <div className="flex items-center gap-1.5">
-            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"} `} style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Search size={20} />
+
+          <div className="flex items-center gap-1">
+            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black">
+              <Search size={18} />
             </button>
-            <button type="button" aria-label="Mon profil" className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:flex" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <User size={20} />
+            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black sm:flex">
+              <User size={18} />
             </button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <ShoppingBag size={21} />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B8753C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black">
+              <ShoppingBag size={18} />
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#173F34] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#173F34] lg:hidden" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Menu size={21} />
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black lg:hidden">
+              <Menu size={18} />
             </button>
           </div>
         </div>
       </header>
 
       {searchOpen && (
-        <div className="border-b border-[#173F34]/10 bg-[#F8F3EA] px-5 py-3">
+        <div className="border-b border-black/10 bg-white px-5 py-3">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <Search size={18} className="text-[#8A7765]" />
-            <input
-              autoFocus
-              type="text"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              onKeyDown={(event) => { if (event.key === "Enter") openBoutique(); }}
-              placeholder="Rechercher un produit (nom, description...)"
-              className="flex-1 bg-transparent text-sm text-[#173F34] placeholder:text-[#8A7765] focus:outline-none"
-            />
-            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7765]">Effacer</button>}
+            <Search size={16} className="text-black/40" />
+            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-black placeholder:text-black/40 focus:outline-none" />
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-black/40 hover:text-black">Effacer</button>}
           </div>
         </div>
       )}
 
       {menuOpen && (
-        <div className="drawer-backdrop fixed inset-0 z-[70] bg-[#F8F3EA] p-6 lg:hidden">
-          <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" aria-label="Fermer le menu" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
-          <nav className="mt-10 flex flex-col">
-            <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
-            <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
-            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
-            <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
-            <button onClick={() => scrollTo("journal")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "journal" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Journal</button>
-            <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
+        <div className="fixed inset-0 z-[70] bg-white p-6 lg:hidden">
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-semibold text-[#173F34]">Lim'Elle</span>
+            <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-black/5"><X size={20} /></button>
+          </div>
+          <nav className="mt-8 flex flex-col">
+            {[{ id: "accueil", label: "Accueil" }, { id: "products", label: "Boutique" }, { id: "categories", label: "Categories" }, { id: "contact", label: "Contact" }].map(({ id, label }) => (
+              <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-black/10 py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#173F34]" : "text-black/60"}`}>{label}</button>
+            ))}
           </nav>
         </div>
       )}
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
-        <div id="accueil" className="scroll-mt-20"><BrandHero onCatalogue={openBoutique} /></div>
-
-        {/* Delivery Info Cards */}
-        <section className="bg-white px-5 py-10">
-          <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-3">
-            {[
-              { icon: Truck, title: "Livraison rapide", text: "Livraison en 24-48h à Dakar et Niamey" },
-              { icon: Package, title: "Expédition sécurisée", text: "Emballage soigné depuis Dakar & Niamey" },
-              { icon: RotateCcw, title: "Retours gratuits", text: "Satisfait ou remboursé sous 7 jours" },
-            ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="flex items-center gap-4 rounded-2xl bg-[#F8F3EA] p-5 transition hover:-translate-y-1 hover:shadow-lg">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#173F34] text-[#f3d5ad]"><Icon size={20} strokeWidth={1.75} /></span>
-                <div>
-                  <p className="text-sm font-bold text-[#173F34]">{title}</p>
-                  <p className="mt-1 text-xs text-[#5B5348]">{text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Features Bar */}
-        <section className="bg-[#173F34] text-white">
-          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-5 py-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
-            {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleurs produits"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#B8753C]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
-          </div>
-        </section>
-        <section className="bg-[#F1E8DB] px-5 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 text-center">
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Pourquoi Lim'Elle</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Votre beauté, notre priorité</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {trustHighlights.map(({ title, text }) => (
-                <div key={title} className="rounded-[1.75rem] border border-[#173F34]/10 bg-white p-7 shadow-[0_18px_40px_rgba(23,63,52,0.06)]">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#173F34] text-lg font-bold text-white">✓</div>
-                  <h3 className="font-serif text-2xl text-[#173F34]">{title}</h3>
-                  <p className="mt-3 leading-6 text-[#403A33]">{text}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {featuredProducts.map((product) => (
-                <button key={product.id} type="button" onClick={() => setSelectedProduct(product)} className="group overflow-hidden rounded-[1.75rem] border border-[#173F34]/10 bg-white text-left shadow-[0_18px_40px_rgba(23,63,52,0.06)] transition hover:-translate-y-1">
-                  <img src={product.img || "/images/hero-portrait.jpg"} alt={product.name} className="h-64 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
-                  <div className="p-5">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#B8753C]">{product.cat}</span>
-                      <span className="text-sm font-bold text-[#173F34]">{product.price ? `${product.price.toLocaleString("fr-FR")} FCFA` : "Prix sur demande"}</span>
-                    </div>
-                    <h3 className="mt-4 font-serif text-2xl text-[#173F34]">{product.name}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#403A33]">{product.description}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        <div id="accueil" className="scroll-mt-16"><BrandHero onCatalogue={openBoutique} /></div>
 
         <div id="catalogue-wrapper">
-          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>}
+          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? (
+            <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800">Reessayer</button></div></section>
+          ) : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct} onAddToCart={addToCart} />}
         </div>
+
         <TrustStrip />
-        <section className="bg-white px-5 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Comment ça marche</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Une commande simple et rassurante</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {processSteps.map(({ number, title, text }) => (
-                <div key={number} className="rounded-[1.75rem] bg-[#F8F3EA] p-7">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#B8753C] font-serif text-2xl text-white">{number}</div>
-                  <h3 className="font-serif text-2xl text-[#173F34]">{title}</h3>
-                  <p className="mt-3 leading-6 text-[#403A33]">{text}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 rounded-[2rem] bg-[#173F34] p-8 text-white md:flex md:items-center md:justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[.18em] text-[#E7C49D]">Demande rapide</p>
-                <h3 className="mt-3 font-serif text-3xl">Besoin d’un avis avant de commander ?</h3>
-              </div>
-              <WhatsAppButton message={`Bonjour Lim'Elle 🌸\nJe souhaite recevoir un conseil avant une commande.`} className="mt-5 border border-white/40 bg-transparent text-white md:mt-0">Parler avec Lim'Elle</WhatsAppButton>
-            </div>
-          </div>
-        </section>
-        <section id="a-propos" className="scroll-mt-24 bg-[#173F34] px-5 py-24 text-white">
-          <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1fr_1fr] md:items-center">
-            <div className="overflow-hidden rounded-[2rem]"><img src="/images/hero-portrait.jpg" alt="L'univers Lim'Elle" className="h-full max-h-[420px] w-full object-cover object-[50%_20%]" loading="lazy" /></div>
-            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#C8894E]">Notre histoire</p><h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">La beauté naturelle au service de la femme africaine</h2><p className="mt-6 max-w-xl leading-7 text-white/75">Lim'Elle est née d'une envie simple : rendre accessible, depuis Niamey, des produits de beauté de qualité, soigneusement sélectionnés à Dakar. Chaque produit est choisi pour ses ingrédients naturels et ses résultats visibles.</p></div>
-          </div>
-        </section>
-        <section className="scroll-mt-24 bg-[#F1E8DB] px-5 py-20" id="sur-mesure">
-          <div className="mx-auto max-w-7xl rounded-[2rem] bg-white p-8 md:p-14"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#B8753C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl text-[#173F34] md:text-4xl">Un produit précis en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-[#403A33]">Envoie une description, une référence ou une photo. Lim'Elle recherche le produit à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-[#173F34] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nRéférence :\nBudget :">Faire une demande</WhatsAppButton></div>
-        </section>
-        <section id="journal" className="scroll-mt-24 bg-white px-5 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Journal beauté</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Conseils & tendances</h2>
-              <p className="mt-4 text-[#5B5348]">Découvrez nos astuces beauté, nos routines et les dernières tendances pour sublimer votre beauté naturelle.</p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                { title: "Routine skincare naturelle", desc: "Les étapes essentielles pour une peau éclatante avec des ingrédients africains.", tag: "Conseils" },
-                { title: "Top 5 des huiles précieuses", desc: "Découvrez les huiles les plus efficaces pour votre peau et vos cheveux.", tag: "Tendances" },
-                { title: "Comment choisir son parfum", desc: "Guide complet pour trouver l'odeur qui vous ressemble.", tag: "Guide" },
-              ].map(({ title, desc, tag }) => (
-                <div key={title} className="group cursor-pointer overflow-hidden rounded-[1.75rem] border border-[#173F34]/10 bg-[#F8F3EA] transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="h-48 bg-gradient-to-br from-[#E8D5C0] to-[#C4956A] transition group-hover:scale-105" />
-                  <div className="p-6">
-                    <span className="inline-block rounded-full bg-[#173F34]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#173F34]">{tag}</span>
-                    <h3 className="mt-3 font-serif text-xl text-[#173F34]">{title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-[#5B5348]">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <TestimonialsSection />
+        <StatsSection />
 
-        <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
-          <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
-        </section>
-
-        {/* Newsletter */}
-        <section className="bg-[#173F34] px-5 py-14">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 md:flex-row">
-            <div>
-              <h3 className="font-serif text-3xl text-white">Restez connectée</h3>
-              <p className="mt-2 text-sm text-white/70">Inscrivez-vous pour recevoir nos offres exclusives et conseils beauté</p>
-            </div>
-            <form className="flex w-full max-w-md gap-3" onSubmit={(e) => { e.preventDefault(); const btn = e.target.querySelector('button'); btn.textContent = 'Inscrit ✓'; btn.classList.add('bg-[#27ae60]'); setTimeout(() => { btn.textContent = "S'inscrire"; btn.classList.remove('bg-[#27ae60]'); }, 2000); }}>
-              <input type="email" required placeholder="Votre adresse email" className="flex-1 rounded-full px-5 py-3.5 text-sm text-[#173F34] focus:outline-none" />
-              <button type="submit" className="whitespace-nowrap rounded-full bg-[#B8753C] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#c8854a]">S'inscrire</button>
+        <section className="px-5 pt-20 md:pt-32">
+          <div className="mx-auto max-w-md">
+            <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">Offres exclusives</h2>
+            <p className="mt-4 text-center text-base text-black/50">Inscrivez-vous pour recevoir nos offres speciales, acces anticipe et nouveautes.</p>
+            <form className="mt-10 flex items-center gap-2" onSubmit={(e) => { e.preventDefault(); const btn = e.target.querySelector("button"); btn.textContent = "Inscrit !"; btn.classList.add("bg-[#27ae60]"); setTimeout(() => { btn.textContent = "S'inscrire"; btn.classList.remove("bg-[#27ae60]"); }, 2000); }}>
+              <input type="email" required placeholder="Votre adresse email" className="flex-1 rounded-lg border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-black/10" />
+              <button type="submit" className="whitespace-nowrap rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#1e4d3f]">S'inscrire</button>
             </form>
+          </div>
+        </section>
+
+        <section id="contact" className="scroll-mt-20 px-5 pt-20 md:pt-32">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">Questions frequentes</h2>
+            <p className="mt-4 text-center text-base text-black/50">Trouvez rapidement reponses a vos questions.</p>
+            <div className="mt-10">
+              <FaqList items={FAQS} activeIndex={faq} onToggle={setFaq} />
+            </div>
+            <div className="mt-10 text-center">
+              <WhatsAppButton message={WA_TEXT} className="inline-flex rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#1e4d3f]">Besoin d'aide ? Contactez-nous</WhatsAppButton>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 pt-20 pb-10 md:pt-32">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 rounded-2xl border border-black/10 p-10 md:flex-row md:p-16">
+            <h2 className="max-w-lg text-center text-3xl font-medium tracking-tight text-black md:text-left md:text-4xl">Pret a sublimer votre beaute ?</h2>
+            <WhatsAppButton message={WA_TEXT} className="whitespace-nowrap rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#1e4d3f]">Commencer</WhatsAppButton>
           </div>
         </section>
       </>}
 
-      <footer className="bg-[#173F34] px-5 py-14 text-white">
+      <footer className="border-t border-black/10 px-5 py-14">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2 font-serif text-3xl"><BrandLogo className="h-9 w-auto" />Lim'Elle</div>
-            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[.12em] text-white/50">{LIMELLE_CONFIG.tagline}</p>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-white/70">Votre destination beauté de confiance au Sahel. Des produits naturels et de qualité pour sublimer votre beauté.</p>
+            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-xl font-semibold text-[#173F34]">Lim'Elle</span></div>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-black/40">{LIMELLE_CONFIG.tagline}</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-black/50">Votre destination beaute de confiance au Sahel. Des produits naturels et de qualite pour sublimer votre beaute.</p>
             <div className="mt-5 flex gap-3">
-              {LIMELLE_CONFIG.social.instagramHandle && (
-                <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">IG</a>
-              )}
-              <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">FB</a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">TK</a>
+              {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
+              <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">FB</a>
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Boutique</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-white/80">
-              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-white transition">Soins visage</button>
-              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-white transition">Soins corps</button>
-              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-white transition">Parfums</button>
-              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-white transition">Accessoires</button>
-              <button onClick={openBoutique} className="text-left hover:text-white transition">Tous les produits</button>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Boutique</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
+              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-black transition">Soins visage</button>
+              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-black transition">Soins corps</button>
+              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-black transition">Parfums</button>
+              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-black transition">Accessoires</button>
+              <button onClick={openBoutique} className="text-left hover:text-black transition">Tous les produits</button>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Informations</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-white/80">
-              <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white transition">À propos</button>
-              <button onClick={() => scrollTo("journal")} className="text-left hover:text-white transition">Journal beauté</button>
-              <span className="text-left text-white/50">Livraison & retours</span>
-              <span className="text-left text-white/50">Politique de confidentialité</span>
-              <span className="text-left text-white/50">Conditions générales</span>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Informations</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
+              <span className="text-left">Livraison & retours</span>
+              <span className="text-left">Politique de confidentialite</span>
+              <span className="text-left">Conditions generales</span>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Contact</p>
-            <div className="mt-4 flex flex-col gap-3 text-sm text-white/80">
-              <p>Dakar, Sénégal</p>
-              <p>+221 77 123 45 67</p>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Contact</p>
+            <div className="mt-4 flex flex-col gap-3 text-sm text-black/60">
+              <p>Dakar, Senegal</p>
               <p>{LIMELLE_CONFIG.email}</p>
-              <WhatsAppButton message={WA_TEXT} className="mt-2 w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
+              <WhatsAppButton message={WA_TEXT} className="mt-2 w-fit rounded-lg bg-[#173F34] px-5 py-2.5 text-xs font-bold text-white">Nous ecrire sur WhatsApp</WhatsAppButton>
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
-          <p>© 2026 Lim'Elle. Tous droits réservés.</p>
+        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 text-xs text-black/40 sm:flex-row">
+          <p>&copy; 2026 Lim'Elle. Tous droits reserves.</p>
           <div className="flex gap-3">
-            <span className="rounded-md bg-white/10 px-3 py-1.5">Orange Money</span>
-            <span className="rounded-md bg-white/10 px-3 py-1.5">MTN MoMo</span>
-            <span className="rounded-md bg-white/10 px-3 py-1.5">Visa</span>
-            <span className="rounded-md bg-white/10 px-3 py-1.5">Mastercard</span>
+            <span className="rounded-md bg-black/5 px-3 py-1.5">Orange Money</span>
+            <span className="rounded-md bg-black/5 px-3 py-1.5">MTN MoMo</span>
+            <span className="rounded-md bg-black/5 px-3 py-1.5">Visa</span>
+            <span className="rounded-md bg-black/5 px-3 py-1.5">Mastercard</span>
           </div>
         </div>
       </footer>
+
       <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
-      {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>}
+      {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout} />}
     </main>
   );
 }
