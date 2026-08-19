@@ -8,7 +8,7 @@ export default function ProductCard({ product, onSelect }) {
   return (
     <button type="button" onClick={() => onSelect(product)} className="group w-full overflow-hidden rounded-[1.5rem] border border-[#E8DCC7] bg-[#fffdf9] text-left shadow-[0_20px_38px_rgba(23,63,52,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_44px_rgba(23,63,52,0.12)]">
       <div className="relative aspect-[.82] overflow-hidden bg-[#efe4d3]">
-        <img src={product.img} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#173F34]/15 via-transparent to-white/10" />
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.12em] text-[#173F34] backdrop-blur">{product.badge}</span>
       </div>
