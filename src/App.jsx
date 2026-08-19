@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { HeartHandshake, Menu, Search, ShoppingBag, Truck, X, Gem, MessageCircle } from "lucide-react";
+import { HeartHandshake, Menu, Search, ShoppingBag, Truck, X, Gem, MessageCircle, User, Package, RotateCcw, Mail } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FAQS } from "./data/catalog";
 import { api } from "./services/api";
@@ -110,7 +110,7 @@ export default function App() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "a-propos", "sur-mesure", "contact"];
+    const ids = ["accueil", "categories", "products", "a-propos", "journal", "contact"];
     const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
     let sections = getSections();
 
@@ -140,15 +140,15 @@ export default function App() {
   const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
 
   const trustHighlights = [
-    { title: "Sélection vérifiée à Dakar", text: "Chaque pièce est choisie avec soin pour sa qualité, son style et sa finition." },
+    { title: "Sélection vérifiée à Dakar", text: "Chaque produit est choisi avec soin pour ses ingrédients naturels et sa qualité." },
     { title: "Paiement après validation", text: "Nous confirmons la disponibilité et le prix global avant toute transaction." },
-    { title: "Commande simple et rapide", text: "Une conversation claire, un panier transparent et un suivi sur WhatsApp." },
+    { title: "Conseil personnalisé", text: "Notre équipe vous guide pour trouver les produits adaptés à votre peau." },
   ];
 
   const processSteps = [
-    { number: "1", title: "Choisissez votre sélection", text: "Parcourez les catégories et ajoutez les pièces que vous aimez." },
+    { number: "1", title: "Choisissez vos produits", text: "Parcourez les catégories et ajoutez les soins que vous aimez." },
     { number: "2", title: "Validez votre panier", text: "Nous confirmons le prix final, le transport et la disponibilité." },
-    { number: "3", title: "Recevez votre commande", text: "Votre achat est préparé puis envoyé vers votre ville au Niger." },
+    { number: "3", title: "Recevez votre commande", text: "Votre colis part de Dakar et rejoint Niamey en toute sécurité." },
   ];
 
   const featuredProducts = products.slice(0, 3);
@@ -169,15 +169,18 @@ export default function App() {
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
+            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
             <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
-            <button onClick={() => scrollTo("sur-mesure")} className={navLinkClass("sur-mesure")}>Sur-mesure</button>
+            <button onClick={() => scrollTo("journal")} className={navLinkClass("journal")}>Journal</button>
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
             <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"} `} style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Search size={20} />
+            </button>
+            <button type="button" aria-label="Mon profil" className="hidden rounded-full p-2.5 text-[#173F34] hover:bg-white sm:flex" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <User size={20} />
             </button>
             <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ShoppingBag size={21} />
@@ -213,10 +216,10 @@ export default function App() {
           <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" aria-label="Fermer le menu" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
-            <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
             <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
+            <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
             <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
-            <button onClick={() => scrollTo("sur-mesure")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "sur-mesure" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Sur-mesure</button>
+            <button onClick={() => scrollTo("journal")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "journal" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Journal</button>
             <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
           </nav>
         </div>
@@ -224,16 +227,37 @@ export default function App() {
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
         <div id="accueil" className="scroll-mt-20"><BrandHero onCatalogue={openBoutique} /></div>
+
+        {/* Delivery Info Cards */}
+        <section className="bg-white px-5 py-10">
+          <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-3">
+            {[
+              { icon: Truck, title: "Livraison rapide", text: "Livraison en 24-48h à Dakar et Niamey" },
+              { icon: Package, title: "Expédition sécurisée", text: "Emballage soigné depuis Dakar & Niamey" },
+              { icon: RotateCcw, title: "Retours gratuits", text: "Satisfait ou remboursé sous 7 jours" },
+            ].map(({ icon: Icon, title, text }) => (
+              <div key={title} className="flex items-center gap-4 rounded-2xl bg-[#F8F3EA] p-5 transition hover:-translate-y-1 hover:shadow-lg">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#173F34] text-[#f3d5ad]"><Icon size={20} strokeWidth={1.75} /></span>
+                <div>
+                  <p className="text-sm font-bold text-[#173F34]">{title}</p>
+                  <p className="mt-1 text-xs text-[#5B5348]">{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Features Bar */}
         <section className="bg-[#173F34] text-white">
           <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-5 py-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
-            {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleures pièces"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#B8753C]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
+            {[[HeartHandshake,"Ingrédients naturels","Sains et respectueux de votre peau"],[Gem,"Qualité premium","Sélection rigoureuse des meilleurs produits"],[Truck,"Livraison rapide","Partout au Sénégal et au Niger"],[MessageCircle,"Service attentionné","À votre écoute tous les jours"]].map(([Icon,title,text]) => <div key={title} className="flex items-center gap-4 px-4 py-4 lg:px-7"><Icon size={28} strokeWidth={1.5} className="shrink-0 text-[#B8753C]"/><div><p className="text-sm font-bold">{title}</p><p className="mt-1 text-xs leading-5 text-white/75">{text}</p></div></div>)}
           </div>
         </section>
         <section className="bg-[#F1E8DB] px-5 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 text-center">
               <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Pourquoi Lim'Elle</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Une boutique pensée pour votre confiance</h2>
+              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Votre beauté, notre priorité</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {trustHighlights.map(({ title, text }) => (
@@ -270,7 +294,7 @@ export default function App() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Comment ça marche</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Une commande simple, claire et rassurante</h2>
+              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Une commande simple et rassurante</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {processSteps.map(({ number, title, text }) => (
@@ -293,41 +317,110 @@ export default function App() {
         <section id="a-propos" className="scroll-mt-24 bg-[#173F34] px-5 py-24 text-white">
           <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1fr_1fr] md:items-center">
             <div className="overflow-hidden rounded-[2rem]"><img src="/images/hero-portrait.jpg" alt="L'univers Lim'Elle" className="h-full max-h-[420px] w-full object-cover object-[50%_20%]" loading="lazy" /></div>
-            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#C8894E]">Notre histoire</p><h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">Une sélection pensée entre Dakar et Niamey</h2><p className="mt-6 max-w-xl leading-7 text-white/75">Lim'Elle est née d'une envie simple : rendre accessible, depuis Niamey, une mode féminine que l'on trouve d'ordinaire à Dakar. Chaque pièce est choisie à la main, pas produite en série.</p></div>
+            <div><p className="text-xs font-bold uppercase tracking-[.22em] text-[#C8894E]">Notre histoire</p><h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">La beauté naturelle au service de la femme africaine</h2><p className="mt-6 max-w-xl leading-7 text-white/75">Lim'Elle est née d'une envie simple : rendre accessible, depuis Niamey, des produits de beauté de qualité, soigneusement sélectionnés à Dakar. Chaque produit est choisi pour ses ingrédients naturels et ses résultats visibles.</p></div>
           </div>
         </section>
         <section className="scroll-mt-24 bg-[#F1E8DB] px-5 py-20" id="sur-mesure">
-          <div className="mx-auto max-w-7xl rounded-[2rem] bg-white p-8 md:p-14"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#B8753C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl text-[#173F34] md:text-4xl">Une pièce précise en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-[#403A33]">Envoie une photo, une taille, une couleur et ton budget. Lim'Elle recherche la pièce à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-[#173F34] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nTaille :\nCouleur :\nBudget :">Faire une demande</WhatsAppButton></div>
+          <div className="mx-auto max-w-7xl rounded-[2rem] bg-white p-8 md:p-14"><p className="text-xs font-bold uppercase tracking-[.2em] text-[#B8753C]">Sur-mesure</p><h3 className="mt-4 font-serif text-3xl text-[#173F34] md:text-4xl">Un produit précis en tête ?</h3><p className="mt-5 max-w-2xl leading-7 text-[#403A33]">Envoie une description, une référence ou une photo. Lim'Elle recherche le produit à Dakar puis confirme le prix global.</p><WhatsAppButton className="mt-8 bg-[#173F34] text-white" message="Bonjour Lim'Elle 🌸\nJ'ai une demande sur-mesure :\n\nProduit recherché :\nRéférence :\nBudget :">Faire une demande</WhatsAppButton></div>
         </section>
+        <section id="journal" className="scroll-mt-24 bg-white px-5 py-20">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10 max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Journal beauté</p>
+              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Conseils & tendances</h2>
+              <p className="mt-4 text-[#5B5348]">Découvrez nos astuces beauté, nos routines et les dernières tendances pour sublimer votre beauté naturelle.</p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                { title: "Routine skincare naturelle", desc: "Les étapes essentielles pour une peau éclatante avec des ingrédients africains.", tag: "Conseils" },
+                { title: "Top 5 des huiles précieuses", desc: "Découvrez les huiles les plus efficaces pour votre peau et vos cheveux.", tag: "Tendances" },
+                { title: "Comment choisir son parfum", desc: "Guide complet pour trouver l'odeur qui vous ressemble.", tag: "Guide" },
+              ].map(({ title, desc, tag }) => (
+                <div key={title} className="group cursor-pointer overflow-hidden rounded-[1.75rem] border border-[#173F34]/10 bg-[#F8F3EA] transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="h-48 bg-gradient-to-br from-[#E8D5C0] to-[#C4956A] transition group-hover:scale-105" />
+                  <div className="p-6">
+                    <span className="inline-block rounded-full bg-[#173F34]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#173F34]">{tag}</span>
+                    <h3 className="mt-3 font-serif text-xl text-[#173F34]">{title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#5B5348]">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="contact" className="scroll-mt-24 bg-[#F8F3EA] px-5 py-20">
           <div className="mx-auto max-w-7xl"><div className="mb-8"><p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Besoin d'aide ?</p><h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Questions fréquentes</h2></div><FaqList items={FAQS} activeIndex={faq} onToggle={setFaq}/></div>
         </section>
+
+        {/* Newsletter */}
+        <section className="bg-[#173F34] px-5 py-14">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 md:flex-row">
+            <div>
+              <h3 className="font-serif text-3xl text-white">Restez connectée</h3>
+              <p className="mt-2 text-sm text-white/70">Inscrivez-vous pour recevoir nos offres exclusives et conseils beauté</p>
+            </div>
+            <form className="flex w-full max-w-md gap-3" onSubmit={(e) => { e.preventDefault(); const btn = e.target.querySelector('button'); btn.textContent = 'Inscrit ✓'; btn.classList.add('bg-[#27ae60]'); setTimeout(() => { btn.textContent = "S'inscrire"; btn.classList.remove('bg-[#27ae60]'); }, 2000); }}>
+              <input type="email" required placeholder="Votre adresse email" className="flex-1 rounded-full px-5 py-3.5 text-sm text-[#173F34] focus:outline-none" />
+              <button type="submit" className="whitespace-nowrap rounded-full bg-[#B8753C] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#c8854a]">S'inscrire</button>
+            </form>
+          </div>
+        </section>
       </>}
 
-      <footer className="bg-[#173F34] px-5 py-12 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
+      <footer className="bg-[#173F34] px-5 py-14 text-white">
+        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2 font-serif text-3xl"><BrandLogo className="h-9 w-auto" />Lim'Elle</div>
-            <p className="mt-2 max-w-xs text-sm text-white/70">L'élégance au féminin, naturellement. Personal shopping entre Dakar et Niamey.</p>
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[.12em] text-white/50">{LIMELLE_CONFIG.tagline}</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-white/70">Votre destination beauté de confiance au Sahel. Des produits naturels et de qualité pour sublimer votre beauté.</p>
+            <div className="mt-5 flex gap-3">
+              {LIMELLE_CONFIG.social.instagramHandle && (
+                <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">IG</a>
+              )}
+              <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">FB</a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm transition hover:bg-[#B8753C] hover:text-white">TK</a>
+            </div>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Navigation</p>
-            <nav className="mt-4 flex flex-col gap-2 text-sm text-white/80">
-              <button onClick={openCategories} className="text-left hover:text-white">Catégories</button>
-              <button onClick={openBoutique} className="text-left hover:text-white">Boutique</button>
-              <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white">À propos</button>
-              <button onClick={() => scrollTo("sur-mesure")} className="text-left hover:text-white">Sur-mesure</button>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Boutique</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-white/80">
+              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-white transition">Soins visage</button>
+              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-white transition">Soins corps</button>
+              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-white transition">Parfums</button>
+              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-white transition">Accessoires</button>
+              <button onClick={openBoutique} className="text-left hover:text-white transition">Tous les produits</button>
+            </nav>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Informations</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-white/80">
+              <button onClick={() => scrollTo("a-propos")} className="text-left hover:text-white transition">À propos</button>
+              <button onClick={() => scrollTo("journal")} className="text-left hover:text-white transition">Journal beauté</button>
+              <span className="text-left text-white/50">Livraison & retours</span>
+              <span className="text-left text-white/50">Politique de confidentialité</span>
+              <span className="text-left text-white/50">Conditions générales</span>
             </nav>
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-[.2em] text-white/50">Contact</p>
             <div className="mt-4 flex flex-col gap-3 text-sm text-white/80">
-              <WhatsAppButton message={WA_TEXT} className="w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
-              <button onClick={openBoutique} className="w-fit rounded-xl border border-white/40 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10">Découvrir la boutique <span className="ml-2">→</span></button>
+              <p>Dakar, Sénégal</p>
+              <p>+221 77 123 45 67</p>
+              <p>{LIMELLE_CONFIG.email}</p>
+              <WhatsAppButton message={WA_TEXT} className="mt-2 w-fit border border-white/40 bg-transparent text-white">Nous écrire sur WhatsApp</WhatsAppButton>
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/50">© 2026 Lim'Elle. Tous droits réservés.</div>
+        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
+          <p>© 2026 Lim'Elle. Tous droits réservés.</p>
+          <div className="flex gap-3">
+            <span className="rounded-md bg-white/10 px-3 py-1.5">Orange Money</span>
+            <span className="rounded-md bg-white/10 px-3 py-1.5">MTN MoMo</span>
+            <span className="rounded-md bg-white/10 px-3 py-1.5">Visa</span>
+            <span className="rounded-md bg-white/10 px-3 py-1.5">Mastercard</span>
+          </div>
+        </div>
       </footer>
       <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
       {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>}
