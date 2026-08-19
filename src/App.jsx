@@ -48,12 +48,18 @@ export default function App() {
     let active = true;
     const attempt = (retriesLeft) => {
       api.products()
-        .then((payload) => { if (active) { setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []); setCatalogLoading(false); } })
+        .then((payload) => {
+          if (active) {
+            setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []);
+            setCatalogLoading(false);
+          }
+        })
         .catch((error) => {
           if (!active) return;
-          // L'API (tier gratuit Render) peut être en veille et mettre 30-50s à répondre :
-          // on retente automatiquement avant d'afficher une erreur définitive.
-          if (retriesLeft > 0) { setTimeout(() => active && attempt(retriesLeft - 1), 4000); return; }
+          if (retriesLeft > 0) {
+            setTimeout(() => active && attempt(retriesLeft - 1), 4000);
+            return;
+          }
           setCatalogError(error.message || "Impossible de charger le catalogue.");
           setCatalogLoading(false);
         });
@@ -65,7 +71,7 @@ export default function App() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" }); }, [selectedProduct]);
 
   useEffect(() => {
-    try { window.localStorage.setItem("limelle-cart", JSON.stringify(cart)); } catch { /* stockage indisponible (navigation privée...), on ignore silencieusement */ }
+    try { window.localStorage.setItem("limelle-cart", JSON.stringify(cart)); } catch { /* stockage indisponible */ }
   }, [cart]);
 
   useEffect(() => loadCatalog(), []);
@@ -76,6 +82,7 @@ export default function App() {
     if (!term) return byCategory;
     return byCategory.filter((product) => product.name?.toLowerCase().includes(term) || product.description?.toLowerCase().includes(term));
   }, [filter, products, searchTerm]);
+
   const addToCart = (product, quantity = 1) => {
     setCart((current) => {
       const key = cartKey(product);
@@ -86,24 +93,23 @@ export default function App() {
     setCartOpen(true);
     setSelectedProduct(null);
   };
+
   const updateQuantity = (key, quantity) => setCart((current) => current.map((item) => cartKey(item.product) === key ? { ...item, quantity } : item));
   const removeFromCart = (key) => setCart((current) => current.filter((item) => cartKey(item.product) !== key));
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const startCheckout = () => { setCartOpen(false); setCheckout(true); };
   const completeOrder = (nextOrder) => { setOrder(nextOrder); setCheckout(false); setCart([]); };
+
   const scrollTo = (id) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
   const openCategories = () => { setFilter("all"); scrollTo("categories"); };
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
     const ids = ["accueil", "categories", "products", "a-propos", "sur-mesure", "contact"];
-    // Approche déterministe plutôt qu'IntersectionObserver par ratio : ce dernier
-    // gérait mal les sections courtes (ex. "À propos"), faisant clignoter le lien
-    // actif de façon imprévisible. Ici on prend simplement la dernière section
-    // dont le haut a franchi la ligne de référence (juste sous le header collant).
     const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
     let sections = getSections();
 
@@ -131,16 +137,19 @@ export default function App() {
   }, [products]);
 
   const navLinkClass = (id) => `text-sm font-semibold transition ${activeSection === id ? "border-b-2 border-[#B8753C] pb-1 text-[#173F34]" : "text-[#403A33] hover:text-[#173F34]"}`;
+
   const trustHighlights = [
     { title: "Sélection vérifiée à Dakar", text: "Chaque pièce est choisie avec soin pour sa qualité, son style et sa finition." },
     { title: "Paiement après validation", text: "Nous confirmons la disponibilité et le prix global avant toute transaction." },
     { title: "Commande simple et rapide", text: "Une conversation claire, un panier transparent et un suivi sur WhatsApp." },
   ];
+
   const processSteps = [
     { number: "1", title: "Choisissez votre sélection", text: "Parcourez les catégories et ajoutez les pièces que vous aimez." },
     { number: "2", title: "Validez votre panier", text: "Nous confirmons le prix final, le transport et la disponibilité." },
     { number: "3", title: "Recevez votre commande", text: "Votre achat est préparé puis envoyé vers votre ville au Niger." },
   ];
+
   const featuredProducts = products.slice(0, 3);
 
   if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;

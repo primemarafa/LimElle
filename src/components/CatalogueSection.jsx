@@ -23,14 +23,14 @@ export default function CatalogueSection({ categories, products, activeCategory,
           {visualCategories.map((category) => {
             const visual = CATEGORY_VISUALS[category.id];
             return (
-              <button key={category.id} type="button" onClick={() => onCategoryChange(category.id)} className="group relative aspect-[.88] overflow-hidden rounded-[1.75rem] text-left shadow-[0_18px_36px_rgba(23,63,52,0.08)] ring-1 ring-[#173F34]/10">
+              <button key={category.id} type="button" onClick={() => onCategoryChange(category.id)} className="group relative aspect-[.88] overflow-hidden rounded-[1.75rem] text-left shadow-[0_18px_36px_rgba(23,63,52,0.08)] ring-1 ring-[#173F34]/10 transition hover:-translate-y-1 hover:shadow-[0_24px_44px_rgba(23,63,52,0.12)]">
                 <img src={visual.image} alt={visual.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/80 via-[#1B1712]/16 to-transparent" />
-                <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 text-[#173F34] backdrop-blur-sm"><visual.Icon size={18} strokeWidth={1.75} /></span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/85 via-[#1B1712]/20 to-[rgba(27,23,18,0.08)]" />
+                    <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#173F34] shadow-[0_10px_18px_rgba(0,0,0,0.06)] backdrop-blur-sm"><visual.Icon size={18} strokeWidth={1.75} /></span>
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                   <h3 className="font-serif text-2xl">{visual.title}</h3>
                   <p className="mt-1 text-xs text-white/85">{visual.subtitle}</p>
-                          <span className="mt-4 inline-flex rounded-xl border border-white/70 bg-white/10 px-3 py-2 text-xs font-bold backdrop-blur-sm">Découvrir</span>
+                  <span className="mt-4 inline-flex rounded-xl border border-white/70 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[.14em] backdrop-blur-sm">Découvrir</span>
                 </div>
               </button>
             );
