@@ -7,6 +7,17 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  background: linear-gradient(180deg, #f7f2ea 0%, #f4ecdf 100%);
+  color: #173F34;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+img {
+  display: block;
+}
+
+::selection {
+  background: rgba(184, 117, 60, 0.2);
 }
 
 button,
