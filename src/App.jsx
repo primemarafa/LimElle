@@ -15,6 +15,7 @@ import CartDrawer from "./components/CartDrawer";
 import BrandLogo from "./components/BrandLogo";
 import OrderForm from "./components/OrderForm";
 import OrderConfirmation from "./components/OrderConfirmation";
+import SkipLink from "./components/SkipLink";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}::${product.selectedColor ?? "Standard"}`;
@@ -157,6 +158,9 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]">
+      {/* Skip to main content link for accessibility */}
+      <SkipLink />
+
       <header className="sticky top-0 z-50 border-b border-[#173F34]/10 bg-[#F8F3EA]/95 backdrop-blur">
         <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 lg:px-8">
           <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2 text-left">
@@ -172,12 +176,16 @@ export default function App() {
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
           <div className="flex items-center gap-1.5">
-            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"}`}><Search size={20} /></button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white">
+            <button type="button" aria-label="Rechercher un produit" onClick={() => setSearchOpen((open) => !open)} className={`hidden rounded-full p-2.5 sm:block ${searchOpen ? "bg-white text-[#B8753C]" : "text-[#173F34] hover:bg-white"} `} style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Search size={20} />
+            </button>
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-full p-2.5 text-[#173F34] hover:bg-white" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ShoppingBag size={21} />
               {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B8753C] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#173F34] lg:hidden"><Menu size={21} /></button>
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-full bg-white p-2.5 text-[#173F34] lg:hidden" style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Menu size={21} />
+            </button>
           </div>
         </div>
       </header>
@@ -255,7 +263,7 @@ export default function App() {
         </section>
 
         <div id="catalogue-wrapper">
-          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>} 
+          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-3xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800 active:scale-95">Réessayer</button></div></section> : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct}/>}
         </div>
         <TrustStrip />
         <section className="bg-white px-5 py-20">
@@ -322,7 +330,7 @@ export default function App() {
         <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/50">© 2026 Lim'Elle. Tous droits réservés.</div>
       </footer>
       <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
-      {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>} 
+      {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout}/>}
     </main>
   );
 }
