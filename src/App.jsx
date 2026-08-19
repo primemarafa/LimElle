@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
 import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
-import { CATEGORIES, FAQS } from "./data/catalog";
+import { CATEGORIES } from "./data/catalog";
 import { api } from "./services/api";
 import { normalizeProduct } from "./utils/normalizeProduct";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -11,7 +11,7 @@ import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
 import TestimonialsSection from "./components/TestimonialsSection";
 import StatsSection from "./components/StatsSection";
-import FaqList from "./components/FaqList";
+
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
 import BrandLogo from "./components/BrandLogo";
@@ -24,7 +24,6 @@ const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}
 
 export default function App() {
   const [filter, setFilter] = useState("all");
-  const [faq, setFaq] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [catalogError, setCatalogError] = useState("");
@@ -112,7 +111,7 @@ export default function App() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "contact"];
+    const ids = ["accueil", "categories", "products"];
     const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
     let sections = getSections();
 
@@ -163,7 +162,6 @@ export default function App() {
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={openCategories} className={navLinkClass("categories")}>Categories</button>
-            <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -201,7 +199,7 @@ export default function App() {
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-black/5"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
-            {[{ id: "accueil", label: "Accueil" }, { id: "products", label: "Boutique" }, { id: "categories", label: "Categories" }, { id: "contact", label: "Contact" }].map(({ id, label }) => (
+            {[{ id: "accueil", label: "Accueil" }, { id: "products", label: "Boutique" }, { id: "categories", label: "Categories" }].map(({ id, label }) => (
               <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-black/10 py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#173F34]" : "text-black/60"}`}>{label}</button>
             ))}
           </nav>
@@ -229,19 +227,6 @@ export default function App() {
               <input type="email" required placeholder="Votre adresse email" className="flex-1 rounded-lg border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-black/10" />
               <button type="submit" className="whitespace-nowrap rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#1e4d3f]">S'inscrire</button>
             </form>
-          </div>
-        </section>
-
-        <section id="contact" className="scroll-mt-20 px-5 pt-20 md:pt-32">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">Questions frequentes</h2>
-            <p className="mt-4 text-center text-base text-black/50">Trouvez rapidement reponses a vos questions.</p>
-            <div className="mt-10">
-              <FaqList items={FAQS} activeIndex={faq} onToggle={setFaq} />
-            </div>
-            <div className="mt-10 text-center">
-              <WhatsAppButton message={WA_TEXT} className="inline-flex rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#1e4d3f]">Besoin d'aide ? Contactez-nous</WhatsAppButton>
-            </div>
           </div>
         </section>
 
@@ -275,20 +260,20 @@ export default function App() {
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Informations</p>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Support</p>
             <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-black transition">Centre d'aide</a>
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-black transition">Contactez-nous</a>
               <span className="text-left">Livraison & retours</span>
-              <span className="text-left">Politique de confidentialite</span>
-              <span className="text-left">Conditions generales</span>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Contact</p>
-            <div className="mt-4 flex flex-col gap-3 text-sm text-black/60">
-              <p>Dakar, Senegal</p>
-              <p>{LIMELLE_CONFIG.email}</p>
-              <WhatsAppButton message={WA_TEXT} className="mt-2 w-fit rounded-lg bg-[#173F34] px-5 py-2.5 text-xs font-bold text-white">Nous ecrire sur WhatsApp</WhatsAppButton>
-            </div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Legal</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
+              <span className="text-left">Politique de confidentialite</span>
+              <span className="text-left">Conditions generales</span>
+              <span className="text-left">Mentions legales</span>
+            </nav>
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 text-xs text-black/40 sm:flex-row">
