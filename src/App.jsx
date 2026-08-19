@@ -169,8 +169,8 @@ export default function App() {
           </button>
           <nav className="hidden items-center gap-8 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
+            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={navLinkClass("a-propos")}>À propos</button>
             <button onClick={() => scrollTo("journal")} className={navLinkClass("journal")}>Journal</button>
             <button onClick={() => scrollTo("contact")} className={navLinkClass("contact")}>Contact</button>
@@ -216,8 +216,8 @@ export default function App() {
           <div className="flex items-center justify-between"><div className="flex items-center gap-2 font-serif text-3xl text-[#173F34]"><BrandLogo className="h-8 w-auto" />Lim'Elle</div><button type="button" aria-label="Fermer le menu" onClick={() => setMenuOpen(false)} className="rounded-full bg-white p-3"><X size={20} /></button></div>
           <nav className="mt-10 flex flex-col">
             <button onClick={() => scrollTo("accueil")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "accueil" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Accueil</button>
-            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
             <button onClick={openCategories} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "categories" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Catégories</button>
+            <button onClick={openBoutique} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "products" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Boutique</button>
             <button onClick={() => scrollTo("a-propos")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "a-propos" ? "text-[#B8753C]" : "text-[#173F34]"}`}>À propos</button>
             <button onClick={() => scrollTo("journal")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "journal" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Journal</button>
             <button onClick={() => scrollTo("contact")} className={`border-b border-[#173F34]/10 py-5 text-left font-serif text-2xl ${activeSection === "contact" ? "text-[#B8753C]" : "text-[#173F34]"}`}>Contact</button>
