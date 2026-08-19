@@ -1,6 +1,6 @@
 export const products = [
-  { id: "LE-001", name: "Boubou bazin sénégalais", description: "Tenue féminine inspirée du bazin sénégalais, disponibilité à confirmer à Dakar.", price: 35000, weight: 0.8, availability: "sur_demande", imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Senegalese_fashion.jpg" },
-  { id: "LE-003", name: "Sac artisanal sahélien", description: "Sac inspiré de l'artisanat ouest-africain, disponibilité à confirmer à Dakar.", price: 24000, weight: 1.1, availability: "sur_demande", imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Femmes_senegalaises.jpg" },
-  { id: "LE-004", name: "Parure sahélienne", description: "Bijou inspiré des savoir-faire sahéliens, disponibilité à confirmer.", price: 17000, weight: 0.3, availability: "sur_demande", imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Femme_peulh_du_Niger.jpg" },
-  { id: "LE-005", name: "Soin au karité", description: "Produit de soin au karité à vérifier selon la disponibilité et les conditions de transport.", price: 12000, weight: 0.4, availability: "sur_demande", imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Senegalese_fashion.jpg" },
+  { id: "LE-001", name: "Boubou bazin sénégalais", description: "Tenue féminine inspirée du bazin sénégalais, disponibilité à confirmer à Dakar.", price: 35000, weight: 0.8, availability: "sur_demande", imageUrl: "/images/category-tenues.jpg" },
+  { id: "LE-003", name: "Sac artisanal sahélien", description: "Sac inspiré de l'artisanat ouest-africain, disponibilité à confirmer à Dakar.", price: 24000, weight: 1.1, availability: "sur_demande", imageUrl: "/images/category-sacs.jpg" },
+  { id: "LE-004", name: "Parure sahélienne", description: "Bijou inspiré des savoir-faire sahéliens, disponibilité à confirmer.", price: 17000, weight: 0.3, availability: "sur_demande", imageUrl: "/images/category-tenues.jpg" },
+  { id: "LE-005", name: "Soin au karité", description: "Produit de soin au karité à vérifier selon la disponibilité et les conditions de transport.", price: 12000, weight: 0.4, availability: "sur_demande", imageUrl: "/images/category-beaute.jpg" },
 ];
