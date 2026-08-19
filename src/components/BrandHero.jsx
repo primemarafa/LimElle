@@ -15,15 +15,14 @@ export default function BrandHero({ onCatalogue }) {
           <div className="w-full max-w-[620px] rounded-[2rem] border border-white/15 bg-[#173F34]/18 p-6 shadow-[0_24px_60px_rgba(10,19,17,0.25)] backdrop-blur-[2px] sm:p-8">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#f3d5ad]/60 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[.22em] text-[#f3d5ad]">
               <Sparkles size={12} aria-hidden="true" />
-              Éclat naturel, style durable
+              Beauté naturelle, soins d'exception
             </div>
             <h1 className="text-5xl leading-[.82] tracking-[-.05em] text-white sm:text-6xl lg:text-[5.2rem]">
-              La mode qui
-              <span className="block text-[#f3d5ad]">met en valeur</span>
-              <span className="block">votre présence.</span>
+              Votre beauté,
+              <span className="block text-[#f3d5ad]">notre priorité.</span>
             </h1>
             <p className="mt-7 max-w-md text-base leading-7 text-white/85 sm:text-lg">
-              Des pièces sélectionnées à Dakar, avec une touche contemporaine, un conseil personnalisé et une commande simple, claire et rassurante avant paiement.
+              Découvrez nos sélections de produits soigneusement élaborés pour sublimer votre beauté naturelle. Des ingrédients premium, des résultats visibles.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -36,14 +35,14 @@ export default function BrandHero({ onCatalogue }) {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[.12em] text-white/90">
-              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Prix confirmés avant paiement</span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Dakar → Niamey</span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Ingrédients naturels</span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Qualité premium</span>
             </div>
 
             <div className="mt-9 grid max-w-md grid-cols-2 gap-5 text-xs text-white/90">
               <div className="flex gap-3 rounded-2xl border border-white/15 bg-white/10 p-3">
                 <Truck size={20} strokeWidth={1.75} className="shrink-0 text-[#f3d5ad]" aria-hidden="true" />
-                <div><strong className="block">Livraison rapide</strong><span>Partout au Sénégal & au Niger</span></div>
+                <div><strong className="block">Livraison rapide</strong><span>24-48h à Dakar & Niamey</span></div>
               </div>
               <div className="flex gap-3 rounded-2xl border border-white/15 bg-white/10 p-3">
                 <MapPin size={20} strokeWidth={1.75} className="shrink-0 text-[#f3d5ad]" aria-hidden="true" />
@@ -55,7 +54,7 @@ export default function BrandHero({ onCatalogue }) {
         <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pb-8">
           <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[#173F34]/25 px-4 py-2 text-[10px] font-bold uppercase tracking-[.22em] text-white/80 backdrop-blur-sm">
             <span className="inline-block h-2 w-2 rounded-full bg-[#f3d5ad]" aria-hidden="true" />
-            Collection de la saison
+            Collection beauté de la saison
           </div>
         </div>
       </div>
