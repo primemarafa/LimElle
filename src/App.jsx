@@ -141,11 +141,6 @@ export default function App() {
     { number: "2", title: "Validez votre panier", text: "Nous confirmons le prix final, le transport et la disponibilité." },
     { number: "3", title: "Recevez votre commande", text: "Votre achat est préparé puis envoyé vers votre ville au Niger." },
   ];
-  const testimonials = [
-    { quote: "La commande a été très claire, le service était attentif et le suivi ultra rassurant.", author: "Aïcha, Niamey" },
-    { quote: "J’ai trouvé exactement la pièce que je cherchais, avec des informations précises avant paiement.", author: "Nadia, Dakar" },
-    { quote: "Un service qui donne envie de commander, surtout pour la simplicité du processus sur WhatsApp.", author: "Marie, Niamey" },
-  ];
   const featuredProducts = products.slice(0, 3);
 
   if (order) return <main className="min-h-screen bg-[#F8F3EA] text-[#173F34]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
@@ -238,7 +233,7 @@ export default function App() {
                   <img src={product.image || "/images/hero-portrait.jpg"} alt={product.name} className="h-64 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
                   <div className="p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#B8753C]">Best seller</span>
+                      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#B8753C]">{product.cat}</span>
                       <span className="text-sm font-bold text-[#173F34]">{product.price ? `${product.price.toLocaleString("fr-FR")} FCFA` : "Prix sur demande"}</span>
                     </div>
                     <h3 className="mt-4 font-serif text-2xl text-[#173F34]">{product.name}</h3>
@@ -275,23 +270,6 @@ export default function App() {
                 <h3 className="mt-3 font-serif text-3xl">Besoin d’un avis avant de commander ?</h3>
               </div>
               <WhatsAppButton message={`Bonjour Lim'Elle 🌸\nJe souhaite recevoir un conseil avant une commande.`} className="mt-5 border border-white/40 bg-transparent text-white md:mt-0">Parler avec Lim'Elle</WhatsAppButton>
-            </div>
-          </div>
-        </section>
-        <section className="bg-[#F1E8DB] px-5 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B8753C]">Ils ont testé</p>
-              <h2 className="mt-3 font-serif text-4xl text-[#173F34] md:text-5xl">Ce que disent nos clientes</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {testimonials.map(({ quote, author }) => (
-                <div key={author} className="rounded-[1.75rem] border border-[#173F34]/10 bg-white p-7">
-                  <div className="mb-5 text-xl text-[#B8753C]">★★★★★</div>
-                  <p className="text-base leading-7 text-[#403A33]">“{quote}”</p>
-                  <p className="mt-5 font-semibold text-[#173F34]">{author}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>
