@@ -19,7 +19,7 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
     <section className="view-transition mx-auto max-w-5xl px-5 pb-16 pt-8">
       <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-bold"><ArrowLeft size={17} /> Retour au catalogue</button>
       <div className="grid gap-8 md:grid-cols-2">
-        <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover" />
+        <img src={product.imageUrl} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover" />
         <div>
           <div className="inline-flex rounded-full bg-[#EBE3D2] px-3 py-1 text-xs font-bold">{product.badge}</div>
           <h1 className="mt-4 text-4xl font-semibold">{product.name}</h1>
