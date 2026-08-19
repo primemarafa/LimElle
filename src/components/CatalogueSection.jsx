@@ -1,12 +1,12 @@
-import { Shirt, ShoppingBag, Gem, Sparkles } from "lucide-react";
+import { Droplets, Heart, Flower2, Gem } from "lucide-react";
 import CategoryFilter from "./CategoryFilter";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
-  tenues: { title: "Tenues", subtitle: "Pièces féminines choisies à Dakar", image: "/images/category-tenues.jpg", Icon: Shirt },
-  sacs: { title: "Sacs", subtitle: "L'élégance dans les détails", image: "/images/category-sacs.jpg", Icon: ShoppingBag },
-  bijoux: { title: "Bijoux", subtitle: "Une touche précieuse au quotidien", image: "/images/category-sacs.jpg", Icon: Gem },
-  beaute: { title: "Beauté", subtitle: "Soins et cosmétiques sélectionnés", image: "/images/category-beaute.jpg", Icon: Sparkles },
+  "soins-visage": { title: "Soins visage", subtitle: "Sérums, crèmes, nettoyants", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop", Icon: Droplets },
+  "soins-corps": { title: "Soins corps", subtitle: "Beurres, huiles, lotions", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=800&auto=format&fit=crop", Icon: Heart },
+  "parfums": { title: "Parfums", subtitle: "Eaux de toilette d'exception", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800&auto=format&fit=crop", Icon: Flower2 },
+  "accessoires": { title: "Accessoires", subtitle: "Pinceaux, éponges, coffrets", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop", Icon: Gem },
 };
 
 export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onProductSelect }) {
