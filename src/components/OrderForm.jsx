@@ -327,6 +327,6 @@ export default function OrderForm({ items, onBack, onComplete }) {
             Le serveur recalcule les produits, le transport et le total avant d'enregistrer la commande.
           </p>
         </aside>
-    </section>
+      </section>
   );
 }
