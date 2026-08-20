@@ -160,8 +160,8 @@ export default function App() {
 
           <nav className="hidden items-center gap-7 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={openCategories} className={navLinkClass("categories")}>Categories</button>
+            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -199,7 +199,7 @@ export default function App() {
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-black/5"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
-            {[{ id: "accueil", label: "Accueil" }, { id: "products", label: "Boutique" }, { id: "categories", label: "Categories" }].map(({ id, label }) => (
+            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Categories" }, { id: "products", label: "Boutique" }].map(({ id, label }) => (
               <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-black/10 py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#173F34]" : "text-black/60"}`}>{label}</button>
             ))}
           </nav>
