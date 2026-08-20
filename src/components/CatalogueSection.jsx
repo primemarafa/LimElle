@@ -30,7 +30,6 @@ export default function CatalogueSection({
   products,
   activeCategory,
   onCategoryChange,
-  onProductSelect,
   onAddToCart,
 }) {
   const visualCategories = categories
@@ -104,7 +103,6 @@ export default function CatalogueSection({
             <div className="mt-7">
               <ProductGrid
                 products={products}
-                onSelect={onProductSelect}
                 onAddToCart={onAddToCart}
               />
             </div>
