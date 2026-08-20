@@ -46,6 +46,7 @@ Statut : audit en cours
 - [x] Tests PostgreSQL CI
 - [x] Tests Docker CI
 - [x] Actions GitHub modernisées
+- [x] Nettoyage du code et réduction du bundle CSS (-30%)
 - [ ] Vérifier le dernier run complet sur master
 - [ ] Vérifier la version Node de production
 
