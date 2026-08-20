@@ -1,52 +1,64 @@
-import { ArrowRight } from "lucide-react";
 import WhatsAppButton from "./WhatsAppButton";
 
 const HERO_IMAGE = "/images/hero-portrait.jpg";
 
 export default function BrandHero({ onCatalogue }) {
   return (
-    <section className="relative overflow-hidden bg-[#f7f2ea]">
-      <div className="relative min-h-[520px] md:min-h-[640px]">
-        <img
-          src={HERO_IMAGE}
-          alt="Portrait éditorial Lim'Elle"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-l from-[#1B1712]/80 via-[#1B1712]/50 to-transparent" />
+    <section className="relative overflow-hidden bg-[#FAF6F0]">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-12 md:grid-cols-2 md:gap-12 md:py-20 lg:px-8">
+        {/* Left — editorial copy */}
+        <div className="relative z-10">
+          <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2D2924] sm:text-5xl lg:text-6xl">
+            Votre beauté,{" "}
+            <span className="italic text-[#A0845C]">notre priorité.</span>
+          </h1>
+          <p className="mt-5 max-w-md text-base leading-7 text-[#6A5A4A] sm:text-lg">
+            Découvrez des produits soigneusement sélectionnés pour sublimer votre éclat naturel chaque jour.
+          </p>
 
-        <div className="relative z-10 mx-auto flex min-h-[520px] md:min-h-[640px] max-w-7xl items-center justify-end px-6 py-16 sm:px-10 lg:px-16">
-          <div className="max-w-xl text-right">
-            <p className="text-xs font-bold uppercase tracking-[.22em] text-[#f3d5ad]">Nouvelle collection</p>
-            <h1 className="mt-5 text-4xl leading-[1.1] tracking-[-.04em] text-white sm:text-5xl md:text-6xl">
-              La beauté naturelle au service de la femme africaine.
-            </h1>
-            <p className="ml-auto mt-5 max-w-md text-base leading-7 text-white/80 sm:text-lg">
-              Découvrez nos sélections de produits soigneusement élaborés pour sublimer votre beauté naturelle.
-            </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button
+              onClick={onCatalogue}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1B3A2D] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#234a3a]"
+            >
+              Découvrir la boutique
+              <span className="text-lg">→</span>
+            </button>
+            <WhatsAppButton
+              message="Bonjour Lim'Elle 🌸\nJe souhaite passer commande."
+              className="rounded-lg border border-[#2D2924]/15 bg-white px-6 py-3.5 text-sm font-bold text-[#2D2924] transition hover:bg-[#F0EBE3]"
+              iconSize={16}
+            >
+              Commander sur WhatsApp
+            </WhatsAppButton>
+          </div>
 
-            <div className="mt-8 flex flex-col-reverse justify-end gap-3 sm:flex-row">
-              <WhatsAppButton
-                message="Bonjour Lim'Elle 🌸\nJe souhaite passer commande."
-                className="rounded-lg border border-white/30 bg-white/10 px-6 py-3.5 text-white backdrop-blur-sm"
-                iconSize={18}
-              >
-                Commander sur WhatsApp
-              </WhatsAppButton>
-              <button
-                onClick={onCatalogue}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#1e4d3f]"
-              >
-                Découvrir la boutique
-                <ArrowRight size={16} />
-              </button>
-            </div>
+          {/* Trust mini-badges */}
+          <div className="mt-8 flex flex-wrap gap-5 text-xs text-[#6A5A4A]">
+            <span className="flex items-center gap-1.5">
+              <span className="text-base">🚚</span> Livraison rapide · Partout au Sénégal & au Niger
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-base">📍</span> Expédié depuis Dakar · Niamey
+            </span>
+          </div>
+        </div>
 
-            <div className="mt-6 flex flex-wrap justify-end gap-2 text-[11px] font-semibold uppercase tracking-[.12em] text-white/80">
-              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Ingrédients naturels</span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Qualité premium</span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2">Expédié depuis Dakar</span>
-            </div>
+        {/* Right — image */}
+        <div className="relative hidden md:block">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-3xl">
+            <img
+              src={HERO_IMAGE}
+              alt="Portrait éditorial Lim'Elle"
+              className="h-full w-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/30 via-transparent to-transparent" />
+          </div>
+          {/* Floating tag */}
+          <div className="absolute -bottom-4 -left-4 rounded-2xl bg-[#F0EBE3] px-5 py-3 shadow-md">
+            <p className="text-xs font-semibold text-[#A0845C]">L'élégance</p>
+            <p className="text-xs text-[#6A5A4A]">au féminin, naturellement.</p>
           </div>
         </div>
       </div>
