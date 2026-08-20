@@ -22,25 +22,11 @@ export default function WhatsAppButton({ children, message, className = "", icon
       href={buildWhatsAppLink(message)}
       target="_blank"
       rel="noreferrer"
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-bold transition hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-bold transition hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 min-h-[44px] min-w-[44px] ${className}`}
       {...rest}
-      // Ensure minimum touch target size
-      style={{
-        minHeight: '44px',
-        minWidth: '44px',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
     >
       <WhatsAppIcon size={iconSize} />
-      <span className="visually-hidden">{children}</span>
-      {!className && (
-        <span className="px-2 py-1">{children}</span>
-      )}
-      {className && (
-        <span>{children}</span>
-      )}
+      {children && <span>{children}</span>}
     </a>
   );
 }
