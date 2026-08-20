@@ -1,7 +1,7 @@
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { formatXof, buildGlobalPrice } from "../utils/limelle";
 
-export default function ProductCard({ product, onSelect, onAddToCart }) {
+export default function ProductCard({ product, onAddToCart }) {
   const globalPrice = buildGlobalPrice({ productPrice: product.price, weightKg: product.weight });
   const availability = product.availability === "sur_demande" ? "Sur demande" : product.stock > 0 ? "Disponible" : "À vérifier";
 
