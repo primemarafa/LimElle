@@ -23,10 +23,20 @@ Phase 7, audit de préparation production en cours.
 - [x] CategoryFilter
 - [x] CatalogueSection
 - [x] TransportEstimator
-- [x] FaqList
+- [x] FaqList (supprimé lors du nettoyage — jamais importé)
 - [x] WhatsAppButton
 - [x] App.jsx refactorisé
 - [x] Parcours catalogue validé
+- [x] Fiche produit détaillée (ProductDetails)
+- [x] Tailles et couleurs structurées
+- [x] Panier (CartDrawer)
+- [x] Résumé de commande (OrderForm)
+- [x] Génération de référence de commande
+- [x] Message WhatsApp complet avec commande
+- [x] Catégories finales incluant chaussures et sacs
+- [x] Validation build
+- [x] Vérification responsive
+- [x] Pull Request vers master
 
 ## Phase 3, commande et API
 
@@ -93,6 +103,19 @@ Phase 7, audit de préparation production en cours.
 - Marchés mis en avant : Sénégal et Niger
 - Guide visuel : `docs/IMAGE_GUIDELINES.md`
 - Direction artistique définitive : `docs/ART_DIRECTION.md`
+
+## Nettoyage du code (Août 2026)
+
+- [x] Suppression des fichiers morts (models.js, FaqList.jsx, product.js, invoiceShare.js)
+- [x] Nettoyage de accessibility.js (8 fonctions → 2 utilisées)
+- [x] Réécriture de SkipLink.jsx en JSX propre
+- [x] Correction du rendu WhatsAppButton.jsx (enfants dupliqués)
+- [x] Extraction de cartKey dans src/utils/cart.js (DRY)
+- [x] Suppression des props onSelect inutilisées
+- [x] Nettoyage de design-tokens.css (909 → 56 lignes, -94%)
+- [x] Simplification de styles.css (variables legacy, dark mode doublon)
+- [x] CSS bundle réduit de 91 KB à 64 KB (-30%)
+- [x] Ajout id="main-content" pour l'accessibilité SkipLink
 
 ## Préparation production
 

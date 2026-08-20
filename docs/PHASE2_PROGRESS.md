@@ -19,17 +19,18 @@ Refactoriser le catalogue et préparer le parcours produit sans connecter encore
 
 ## À faire
 
-- [ ] Fiche produit détaillée
-- [ ] Tailles et couleurs structurées
-- [ ] Panier
-- [ ] Résumé de commande
-- [ ] Génération d'une référence de commande
-- [ ] Message WhatsApp complet avec commande
-- [ ] Formulaire de demande sur-mesure
-- [ ] Catégories finales incluant chaussures et sacs
-- [ ] Validation build
-- [ ] Vérification responsive
-- [ ] Pull Request vers `master`
+- [x] Fiche produit détaillée (ProductDetails.jsx)
+- [x] Tailles et couleurs structurées (ProductDetails.jsx)
+- [x] Panier (CartDrawer.jsx)
+- [x] Résumé de commande (OrderForm.jsx)
+- [x] Génération d'une référence de commande (order.js)
+- [x] Message WhatsApp complet avec commande
+- [x] Catégories finales incluant chaussures et sacs
+- [x] Validation build
+- [x] Vérification responsive
+- [x] Pull Request vers `master`
+
+> Mis à jour en août 2026 : tous les items de la Phase 2 sont terminés.
 
 ## Règle métier
 Le prix affiché sur le catalogue est indicatif. Lim'Elle confirme la disponibilité et le prix final avant paiement.
