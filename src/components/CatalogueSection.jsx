@@ -2,26 +2,34 @@ import { ArrowRight } from "lucide-react";
 import CategoryFilter from "./CategoryFilter";
 import ProductGrid from "./ProductGrid";
 
+/**
+ * Category images carefully chosen to match the mockup's luxury editorial aesthetic.
+ * Each image features warm, earthy tones with beauty/lifestyle products.
+ */
 const CATEGORY_VISUALS = {
   "soins-visage": {
     title: "Soins visage",
     subtitle: "Prenez soin de vous",
-    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=600&auto=format&fit=crop",
+    // Luxury skincare bottles on warm background
+    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600&auto=format&fit=crop",
   },
   "soins-corps": {
     title: "Soins corps",
     subtitle: "Hydratez et sublimez",
-    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=600&auto=format&fit=crop",
+    // Close-up skincare/beauty shot with warm tones
+    image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=600&auto=format&fit=crop",
   },
   parfums: {
     title: "Parfums",
     subtitle: "Laissez votre empreinte",
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop",
+    // Elegant perfume bottle with golden/amber tones
+    image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=600&auto=format&fit=crop",
   },
   accessoires: {
     title: "Accessoires",
     subtitle: "L'élégance dans les détails",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop",
+    // Luxury handbag/accessories with warm editorial feel
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop",
   },
 };
 

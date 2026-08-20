@@ -2,9 +2,7 @@ export const CATEGORIES = [
   { id: "soins-visage", label: "Soins visage", emoji: "✨", desc: "Sérums, crèmes, nettoyants pour un éclat naturel" },
   { id: "soins-corps", label: "Soins corps", emoji: "🧴", desc: "Beurres, huiles, lotions pour une peau nourrie" },
   { id: "parfums", label: "Parfums", emoji: "🌸", desc: "Eaux de toilette et parfums d'exception" },
-  { id: "accessoires", label: "Accessoires", emoji: "💍", desc: "Pinceaux, éponges, coffrets beauté" },
-  { id: "maquillage", label: "Maquillage", emoji: "💄", desc: "Rouges à lèvres, poudres, fonds de teint" },
-  { id: "surmesure", label: "Sur demande", emoji: "💎", desc: "Une recherche précise à Dakar" },
+  { id: "accessoires", label: "Accessoires", emoji: "💍", desc: "Sacs, bijoux, accessoires tendance" },
 ];
 
 // Le catalogue affiché sur le site vient de l'API (voir src/services/api.js,

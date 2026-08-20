@@ -55,10 +55,11 @@ export default function BrandHero({ onCatalogue }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/30 via-transparent to-transparent" />
           </div>
-          {/* Floating tag */}
-          <div className="absolute -bottom-4 -left-4 rounded-2xl bg-[#F0EBE3] px-5 py-3 shadow-md">
+          {/* Floating tag — right side like mockup */}
+          <div className="absolute -right-2 top-8 rounded-2xl bg-[#F0EBE3]/90 backdrop-blur-sm px-5 py-3 shadow-md">
             <p className="text-xs font-semibold text-[#A0845C]">L'élégance</p>
-            <p className="text-xs text-[#6A5A4A]">au féminin, naturellement.</p>
+            <p className="text-xs text-[#6A5A4A]">au féminin,</p>
+            <p className="text-xs text-[#6A5A4A]">naturellement.</p>
           </div>
         </div>
       </div>
