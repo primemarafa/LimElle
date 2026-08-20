@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-export default function ProductGrid({ products, onSelect, onAddToCart }) {
+export default function ProductGrid({ products, onAddToCart }) {
   if (!products.length) {
     return (
       <div className="rounded-xl bg-black/3 p-8 text-center text-black/50">
@@ -15,7 +15,6 @@ export default function ProductGrid({ products, onSelect, onAddToCart }) {
         <ProductCard
           key={product.id}
           product={product}
-          onSelect={onSelect}
           onAddToCart={onAddToCart}
         />
       ))}
