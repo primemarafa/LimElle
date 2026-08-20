@@ -14,7 +14,7 @@ Phase 1 : en cours.
 - [x] Calcul du transport isolé dans `src/utils/limelle.js`.
 - [x] Calcul du prix global isolé dans `src/utils/limelle.js`.
 - [x] Service WhatsApp ajouté dans `src/services/whatsapp.js`.
-- [x] Modèles métier préparatoires ajoutés dans `src/types/models.js`.
+- [x] Modèles métier préparatoires ajoutés dans `src/types/models.js` (supprimé lors du nettoyage — doublon avec `order.js`).
 - [x] `src/App.jsx` utilise maintenant la configuration, le catalogue et les utilitaires de Phase 1.
 - [x] Le nouveau frontend utilise le numéro WhatsApp validé.
 - [x] Le nouveau frontend affiche un prix global indicatif incluant le transport de référence.
