@@ -10,8 +10,7 @@ import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
 import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
-import TestimonialsSection from "./components/TestimonialsSection";
-import StatsSection from "./components/StatsSection";
+import TrustBar from "./components/TrustBar";
 
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
@@ -161,8 +160,11 @@ export default function App() {
 
           <nav className="hidden items-center gap-7 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openCategories} className={navLinkClass("categories")}>Categories</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
+            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
+            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">À propos</a>
+            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">Journal</a>
+            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">Contact</a>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -200,7 +202,7 @@ export default function App() {
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
-            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Categories" }, { id: "products", label: "Boutique" }].map(({ id, label }) => (
+            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Catégories" }, { id: "products", label: "Boutique" }, { id: "apropos", label: "À propos" }, { id: "journal", label: "Journal" }, { id: "contact", label: "Contact" }].map(({ id, label }) => (
               <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#A0845C]" : "text-[#6A5A4A]"}`}>{label}</button>
             ))}
           </nav>
@@ -217,15 +219,14 @@ export default function App() {
           ) : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />}
         </div>
 
-        <TestimonialsSection />
-        <StatsSection />
+        <TrustBar />
 
         {/* Bottom CTA banner */}
         <section className="bg-[#1B3A2D] px-5 py-10">
           <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
-            <p className="text-xl font-medium italic text-white md:text-2xl">La beaut&#233; n'est pas un luxe, c'est votre droit.</p>
+            <p className="text-xl font-medium italic text-white md:text-2xl">La beauté n'est pas un luxe, c'est votre droit.</p>
             <button onClick={openBoutique} className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#1B3A2D] transition hover:bg-[#F0EBE3]">
-              D&#233;couvrir la boutique <span>&#8594;</span>
+              Découvrir la boutique <span>→</span>
             </button>
           </div>
         </section>
