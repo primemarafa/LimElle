@@ -4,6 +4,7 @@ import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES } from "./data/catalog";
 import { api } from "./services/api";
 import { normalizeProduct } from "./utils/normalizeProduct";
+import { cartKey } from "./utils/cart";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
@@ -20,7 +21,6 @@ import OrderConfirmation from "./components/OrderConfirmation";
 import SkipLink from "./components/SkipLink";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
-const cartKey = (product) => `${product.id}::${product.selectedSize ?? "Unique"}::${product.selectedColor ?? "Standard"}`;
 
 export default function App() {
   const [filter, setFilter] = useState("all");
@@ -144,7 +144,7 @@ export default function App() {
   if (checkout) return <main className="min-h-screen bg-white text-black"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main id="main-content" className="min-h-screen bg-white text-black">
       <SkipLink />
 
       <div className="bg-[#173F34] px-5 py-2.5 text-center text-xs font-medium text-white">
