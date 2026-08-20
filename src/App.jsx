@@ -138,24 +138,25 @@ export default function App() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products]);
 
-  const navLinkClass = (id) => `text-sm font-medium transition ${activeSection === id ? "text-[#173F34] font-semibold" : "text-black/60 hover:text-black"}`;
+  const navLinkClass = (id) => `text-sm font-medium transition ${activeSection === id ? "text-[#A0845C] font-semibold" : "text-[#6A5A4A] hover:text-[#2D2924]"}`;
 
-  if (order) return <main className="min-h-screen bg-white text-black"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-white text-black"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
+  if (order) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main id="main-content" className="min-h-screen bg-white text-black">
+    <main id="main-content" className="min-h-screen bg-[#FAF6F0] text-[#2D2924]">
       <SkipLink />
 
-      <div className="bg-[#173F34] px-5 py-2.5 text-center text-xs font-medium text-white">
-        Livraison offerte a Niamey pour toute commande de +50 000 FCFA
-      </div>
 
-      <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur">
+
+      <header className="sticky top-0 z-50 border-b border-[#E8E0D4]/60 bg-[#FAF6F0]/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2">
             <BrandLogo className="h-8 w-auto" />
-            <span className="text-xl font-semibold tracking-tight text-[#173F34]">Lim'Elle</span>
+            <div>
+              <span className="text-lg font-semibold tracking-tight text-[#2D2924]">Lim'Elle</span>
+              <span className="ml-1 hidden text-[10px] font-medium text-[#A0845C] sm:inline">L'elegance au feminin</span>
+            </div>
           </button>
 
           <nav className="hidden items-center gap-7 lg:flex">
@@ -165,17 +166,17 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black">
+            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924]">
               <Search size={18} />
             </button>
-            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black sm:flex">
+            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924] sm:flex">
               <User size={18} />
             </button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black">
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924]">
               <ShoppingBag size={18} />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#173F34] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1B3A2D] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-black/60 transition hover:bg-black/5 hover:text-black lg:hidden">
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924] lg:hidden">
               <Menu size={18} />
             </button>
           </div>
@@ -183,24 +184,24 @@ export default function App() {
       </header>
 
       {searchOpen && (
-        <div className="border-b border-black/10 bg-white px-5 py-3">
+        <div className="border-b border-[#E8E0D4] bg-[#FAF6F0] px-5 py-3">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <Search size={16} className="text-black/40" />
-            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-black placeholder:text-black/40 focus:outline-none" />
-            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-black/40 hover:text-black">Effacer</button>}
+            <Search size={16} className="text-[#8A7A6A]" />
+            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-[#2D2924] placeholder:text-[#8A7A6A] focus:outline-none" />
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7A6A] hover:text-[#2D2924]">Effacer</button>}
           </div>
         </div>
       )}
 
       {menuOpen && (
-        <div className="fixed inset-0 z-[70] bg-white p-6 lg:hidden">
+        <div className="fixed inset-0 z-[70] bg-[#FAF6F0] p-6 lg:hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xl font-semibold text-[#173F34]">Lim'Elle</span>
-            <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-black/5"><X size={20} /></button>
+            <BrandLogo className="h-7 w-auto" />
+            <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
             {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Categories" }, { id: "products", label: "Boutique" }].map(({ id, label }) => (
-              <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-black/10 py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#173F34]" : "text-black/60"}`}>{label}</button>
+              <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#A0845C]" : "text-[#6A5A4A]"}`}>{label}</button>
             ))}
           </nav>
         </div>
@@ -208,75 +209,67 @@ export default function App() {
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
         <div id="accueil" className="scroll-mt-16"><BrandHero onCatalogue={openBoutique} /></div>
+        <TrustStrip />
 
         <div id="catalogue-wrapper">
           {catalogLoading ? <CatalogueSkeleton /> : catalogError ? (
             <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800">Reessayer</button></div></section>
-          ) : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onProductSelect={setSelectedProduct} onAddToCart={addToCart} />}
+          ) : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />}
         </div>
 
-        <TrustStrip />
         <TestimonialsSection />
         <StatsSection />
 
-        <section className="px-5 pt-20 md:pt-32">
-          <div className="mx-auto max-w-md">
-            <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">Offres exclusives</h2>
-            <p className="mt-4 text-center text-base text-black/50">Inscrivez-vous pour recevoir nos offres speciales, acces anticipe et nouveautes.</p>
-            <form className="mt-10 flex items-center gap-2" onSubmit={(e) => { e.preventDefault(); const btn = e.target.querySelector("button"); btn.textContent = "Inscrit !"; btn.classList.add("bg-[#27ae60]"); setTimeout(() => { btn.textContent = "S'inscrire"; btn.classList.remove("bg-[#27ae60]"); }, 2000); }}>
-              <input type="email" required placeholder="Votre adresse email" className="flex-1 rounded-lg border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-black/10" />
-              <button type="submit" className="whitespace-nowrap rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#1e4d3f]">S'inscrire</button>
-            </form>
-          </div>
-        </section>
-
-        <section className="px-5 pt-20 pb-10 md:pt-32">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 rounded-2xl border border-black/10 p-10 md:flex-row md:p-16">
-            <h2 className="max-w-lg text-center text-3xl font-medium tracking-tight text-black md:text-left md:text-4xl">Pret a sublimer votre beaute ?</h2>
-            <WhatsAppButton message={WA_TEXT} className="whitespace-nowrap rounded-lg bg-[#173F34] px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#1e4d3f]">Commencer</WhatsAppButton>
+        {/* Bottom CTA banner */}
+        <section className="bg-[#1B3A2D] px-5 py-10">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
+            <p className="text-xl font-medium italic text-white md:text-2xl">La beaut&#233; n'est pas un luxe, c'est votre droit.</p>
+            <button onClick={openBoutique} className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#1B3A2D] transition hover:bg-[#F0EBE3]">
+              D&#233;couvrir la boutique <span>&#8594;</span>
+            </button>
           </div>
         </section>
       </>}
 
-      <footer className="border-t border-black/10 px-5 py-14">
+      <footer className="border-t border-[#E8E0D4] bg-[#FAF6F0] px-5 py-14">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-xl font-semibold text-[#173F34]">Lim'Elle</span></div>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-black/40">{LIMELLE_CONFIG.tagline}</p>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-black/50">Votre destination beaute de confiance au Sahel. Des produits naturels et de qualite pour sublimer votre beaute.</p>
+            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2D2924]">Lim'Elle</span></div>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#A0845C]">{LIMELLE_CONFIG.tagline}</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beaute de confiance au Sahel. Des produits naturels et de qualite pour sublimer votre beaute.</p>
             <div className="mt-5 flex gap-3">
               {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
               <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">FB</a>
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Boutique</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
-              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-black transition">Soins visage</button>
-              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-black transition">Soins corps</button>
-              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-black transition">Parfums</button>
-              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-black transition">Accessoires</button>
-              <button onClick={openBoutique} className="text-left hover:text-black transition">Tous les produits</button>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Boutique</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
+              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Soins visage</button>
+              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Soins corps</button>
+              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Parfums</button>
+              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Accessoires</button>
+              <button onClick={openBoutique} className="text-left hover:text-[#A0845C] transition">Tous les produits</button>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Support</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-black transition">Centre d'aide</a>
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-black transition">Contactez-nous</a>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Support</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A0845C] transition">Centre d'aide</a>
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A0845C] transition">Contactez-nous</a>
               <span className="text-left">Livraison & retours</span>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-black/40">Legal</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-black/60">
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Legal</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
               <span className="text-left">Politique de confidentialite</span>
               <span className="text-left">Conditions generales</span>
               <span className="text-left">Mentions legales</span>
             </nav>
           </div>
         </div>
-        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 text-xs text-black/40 sm:flex-row">
+        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
           <p>&copy; 2026 Lim'Elle. Tous droits reserves.</p>
           <div className="flex gap-3">
             <span className="rounded-md bg-black/5 px-3 py-1.5">Orange Money</span>
@@ -287,7 +280,7 @@ export default function App() {
         </div>
       </footer>
 
-      <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#3FBF63] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
+      <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#25D366] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
       {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout} />}
     </main>
   );

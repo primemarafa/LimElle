@@ -1,55 +1,43 @@
-import { Trophy, Truck, ShieldCheck, RotateCcw } from "lucide-react";
+import { Leaf, Diamond, Truck, Heart } from "lucide-react";
 
 const FEATURES = [
   {
-    Icon: Trophy,
+    Icon: Leaf,
+    title: "Ingrédients naturels",
+    text: "Sains et respectueux de votre peau",
+  },
+  {
+    Icon: Diamond,
     title: "Qualité premium",
-    text: "Sélection rigoureuse des meilleurs produits naturels et de qualité.",
+    text: "Sélection rigoureuse des meilleurs produits",
   },
   {
     Icon: Truck,
     title: "Livraison rapide",
-    text: "Expédition en 24-48h depuis Dakar vers Niamey et alentours.",
+    text: "Partout au Sénégal et au Niger",
   },
   {
-    Icon: ShieldCheck,
-    title: "Paiement sécurisé",
-    text: "Transactions 100% sécurisées via Orange Money, MTN MoMo et carte bancaire.",
-  },
-  {
-    Icon: RotateCcw,
-    title: "Retours faciles",
-    text: "Politique de retour simple sous 7 jours sans complication.",
+    Icon: Heart,
+    title: "Service attentionné",
+    text: "À votre écoute tous les jours",
   },
 ];
 
 export default function TrustStrip() {
   return (
-    <section className="px-5 pt-20 md:pt-32">
-      <div className="mx-auto max-w-4xl">
-        <h2 className="text-center text-3xl font-medium tracking-tight text-black md:text-4xl">
-          Pourquoi nous choisir
-        </h2>
-        <p className="mt-4 text-center text-base text-black/50 max-w-md mx-auto">
-          Des produits de qualité premium, soigneusement sélectionnés pour vous.
-        </p>
-
-        <div className="mt-14 grid gap-5 md:grid-cols-2">
-          {FEATURES.map(({ Icon, title, text }) => (
-            <div
-              key={title}
-              className="flex items-start gap-4 rounded-xl border border-black/10 p-5"
-            >
-              <div className="shrink-0 rounded-lg bg-black/5 p-3">
-                <Icon size={24} strokeWidth={1.5} className="text-[#173F34]" />
-              </div>
-              <div>
-                <h3 className="text-base font-medium text-black">{title}</h3>
-                <p className="mt-1 text-sm text-black/50 line-clamp-2">{text}</p>
-              </div>
+    <section className="bg-[#1B3A2D] px-5 py-8">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4">
+        {FEATURES.map(({ Icon, title, text }) => (
+          <div key={title} className="flex items-start gap-3 text-white">
+            <div className="shrink-0 rounded-full bg-white/10 p-2.5">
+              <Icon size={18} strokeWidth={1.5} className="text-[#D4A96A]" />
             </div>
-          ))}
-        </div>
+            <div>
+              <p className="text-sm font-semibold">{title}</p>
+              <p className="mt-0.5 text-xs leading-5 text-white/70">{text}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
