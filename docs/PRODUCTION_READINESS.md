@@ -9,6 +9,7 @@ Ce document sert de garde-fou avant la mise en ligne.
 - [x] Tests PostgreSQL réels validés par CI
 - [x] Tests Docker validés par CI
 - [x] Client frontend raccordé à l'API
+- [x] Nettoyage du code : suppression fichiers morts, CSS redondant (-30% bundle)
 - [ ] Dernier build de production validé sur une branche finale
 
 ## 2. Sécurité
