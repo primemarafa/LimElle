@@ -44,14 +44,14 @@ export default function CatalogueSection({
     .slice(0, 4);
 
   return (
-    <section id="catalogue" className="bg-[#FAF6F0] px-5 pt-16 md:pt-24">
+    <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-16 md:pt-24">
       <div className="mx-auto max-w-7xl">
         {/* ── Categories ── */}
         <div id="categories" className="scroll-mt-24 text-center">
-          <p className="text-xs font-bold uppercase tracking-[.22em] text-[#A0845C]">
+          <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">
             Nos catégories
           </p>
-          <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2D2924] md:text-4xl">
+          <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2B2620] md:text-4xl">
             Trouvez ce qui vous sublime
           </h2>
         </div>
@@ -93,17 +93,17 @@ export default function CatalogueSection({
         <div id="products" className="mt-20 scroll-mt-24">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#A0845C]">
+              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">
                 Produits phares
               </p>
-              <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2D2924] md:text-4xl">
+              <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2B2620] md:text-4xl">
                 Nos coups de cœur
               </h2>
             </div>
             <button
               type="button"
               onClick={() => onCategoryChange("all")}
-              className="hidden items-center gap-1 text-sm font-medium text-[#A0845C] hover:text-[#8A7050] sm:flex"
+              className="hidden items-center gap-1 text-sm font-medium text-[#B58A4A] hover:text-[#8A7050] sm:flex"
             >
               Voir tout <ArrowRight size={14} />
             </button>
