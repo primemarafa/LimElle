@@ -1,28 +1,33 @@
-export default function CategoryFilter({ categories, activeCategory, onChange }) {
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
+export default function CategoryFilter({ categories, activeCategory, onCategoryChange }) {
   return (
-    <div className="flex flex-wrap gap-2">
-      <button
-        onClick={() => onChange("all")}
-        className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-          activeCategory === "all"
-            ? "bg-[#A0845C] text-white"
-            : "border border-[#E8E0D4] bg-white text-[#6A5A4A] hover:border-[#A0845C] hover:text-[#A0845C]"
-        }`}
+    <div
+      role="tablist"
+      aria-label="Filtrer par catégorie"
+      className="flex flex-wrap gap-2"
+    >
+      <Button
+        variant={activeCategory === "all" ? "gold" : "outline"}
+        size="sm"
+        onClick={() => onCategoryChange("all")}
+        role="tab"
+        aria-selected={activeCategory === "all"}
       >
         Tout
-      </button>
-      {categories.filter((c) => c.id !== "surmesure").map((category) => (
-        <button
+      </Button>
+      {categories.map((category) => (
+        <Button
           key={category.id}
-          onClick={() => onChange(category.id)}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-            activeCategory === category.id
-              ? "bg-[#A0845C] text-white"
-              : "border border-[#E8E0D4] bg-white text-[#6A5A4A] hover:border-[#A0845C] hover:text-[#A0845C]"
-          }`}
+          variant={activeCategory === category.id ? "gold" : "outline"}
+          size="sm"
+          onClick={() => onCategoryChange(category.id)}
+          role="tab"
+          aria-selected={activeCategory === category.id}
         >
-          {category.emoji} {category.label}
-        </button>
+          {category.name}
+        </Button>
       ))}
     </div>
   );
