@@ -18,7 +18,7 @@ export default function BrandHero({ onCatalogue }) {
           aria-hidden="true"
         />
         {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EC]/95 via-[#F8F4EC]/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EC]/80 via-[#F8F4EC]/40 to-transparent" />
       </div>
 
       {/* Content overlay */}
