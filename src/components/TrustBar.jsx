@@ -1,4 +1,4 @@
-import { ShieldCheck, Users, MessageCircle } from "lucide-react";
+import { ShieldCheck, Star, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const TRUST_ITEMS = [
@@ -8,9 +8,13 @@ const TRUST_ITEMS = [
     description: "Vos transactions sont 100% sécurisées",
   },
   {
-    icon: Users,
+    type: "reviews",
     title: "+500 clientes satisfaites",
-    description: "Une note moyenne de ★★★★★",
+    avatars: [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&auto=format&fit=crop",
+    ],
   },
   {
     icon: MessageCircle,
@@ -19,6 +23,32 @@ const TRUST_ITEMS = [
   },
 ];
 
+function StarRating() {
+  return (
+    <div className="flex items-center gap-0.5">
+      {[...Array(5)].map((_, i) => (
+        <Star key={i} size={14} className="fill-[#B58A4A] text-[#B58A4A]" />
+      ))}
+    </div>
+  );
+}
+
+function AvatarStack({ urls }) {
+  return (
+    <div className="flex -space-x-2">
+      {urls.map((url, i) => (
+        <img
+          key={i}
+          src={url}
+          alt={`Cliente ${i + 1}`}
+          className="h-8 w-8 rounded-full border-2 border-[#1B3A2D] object-cover"
+          loading="lazy"
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function TrustBar() {
   return (
     <section
@@ -26,28 +56,48 @@ export default function TrustBar() {
       className="bg-[#1B3A2D] px-5 py-12"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-3">
-        {TRUST_ITEMS.map(({ icon: Icon, title, description }) => (
-          <div
-            key={title}
-            className="flex flex-col items-center gap-3 text-center"
-          >
+        {TRUST_ITEMS.map((item, i) => {
+          if (item.type === "reviews") {
+            return (
+              <div
+                key={i}
+                className="flex flex-col items-center gap-3 text-center"
+              >
+                <AvatarStack urls={item.avatars} />
+                <div>
+                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                  <div className="mt-1.5 flex justify-center">
+                    <StarRating />
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          const Icon = item.icon;
+          return (
             <div
-              className={cn(
-                "flex h-11 w-11 items-center justify-center",
-                "rounded-full bg-white/10 text-[#C8B99A]"
-              )}
-              aria-hidden="true"
+              key={i}
+              className="flex flex-col items-center gap-3 text-center"
             >
-              <Icon size={20} strokeWidth={1.5} />
+              <div
+                className={cn(
+                  "flex h-11 w-11 items-center justify-center",
+                  "rounded-full bg-white/10 text-[#C8B99A]"
+                )}
+                aria-hidden="true"
+              >
+                <Icon size={20} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-white/70">
+                  {item.description}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white">{title}</h3>
-              <p className="mt-1 text-xs leading-relaxed text-white/70">
-                {description}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

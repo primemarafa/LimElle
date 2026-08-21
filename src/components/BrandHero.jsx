@@ -54,7 +54,7 @@ export default function BrandHero({ onCatalogue }) {
         {/* Portrait */}
         <div className="relative hidden h-full md:block">
           <img
-            src="/images/hero-portrait.jpg"
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800&auto=format&fit=crop"
             alt="Femme africaine sublimée par les produits Lim'Elle"
             className="h-full w-full object-cover"
             loading="eager"
