@@ -215,7 +215,6 @@ export default function App() {
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
         <div id="accueil" className="scroll-mt-16"><BrandHero onCatalogue={openBoutique} /></div>
-        <TrustStrip />
 
         <div id="catalogue-wrapper">
           <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />
