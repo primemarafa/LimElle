@@ -138,24 +138,24 @@ export default function App() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products, navOverride]);
 
-  const navLinkClass = (id) => `text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#A0845C] font-semibold" : "text-[#6A5A4A] hover:text-[#2D2924]"}`;
+  const navLinkClass = (id) => `text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#B58A4A] font-semibold" : "text-[#6A5A4A] hover:text-[#2B2620]"}`;
 
-  if (order) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
+  if (order) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main id="main-content" className="min-h-screen bg-[#FAF6F0] text-[#2D2924]">
+    <main id="main-content" className="min-h-screen bg-[#F8F4EC] text-[#2B2620]">
       <SkipLink />
 
 
 
-      <header className="sticky top-0 z-50 border-b border-[#E8E0D4]/60 bg-[#FAF6F0]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-[#E8E0D4]/60 bg-[#F8F4EC]/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2">
             <BrandLogo className="h-8 w-auto" />
             <div>
-              <span className="text-lg font-semibold tracking-tight text-[#2D2924]">Lim'Elle</span>
-              <span className="ml-1 hidden text-[10px] font-medium text-[#A0845C] sm:inline">L'elegance au feminin</span>
+              <span className="text-lg font-semibold tracking-tight text-[#2B2620]">Lim'Elle</span>
+              <span className="ml-1 hidden text-[10px] font-medium text-[#B58A4A] sm:inline">L'elegance au feminin</span>
             </div>
           </button>
 
@@ -169,17 +169,17 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924]">
+            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
               <Search size={18} />
             </button>
-            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924] sm:flex">
+            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] sm:flex">
               <User size={18} />
             </button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924]">
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
               <ShoppingBag size={18} />
               {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1B3A2D] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2D2924] lg:hidden">
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] lg:hidden">
               <Menu size={18} />
             </button>
           </div>
@@ -187,17 +187,17 @@ export default function App() {
       </header>
 
       {searchOpen && (
-        <div className="border-b border-[#E8E0D4] bg-[#FAF6F0] px-5 py-3">
+        <div className="border-b border-[#E8E0D4] bg-[#F8F4EC] px-5 py-3">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
             <Search size={16} className="text-[#8A7A6A]" />
-            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-[#2D2924] placeholder:text-[#8A7A6A] focus:outline-none" />
-            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7A6A] hover:text-[#2D2924]">Effacer</button>}
+            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-[#2B2620] placeholder:text-[#8A7A6A] focus:outline-none" />
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7A6A] hover:text-[#2B2620]">Effacer</button>}
           </div>
         </div>
       )}
 
       {menuOpen && (
-        <div className="fixed inset-0 z-[70] bg-[#FAF6F0] p-6 lg:hidden">
+        <div className="fixed inset-0 z-[70] bg-[#F8F4EC] p-6 lg:hidden">
           <div className="flex items-center justify-between">
             <BrandLogo className="h-7 w-auto" />
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
@@ -206,7 +206,7 @@ export default function App() {
             {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Catégories" }, { id: "products", label: "Boutique" }, { id: "apropos", label: "À propos", disabled: true }, { id: "journal", label: "Journal", disabled: true }, { id: "contact", label: "Contact", disabled: true }].map(({ id, label, disabled }) => (
               disabled
                 ? <span key={id} className="border-b border-[#E8E0D4] py-4 text-left text-lg font-medium text-[#8A7A6A]/50">{label}</span>
-                : <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#A0845C]" : "text-[#6A5A4A]"}`}>{label}</button>
+                : <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A]"}`}>{label}</button>
             ))}
           </nav>
         </div>
@@ -233,11 +233,11 @@ export default function App() {
         </section>
       </>}
 
-      <footer className="border-t border-[#E8E0D4] bg-[#FAF6F0] px-5 py-14">
+      <footer className="border-t border-[#E8E0D4] bg-[#F8F4EC] px-5 py-14">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2D2924]">Lim'Elle</span></div>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#A0845C]">{LIMELLE_CONFIG.tagline}</p>
+            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2B2620]">Lim'Elle</span></div>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#B58A4A]">{LIMELLE_CONFIG.tagline}</p>
             <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beaute de confiance au Sahel. Des produits naturels et de qualite pour sublimer votre beaute.</p>
             <div className="mt-5 flex gap-3">
               {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
@@ -245,25 +245,25 @@ export default function App() {
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Boutique</p>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Boutique</p>
             <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
-              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Soins visage</button>
-              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Soins corps</button>
-              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Parfums</button>
-              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-[#A0845C] transition">Accessoires</button>
-              <button onClick={openBoutique} className="text-left hover:text-[#A0845C] transition">Tous les produits</button>
+              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Soins visage</button>
+              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Soins corps</button>
+              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Parfums</button>
+              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Accessoires</button>
+              <button onClick={openBoutique} className="text-left hover:text-[#B58A4A] transition">Tous les produits</button>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Support</p>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Support</p>
             <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A0845C] transition">Centre d'aide</a>
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A0845C] transition">Contactez-nous</a>
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#B58A4A] transition">Centre d'aide</a>
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#B58A4A] transition">Contactez-nous</a>
               <span className="text-left">Livraison & retours</span>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2D2924]">Legal</p>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Legal</p>
             <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
               <span className="text-left">Politique de confidentialite</span>
               <span className="text-left">Conditions generales</span>
