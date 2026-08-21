@@ -8,22 +8,19 @@ export default function BrandHero({ onCatalogue }) {
       aria-label="Bienvenue"
       className="relative min-h-[520px] overflow-hidden md:min-h-[600px] lg:min-h-[650px]"
     >
-      {/* Full-width background image */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/hero-portrait.jpg"
-          alt=""
-          className="h-full w-full object-cover object-center"
-          loading="eager"
-          aria-hidden="true"
-        />
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EC]/80 via-[#F8F4EC]/40 to-transparent" />
-      </div>
+      {/* Full-width background image — sharp, no blur */}
+      <img
+        src="/images/hero-portrait.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        loading="eager"
+        aria-hidden="true"
+      />
 
-      {/* Content overlay */}
+      {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-[520px] max-w-7xl items-center px-6 py-16 md:min-h-[600px] md:px-12 lg:min-h-[650px]">
-        <div className="flex max-w-xl flex-col gap-6">
+        {/* Text panel with subtle background for readability */}
+        <div className="flex max-w-xl flex-col gap-6 rounded-2xl bg-[#F8F4EC]/85 p-8 backdrop-blur-sm md:bg-[#F8F4EC]/70 md:backdrop-blur-none">
           <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.4rem]">
             <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
             <span className="block font-serif">notre priorité.</span>
@@ -64,7 +61,7 @@ export default function BrandHero({ onCatalogue }) {
           </div>
         </div>
 
-        {/* Floating tag on the right side */}
+        {/* Floating tag */}
         <div
           className={cn(
             "absolute bottom-8 right-8 rounded-xl bg-white/90 px-5 py-3",
