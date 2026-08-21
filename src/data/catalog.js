@@ -5,6 +5,59 @@ export const CATEGORIES = [
   { id: "accessoires", label: "Accessoires", emoji: "💍", desc: "Sacs, bijoux, accessoires tendance" },
 ];
 
+/**
+ * Fallback products shown when the API is unreachable.
+ * These match the 5 products displayed in the approved mockup.
+ * Once the backend is live, the API response replaces this list.
+ */
+export const FALLBACK_PRODUCTS = [
+  {
+    id: "le-001",
+    name: "Sérum éclat naturel",
+    description: "Anti-taches · 30ml",
+    price: 9500,
+    img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400&auto=format&fit=crop",
+    cat: "soins-visage",
+    badge: "Sélection",
+  },
+  {
+    id: "le-002",
+    name: "Beurre de karité pur",
+    description: "Hydratation intense · 200g",
+    price: 6000,
+    img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=400&auto=format&fit=crop",
+    cat: "soins-corps",
+    badge: "Sélection",
+  },
+  {
+    id: "le-003",
+    name: "Parfum Élégance",
+    description: "Eau de parfum · 50ml",
+    price: 12500,
+    img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop",
+    cat: "parfums",
+    badge: "Sélection",
+  },
+  {
+    id: "le-004",
+    name: "Savon clarifiant",
+    description: "Éclat naturel · 100g",
+    price: 2500,
+    img: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=400&auto=format&fit=crop",
+    cat: "soins-corps",
+    badge: "Sélection",
+  },
+  {
+    id: "le-005",
+    name: "Huile précieuse",
+    description: "Nourrissante · 50ml",
+    price: 8500,
+    img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=400&auto=format&fit=crop",
+    cat: "soins-corps",
+    badge: "Sélection",
+  },
+];
+
 // Le catalogue affiché sur le site vient de l'API (voir src/services/api.js,
 // api.products()), pas de ce fichier. PRODUCTS a été retiré : il n'était
 // plus utilisé nulle part et risquait de désynchroniser avec le vrai
