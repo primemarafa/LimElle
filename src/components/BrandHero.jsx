@@ -1,11 +1,11 @@
 import WhatsAppButton from "./WhatsAppButton";
 
 /**
- * Hero portrait — Unsplash image of an African woman in warm tones,
- * matching the mockup's editorial luxury beauty aesthetic.
+ * Hero portrait — African woman with headwrap and gold earrings,
+ * warm earthy tones matching the approved mockup exactly.
  */
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1589156191108-c765ff5610be?q=80&w=800&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800&auto=format&fit=crop";
 
 export default function BrandHero({ onCatalogue }) {
   return (
