@@ -1,22 +1,28 @@
 import ProductCard from "./ProductCard";
+import { cn } from "@/lib/utils";
 
 export default function ProductGrid({ products, onAddToCart }) {
-  if (!products.length) {
+  if (!products?.length) {
     return (
-      <div className="rounded-xl bg-[#F0EBE3]/50 p-10 text-center text-sm text-[#8A7A6A]">
-        Aucun produit ne correspond à cette catégorie.
+      <div className="py-16 text-center">
+        <p className="text-sm text-[#6A5A4A]">Aucun produit ne correspond à cette catégorie.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+    <div
+      role="list"
+      aria-label="Produits"
+      className={cn(
+        "grid gap-4 sm:gap-5",
+        "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+      )}
+    >
       {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          onAddToCart={onAddToCart}
-        />
+        <div key={product.id || product.name} role="listitem">
+          <ProductCard product={product} onAddToCart={onAddToCart} />
+        </div>
       ))}
     </div>
   );
