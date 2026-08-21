@@ -1,32 +1,32 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, Droplets, Flower2, ShoppingBag } from "lucide-react";
 import ProductGrid from "./ProductGrid";
 
-/**
- * Category images matching the mockup's luxury editorial aesthetic.
- * Warm earthy tones, beauty products, lifestyle shots.
- */
 const CATEGORY_VISUALS = {
   "soins-visage": {
     title: "Soins visage",
     subtitle: "Prenez soin de vous",
+    icon: Sparkles,
     image:
       "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600&auto=format&fit=crop",
   },
   "soins-corps": {
     title: "Soins corps",
     subtitle: "Hydratez et sublimez",
+    icon: Droplets,
     image:
       "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=600&auto=format&fit=crop",
   },
   parfums: {
     title: "Parfums",
     subtitle: "Laissez votre empreinte",
+    icon: Flower2,
     image:
       "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=600&auto=format&fit=crop",
   },
   accessoires: {
     title: "Accessoires",
     subtitle: "L'élégance dans les détails",
+    icon: ShoppingBag,
     image:
       "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop",
   },
@@ -46,7 +46,7 @@ export default function CatalogueSection({
   return (
     <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-16 md:pt-24">
       <div className="mx-auto max-w-7xl">
-        {/* ── Categories ── */}
+        {/* Categories */}
         <div id="categories" className="scroll-mt-24 text-center">
           <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">
             Nos catégories
@@ -59,6 +59,7 @@ export default function CatalogueSection({
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {visualCategories.map((category) => {
             const v = CATEGORY_VISUALS[category.id];
+            const Icon = v.icon;
             return (
               <button
                 key={category.id}
@@ -74,6 +75,12 @@ export default function CatalogueSection({
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/80 via-[#1B1712]/20 to-transparent" />
+                  
+                  {/* Icon badge */}
+                  <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                    <Icon size={18} className="text-white" />
+                  </div>
+
                   <div className="absolute inset-x-0 bottom-0 p-5">
                     <h3 className="text-lg font-semibold text-white">
                       {v.title}
@@ -89,7 +96,7 @@ export default function CatalogueSection({
           })}
         </div>
 
-        {/* ── Products ── */}
+        {/* Products */}
         <div id="products" className="mt-20 scroll-mt-24">
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -103,7 +110,7 @@ export default function CatalogueSection({
             <button
               type="button"
               onClick={() => onCategoryChange("all")}
-              className="hidden items-center gap-1 text-sm font-medium text-[#B58A4A] hover:text-[#8A7050] sm:flex"
+              className="hidden items-center gap-1 text-sm font-medium text-[#B58A4A] hover:text-[#9A7540] sm:flex"
             >
               Voir tout <ArrowRight size={14} />
             </button>
