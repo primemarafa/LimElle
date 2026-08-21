@@ -40,6 +40,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSection, setActiveSection] = useState("accueil");
+  const [navOverride, setNavOverride] = useState(null);
 
   const loadCatalog = () => {
     setCatalogError("");
@@ -96,7 +97,13 @@ export default function App() {
 
   const scrollTo = (id) => {
     setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById(id);
+    if (el) {
+      setNavOverride(id);
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Reset override after scroll settles so scroll spy takes back over
+      setTimeout(() => setNavOverride(null), 2000);
+    }
   };
 
   const openCategories = () => { setFilter("all"); scrollTo("categories"); };
@@ -108,6 +115,7 @@ export default function App() {
     let sections = getSections();
 
     const updateActiveSection = () => {
+      if (navOverride) return; // Don't fight with manual nav click
       const referenceLine = 96;
       let current = sections[0]?.id;
       for (const section of sections) {
@@ -128,9 +136,9 @@ export default function App() {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
-  }, [products]);
+  }, [products, navOverride]);
 
-  const navLinkClass = (id) => `text-sm font-medium transition ${activeSection === id ? "text-[#A0845C] font-semibold" : "text-[#6A5A4A] hover:text-[#2D2924]"}`;
+  const navLinkClass = (id) => `text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#A0845C] font-semibold" : "text-[#6A5A4A] hover:text-[#2D2924]"}`;
 
   if (order) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
   if (checkout) return <main className="min-h-screen bg-[#FAF6F0] text-[#2D2924]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
@@ -155,9 +163,9 @@ export default function App() {
             <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
             <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
             <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
-            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">À propos</a>
-            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">Journal</a>
-            <a href="#" className="text-sm font-medium text-[#6A5A4A] hover:text-[#2D2924] transition">Contact</a>
+            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">À propos</span>
+            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Journal</span>
+            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Contact</span>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -195,8 +203,10 @@ export default function App() {
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
-            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Catégories" }, { id: "products", label: "Boutique" }, { id: "apropos", label: "À propos" }, { id: "journal", label: "Journal" }, { id: "contact", label: "Contact" }].map(({ id, label }) => (
-              <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${activeSection === id ? "text-[#A0845C]" : "text-[#6A5A4A]"}`}>{label}</button>
+            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Catégories" }, { id: "products", label: "Boutique" }, { id: "apropos", label: "À propos", disabled: true }, { id: "journal", label: "Journal", disabled: true }, { id: "contact", label: "Contact", disabled: true }].map(({ id, label, disabled }) => (
+              disabled
+                ? <span key={id} className="border-b border-[#E8E0D4] py-4 text-left text-lg font-medium text-[#8A7A6A]/50">{label}</span>
+                : <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#A0845C]" : "text-[#6A5A4A]"}`}>{label}</button>
             ))}
           </nav>
         </div>
