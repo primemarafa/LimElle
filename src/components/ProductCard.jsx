@@ -14,7 +14,7 @@ export default function ProductCard({ product, onAddToCart }) {
       "transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
     )}>
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-[#F5F0E8]">
+      <div className="relative aspect-square overflow-hidden bg-[#E9DFCE]">
         <img
           src={image || PLACEHOLDER_IMG}
           alt={name}
@@ -44,7 +44,7 @@ export default function ProductCard({ product, onAddToCart }) {
 
       {/* Content */}
       <CardContent className="p-4">
-        <h3 className="font-sans text-sm font-semibold text-[#2D2924] line-clamp-1">
+        <h3 className="font-sans text-sm font-semibold text-[#2B2620] line-clamp-1">
           {name}
         </h3>
         {description && (
@@ -53,7 +53,7 @@ export default function ProductCard({ product, onAddToCart }) {
           </p>
         )}
         <div className="mt-3 flex items-center justify-between">
-          <p className="text-sm font-bold text-[#A0845C]">
+          <p className="text-sm font-bold text-[#B58A4A]">
             {typeof price === "number" ? `${price.toLocaleString("fr-FR")} FCFA` : price}
           </p>
         </div>
