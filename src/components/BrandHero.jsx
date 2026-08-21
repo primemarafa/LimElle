@@ -6,11 +6,24 @@ export default function BrandHero({ onCatalogue }) {
   return (
     <section
       aria-label="Bienvenue"
-      className="relative overflow-hidden bg-gradient-to-br from-[#EDE4D4] via-[#E8DCC8] to-[#DDD0BA]"
+      className="relative min-h-[520px] overflow-hidden md:min-h-[600px] lg:min-h-[650px]"
     >
-      <div className="mx-auto grid min-h-[480px] max-w-7xl items-center md:grid-cols-2 md:min-h-[560px] lg:min-h-[600px]">
-        {/* Text */}
-        <div className="relative z-10 flex flex-col gap-6 px-6 py-16 md:px-12 md:py-0">
+      {/* Full-width background image */}
+      <div className="absolute inset-0">
+        <img
+          src="/images/hero-portrait.jpg"
+          alt=""
+          className="h-full w-full object-cover object-center"
+          loading="eager"
+          aria-hidden="true"
+        />
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EC]/95 via-[#F8F4EC]/70 to-transparent" />
+      </div>
+
+      {/* Content overlay */}
+      <div className="relative z-10 mx-auto flex min-h-[520px] max-w-7xl items-center px-6 py-16 md:min-h-[600px] md:px-12 lg:min-h-[650px]">
+        <div className="flex max-w-xl flex-col gap-6">
           <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.4rem]">
             <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
             <span className="block font-serif">notre priorité.</span>
@@ -51,25 +64,16 @@ export default function BrandHero({ onCatalogue }) {
           </div>
         </div>
 
-        {/* Portrait */}
-        <div className="relative hidden h-full md:block">
-          <img
-            src="/images/hero-portrait.jpg"
-            alt="Femme africaine sublimée par les produits Lim'Elle"
-            className="h-full w-full object-cover object-center"
-            loading="eager"
-          />
-          {/* Floating tag */}
-          <div
-            className={cn(
-              "absolute bottom-8 right-8 rounded-xl bg-white/90 px-5 py-3",
-              "shadow-lg backdrop-blur-sm"
-            )}
-          >
-            <p className="text-xs font-medium italic text-[#B58A4A]">
-              L'élégance au féminin,<br />naturellement.
-            </p>
-          </div>
+        {/* Floating tag on the right side */}
+        <div
+          className={cn(
+            "absolute bottom-8 right-8 rounded-xl bg-white/90 px-5 py-3",
+            "shadow-lg backdrop-blur-sm hidden md:block"
+          )}
+        >
+          <p className="text-xs font-medium italic text-[#B58A4A]">
+            L'élégance au féminin,<br />naturellement.
+          </p>
         </div>
       </div>
     </section>
