@@ -1,14 +1,13 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
 import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
-import { CATEGORIES } from "./data/catalog";
+import { CATEGORIES, FALLBACK_PRODUCTS } from "./data/catalog";
 import { api } from "./services/api";
 import { normalizeProduct } from "./utils/normalizeProduct";
 import { cartKey } from "./utils/cart";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
-import CatalogueSkeleton from "./components/CatalogueSkeleton";
 import TrustStrip from "./components/TrustStrip";
 import TrustBar from "./components/TrustBar";
 
@@ -41,28 +40,22 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSection, setActiveSection] = useState("accueil");
-  const [catalogLoading, setCatalogLoading] = useState(true);
 
   const loadCatalog = () => {
     setCatalogError("");
-    setCatalogLoading(true);
+    setProducts(FALLBACK_PRODUCTS);
     let active = true;
     const attempt = (retriesLeft) => {
       api.products()
         .then((payload) => {
           if (active) {
-            setProducts(Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : []);
-            setCatalogLoading(false);
+            const apiProducts = Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : [];
+            if (apiProducts.length > 0) setProducts(apiProducts);
           }
         })
-        .catch((error) => {
-          if (!active) return;
-          if (retriesLeft > 0) {
-            setTimeout(() => active && attempt(retriesLeft - 1), 4000);
-            return;
-          }
-          setCatalogError(error.message || "Impossible de charger le catalogue.");
-          setCatalogLoading(false);
+        .catch(() => {
+          if (!active || retriesLeft <= 0) return;
+          setTimeout(() => active && attempt(retriesLeft - 1), 4000);
         });
     };
     attempt(3);
@@ -214,9 +207,7 @@ export default function App() {
         <TrustStrip />
 
         <div id="catalogue-wrapper">
-          {catalogLoading ? <CatalogueSkeleton /> : catalogError ? (
-            <section className="mx-auto max-w-7xl px-5 py-12"><div className="rounded-xl bg-red-50 p-5 text-sm font-semibold text-red-700">{catalogError}<button type="button" onClick={loadCatalog} className="ml-4 inline-flex rounded-full bg-red-700 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-800">Reessayer</button></div></section>
-          ) : <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />}
+          <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />
         </div>
 
         <TrustBar />
