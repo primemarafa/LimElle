@@ -1,14 +1,21 @@
-import { Truck, MapPin } from "lucide-react";
+import { Leaf, Award, Truck, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+const TRUST_FEATURES = [
+  { icon: Leaf, label: "Ingrédients naturels", description: "Sains et respectueux de votre peau" },
+  { icon: Award, label: "Qualité premium", description: "Sélection rigoureuse des meilleurs produits" },
+  { icon: Truck, label: "Livraison rapide", description: "Partout au Sénégal et au Niger" },
+  { icon: HeartHandshake, label: "Service attentionné", description: "À votre écoute tous les jours" },
+];
 
 export default function BrandHero({ onCatalogue }) {
   return (
     <section
       aria-label="Bienvenue"
-      className="relative min-h-[520px] overflow-hidden md:min-h-[600px] lg:min-h-[650px]"
+      className="relative min-h-[520px] overflow-hidden pb-[100px] md:min-h-[600px] md:pb-[110px] lg:min-h-[650px]"
     >
-      {/* Full-width background image — sharp, no blur */}
+      {/* Full-width background image */}
       <img
         src="/images/hero-portrait.jpg"
         alt=""
@@ -19,7 +26,7 @@ export default function BrandHero({ onCatalogue }) {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-[520px] max-w-7xl items-center px-6 py-16 md:min-h-[600px] md:px-12 lg:min-h-[650px]">
-        {/* Text panel with subtle background for readability */}
+        {/* Text panel */}
         <div className="flex max-w-xl flex-col gap-6 rounded-2xl bg-[#F8F4EC]/85 p-8 backdrop-blur-sm md:bg-[#F8F4EC]/70 md:backdrop-blur-none">
           <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.4rem]">
             <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
@@ -29,7 +36,6 @@ export default function BrandHero({ onCatalogue }) {
             Découvrez des produits soigneusement sélectionnés pour sublimer votre éclat naturel chaque jour.
           </p>
 
-          {/* CTA */}
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="green" size="lg" onClick={onCatalogue}>
               Découvrir la boutique <span aria-hidden="true">→</span>
@@ -46,7 +52,6 @@ export default function BrandHero({ onCatalogue }) {
             </Button>
           </div>
 
-          {/* Shipping info */}
           <div className="flex flex-wrap gap-5 text-xs text-[#6A5A4A]">
             <span className="flex items-center gap-1.5" aria-label="Livraison rapide">
               <span aria-hidden="true">🚚</span>
@@ -71,6 +76,29 @@ export default function BrandHero({ onCatalogue }) {
           <p className="text-xs font-medium italic text-[#B58A4A]">
             L'élégance au féminin,<br />naturellement.
           </p>
+        </div>
+      </div>
+
+      {/* Trust strip — glued to bottom of hero like mockup */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 bg-[#1B3A2D]">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-6 md:grid-cols-4 md:gap-6 md:py-8">
+          {TRUST_FEATURES.map(({ icon: Icon, label, description }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-2 text-center"
+            >
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-[#C8B99A]"
+                aria-hidden="true"
+              >
+                <Icon size={20} strokeWidth={1.5} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">{label}</p>
+                <p className="mt-0.5 text-xs text-white/70">{description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
