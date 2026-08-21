@@ -156,7 +156,7 @@ export default function App() {
             <BrandLogo className="h-8 w-auto" />
             <div>
               <span className="text-lg font-semibold tracking-tight text-[#2B2620]">Lim'Elle</span>
-              <span className="ml-1 hidden text-[10px] font-medium text-[#B58A4A] sm:inline">L'elegance au feminin</span>
+              <span className="ml-1 hidden text-[10px] font-medium text-[#B58A4A] sm:inline">L'élégance au féminin</span>
             </div>
           </button>
 
@@ -241,7 +241,7 @@ export default function App() {
           <div>
             <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2B2620]">Lim'Elle</span></div>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#B58A4A]">{LIMELLE_CONFIG.tagline}</p>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beaute de confiance au Sahel. Des produits naturels et de qualite pour sublimer votre beaute.</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beauté de confiance au Sahel. Des produits naturels et de qualité pour sublimer votre beauté.</p>
             <div className="mt-5 flex gap-3">
               {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
               <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">FB</a>
@@ -268,14 +268,14 @@ export default function App() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Legal</p>
             <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
-              <span className="text-left">Politique de confidentialite</span>
-              <span className="text-left">Conditions generales</span>
-              <span className="text-left">Mentions legales</span>
+              <span className="text-left">Politique de confidentialité</span>
+              <span className="text-left">Conditions générales</span>
+              <span className="text-left">Mentions légales</span>
             </nav>
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
-          <p>&copy; 2026 Lim'Elle. Tous droits reserves.</p>
+          <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
           <div className="flex gap-3">
             <span className="rounded-md bg-black/5 px-3 py-1.5">Orange Money</span>
             <span className="rounded-md bg-black/5 px-3 py-1.5">MTN MoMo</span>
