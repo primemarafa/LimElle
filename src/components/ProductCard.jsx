@@ -21,8 +21,9 @@ export default function ProductCard({ product, onAddToCart }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        {/* Hover overlay with cart button */}
-        <div className="absolute inset-0 bg-[#1B1712]/0 transition-colors duration-300 group-hover:bg-[#1B1712]/20" />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-[#1B1712]/0 transition-colors duration-300 group-hover:bg-[#1B1712]/10" />
+        {/* Cart button on hover */}
         <Button
           variant="gold"
           size="icon"
@@ -56,6 +57,18 @@ export default function ProductCard({ product, onAddToCart }) {
           <p className="text-sm font-bold text-[#B58A4A]">
             {typeof price === "number" ? `${price.toLocaleString("fr-FR")} FCFA` : price}
           </p>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-full text-[#6A5A4A] hover:text-[#1B3A2D] hover:bg-[#E9DFCE]"
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToCart?.(product);
+            }}
+            aria-label={`Ajouter ${name} au panier`}
+          >
+            <ShoppingBag size={14} />
+          </Button>
         </div>
       </CardContent>
     </Card>

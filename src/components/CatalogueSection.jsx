@@ -44,9 +44,9 @@ export default function CatalogueSection({
     .slice(0, 4);
 
   return (
-    <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-16 md:pt-24">
+    <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-20 md:pt-28">
       <div className="mx-auto max-w-7xl">
-        {/* Categories */}
+        {/* Categories header */}
         <div id="categories" className="scroll-mt-24 text-center">
           <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">
             Nos catégories
@@ -56,7 +56,8 @@ export default function CatalogueSection({
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Category cards */}
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {visualCategories.map((category) => {
             const v = CATEGORY_VISUALS[category.id];
             const Icon = v.icon;
@@ -65,20 +66,20 @@ export default function CatalogueSection({
                 key={category.id}
                 type="button"
                 onClick={() => onCategoryChange(category.id)}
-                className="group relative overflow-hidden rounded-2xl transition hover:shadow-lg"
+                className="group relative overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <img
                     src={v.image}
                     alt={v.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/80 via-[#1B1712]/20 to-transparent" />
                   
                   {/* Icon badge */}
                   <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
-                    <Icon size={18} className="text-white" />
+                    <Icon size={18} className="text-white" strokeWidth={1.5} />
                   </div>
 
                   <div className="absolute inset-x-0 bottom-0 p-5">
@@ -96,8 +97,8 @@ export default function CatalogueSection({
           })}
         </div>
 
-        {/* Products */}
-        <div id="products" className="mt-20 scroll-mt-24">
+        {/* Products header */}
+        <div id="products" className="mt-24 scroll-mt-24">
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">
@@ -116,7 +117,7 @@ export default function CatalogueSection({
             </button>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-10">
             <ProductGrid products={products} onAddToCart={onAddToCart} />
           </div>
         </div>
