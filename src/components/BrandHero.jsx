@@ -3,19 +3,20 @@ import WhatsAppButton from "./WhatsAppButton";
 /**
  * Hero portrait — African woman with headwrap and gold earrings,
  * warm earthy tones matching the approved mockup exactly.
+ * Image extends edge-to-edge on the right, filling the full hero height.
  */
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=900&auto=format&fit=crop";
 
 export default function BrandHero({ onCatalogue }) {
   return (
     <section className="relative overflow-hidden bg-[#EDE4D4]">
-      {/* Warm textured background */}
+      {/* Warm gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#EDE4D4] via-[#E8DCC8] to-[#DDD0BA]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-0 px-5 pt-14 pb-0 md:grid-cols-[1fr_1fr] md:gap-8 md:pt-20 md:pb-0 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl items-center px-5 pt-14 pb-0 md:grid-cols-[1fr_1fr] md:gap-0 md:pt-16 md:pb-0 lg:px-8">
         {/* Left — editorial copy */}
-        <div className="relative z-10 pb-12 md:pb-20">
+        <div className="relative z-10 pb-12 md:pb-16">
           <h1 className="text-[2.5rem] font-medium leading-[1.08] tracking-tight text-[#2D2924] sm:text-5xl lg:text-[3.5rem]">
             Votre beauté,{" "}
             <br className="hidden sm:block" />
@@ -71,19 +72,19 @@ export default function BrandHero({ onCatalogue }) {
           </div>
         </div>
 
-        {/* Right — portrait image */}
+        {/* Right — portrait image (edge-to-edge, full height) */}
         <div className="relative hidden md:block">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-t-3xl">
+          <div className="relative h-[520px] overflow-hidden lg:h-[600px]">
             <img
               src={HERO_IMAGE}
               alt="Portrait éditorial Lim'Elle — femme africaine aux tons chauds"
-              className="h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-top"
               loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/20 via-transparent to-transparent" />
           </div>
 
-          {/* Floating tag — right side like mockup */}
+          {/* Floating tag — right edge like mockup */}
           <div className="absolute -right-1 top-8 rounded-2xl bg-[#F0EBE3]/95 px-5 py-3 shadow-md backdrop-blur-sm">
             <p className="text-[11px] font-semibold leading-snug text-[#A0845C]">
               L'élégance
