@@ -11,8 +11,8 @@ export default function BrandHero({ onCatalogue }) {
       <div className="mx-auto grid min-h-[480px] max-w-7xl items-center md:grid-cols-2 md:min-h-[560px] lg:min-h-[600px]">
         {/* Text */}
         <div className="relative z-10 flex flex-col gap-6 px-6 py-16 md:px-12 md:py-0">
-          <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2D2924] md:text-5xl lg:text-[3.4rem]">
-            <span className="block font-serif italic text-[#A0845C]">Votre beauté,</span>
+          <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.4rem]">
+            <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
             <span className="block font-serif">notre priorité.</span>
           </h1>
           <p className="max-w-md text-[15px] leading-relaxed text-[#6A5A4A]">
@@ -40,12 +40,12 @@ export default function BrandHero({ onCatalogue }) {
           <div className="flex flex-wrap gap-5 text-xs text-[#6A5A4A]">
             <span className="flex items-center gap-1.5" aria-label="Livraison rapide">
               <span aria-hidden="true">🚚</span>
-              <strong className="text-[#2D2924]">Livraison rapide</strong>
+              <strong className="text-[#2B2620]">Livraison rapide</strong>
               Partout au Sénégal &amp; au Niger
             </span>
             <span className="flex items-center gap-1.5" aria-label="Expédié depuis Dakar et Niamey">
               <span aria-hidden="true">📍</span>
-              <strong className="text-[#2D2924]">Expédié depuis</strong>
+              <strong className="text-[#2B2620]">Expédié depuis</strong>
               Dakar · Niamey
             </span>
           </div>
@@ -54,7 +54,7 @@ export default function BrandHero({ onCatalogue }) {
         {/* Portrait */}
         <div className="relative hidden h-full md:block">
           <img
-            src="https://images.unsplash.com/photo-1611545579027-7bab82dba96b?q=80&w=800&auto=format&fit=crop"
+            src="/images/hero-portrait.jpg"
             alt="Femme africaine sublimée par les produits Lim'Elle"
             className="h-full w-full object-cover"
             loading="eager"
@@ -66,7 +66,7 @@ export default function BrandHero({ onCatalogue }) {
               "shadow-lg backdrop-blur-sm"
             )}
           >
-            <p className="text-xs font-medium italic text-[#A0845C]">
+            <p className="text-xs font-medium italic text-[#B58A4A]">
               L'élégance au féminin,<br />naturellement.
             </p>
           </div>
