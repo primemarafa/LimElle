@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
-import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
+import { Menu, Search, ShoppingBag, X, User, Leaf } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FALLBACK_PRODUCTS } from "./data/catalog";
 import { api } from "./services/api";
@@ -138,7 +138,8 @@ export default function App() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [products, navOverride]);
 
-  const navLinkClass = (id) => `text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#B58A4A] font-semibold" : "text-[#6A5A4A] hover:text-[#2B2620]"}`;
+  const navLinkClass = (id) => `relative text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A] hover:text-[#2B2620]"}`;
+  const navUnderline = (id) => (navOverride || activeSection) === id ? "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#B58A4A]" : "";
 
   if (order) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
   if (checkout) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
@@ -160,9 +161,9 @@ export default function App() {
           </button>
 
           <nav className="hidden items-center gap-7 lg:flex">
-            <button onClick={() => scrollTo("accueil")} className={navLinkClass("accueil")}>Accueil</button>
-            <button onClick={openBoutique} className={navLinkClass("products")}>Boutique</button>
-            <button onClick={openCategories} className={navLinkClass("categories")}>Catégories</button>
+            <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
+            <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
+            <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">À propos</span>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Journal</span>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Contact</span>
@@ -225,7 +226,10 @@ export default function App() {
         {/* Bottom CTA banner */}
         <section className="bg-[#1B3A2D] px-5 py-10">
           <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
-            <p className="text-xl font-medium italic text-white md:text-2xl">La beauté n'est pas un luxe, c'est votre droit.</p>
+            <div className="flex items-center gap-3">
+              <Leaf size={24} className="text-[#C8B99A]" aria-hidden="true" />
+              <p className="text-xl font-medium italic text-white md:text-2xl">La beauté n'est pas un luxe, c'est votre droit.</p>
+            </div>
             <button onClick={openBoutique} className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#1B3A2D] transition hover:bg-[#F0EBE3]">
               Découvrir la boutique <span>→</span>
             </button>
