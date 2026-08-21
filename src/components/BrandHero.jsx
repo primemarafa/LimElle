@@ -13,7 +13,7 @@ export default function BrandHero({ onCatalogue }) {
   return (
     <section
       aria-label="Bienvenue"
-      className="relative min-h-[520px] overflow-hidden pb-[100px] md:min-h-[600px] md:pb-[110px] lg:min-h-[650px]"
+      className="relative min-h-[540px] overflow-hidden pb-[100px] md:min-h-[620px] md:pb-[110px] lg:min-h-[680px]"
     >
       {/* Full-width background image */}
       <img
@@ -24,9 +24,9 @@ export default function BrandHero({ onCatalogue }) {
         aria-hidden="true"
       />
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-[520px] max-w-7xl items-center px-6 py-16 md:min-h-[600px] md:px-12 lg:min-h-[650px]">
-        {/* Text panel */}
+      {/* Content overlay */}
+      <div className="relative z-10 mx-auto flex min-h-[540px] max-w-7xl items-center px-6 py-20 md:min-h-[620px] md:px-12 lg:min-h-[680px]">
+        {/* Text panel with subtle background */}
         <div className="flex max-w-xl flex-col gap-6 rounded-2xl bg-[#F8F4EC]/85 p-8 backdrop-blur-sm md:bg-[#F8F4EC]/70 md:backdrop-blur-none">
           <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.4rem]">
             <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
@@ -69,7 +69,7 @@ export default function BrandHero({ onCatalogue }) {
         {/* Floating tag */}
         <div
           className={cn(
-            "absolute bottom-8 right-8 rounded-xl bg-white/90 px-5 py-3",
+            "absolute bottom-24 right-8 rounded-xl bg-white/90 px-5 py-3",
             "shadow-lg backdrop-blur-sm hidden md:block"
           )}
         >
@@ -79,7 +79,7 @@ export default function BrandHero({ onCatalogue }) {
         </div>
       </div>
 
-      {/* Trust strip — glued to bottom of hero like mockup */}
+      {/* Trust strip — glued to bottom of hero */}
       <div className="absolute bottom-0 left-0 right-0 z-20 bg-[#1B3A2D]">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-6 md:grid-cols-4 md:gap-6 md:py-8">
           {TRUST_FEATURES.map(({ icon: Icon, label, description }) => (
