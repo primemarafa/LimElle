@@ -3,16 +3,16 @@ import { LIMELLE_CONFIG } from "../config/limelle";
 
 export default function TrustBar() {
   return (
-    <section className="border-t border-[#E8E0D4] bg-[#FAF6F0] px-5 py-8">
+    <section className="bg-[#1B3A2D] px-5 py-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row md:gap-8">
         {/* Paiement sécurisé */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1B3A2D]/10">
-            <Shield size={18} className="text-[#1B3A2D]" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10">
+            <Shield size={18} className="text-[#D4A96A]" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#2D2924]">Paiement sécurisé</p>
-            <p className="text-xs text-[#8A7A6A]">Vos transactions sont 100% sécurisées</p>
+            <p className="text-sm font-semibold text-white">Paiement sécurisé</p>
+            <p className="text-xs text-white/70">Vos transactions sont 100% sécurisées</p>
           </div>
         </div>
 
@@ -28,16 +28,18 @@ export default function TrustBar() {
                 key={i}
                 src={src}
                 alt=""
-                className="h-9 w-9 rounded-full border-2 border-[#FAF6F0] object-cover"
+                className="h-9 w-9 rounded-full border-2 border-[#1B3A2D] object-cover"
                 loading="lazy"
               />
             ))}
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#2D2924]">+{LIMELLE_CONFIG.stats.satisfiedClients} clientes satisfaites</p>
+            <p className="text-sm font-semibold text-white">
+              +{LIMELLE_CONFIG.stats.satisfiedClients} clientes satisfaites
+            </p>
             <div className="mt-0.5 flex gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-[#D4A03E]">★</span>
+                <span key={i} className="text-[#D4A96A]">★</span>
               ))}
             </div>
           </div>
@@ -45,12 +47,14 @@ export default function TrustBar() {
 
         {/* WhatsApp */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#25D366]/15">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#25D366]/20">
             <MessageCircle size={18} className="text-[#25D366]" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#2D2924]">Besoin d'aide ?</p>
-            <p className="text-xs text-[#8A7A6A]">Écrivez-nous sur WhatsApp, nous répondons rapidement.</p>
+            <p className="text-sm font-semibold text-white">Besoin d'aide ?</p>
+            <p className="text-xs text-white/70">
+              Écrivez-nous sur WhatsApp, nous répondons rapidement.
+            </p>
           </div>
         </div>
       </div>
