@@ -1,40 +1,37 @@
-import { Leaf, Diamond, Truck, Heart } from "lucide-react";
+import { Leaf, Award, Truck, HeartHandshake } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FEATURES = [
-  {
-    Icon: Leaf,
-    title: "Ingrédients naturels",
-    text: "Sains et respectueux de votre peau",
-  },
-  {
-    Icon: Diamond,
-    title: "Qualité premium",
-    text: "Sélection rigoureuse des meilleurs produits",
-  },
-  {
-    Icon: Truck,
-    title: "Livraison rapide",
-    text: "Partout au Sénégal et au Niger",
-  },
-  {
-    Icon: Heart,
-    title: "Service attentionné",
-    text: "À votre écoute tous les jours",
-  },
+  { icon: Leaf, label: "Ingrédients naturels", description: "Sains et respectueux de votre peau" },
+  { icon: Award, label: "Qualité premium", description: "Sélection rigoureuse des meilleurs produits" },
+  { icon: Truck, label: "Livraison rapide", description: "Partout au Sénégal et au Niger" },
+  { icon: HeartHandshake, label: "Service attentionné", description: "À votre écoute tous les jours" },
 ];
 
 export default function TrustStrip() {
   return (
-    <section className="bg-[#1B3A2D] px-5 py-8">
+    <section
+      aria-label="Nos engagements"
+      className="bg-[#1B3A2D] px-5 py-10"
+    >
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4">
-        {FEATURES.map(({ Icon, title, text }) => (
-          <div key={title} className="flex items-start gap-3 text-white">
-            <div className="shrink-0 rounded-full bg-white/10 p-2.5">
-              <Icon size={18} strokeWidth={1.5} className="text-[#D4A96A]" />
+        {FEATURES.map(({ icon: Icon, label, description }) => (
+          <div
+            key={label}
+            className="flex flex-col items-center gap-3 text-center"
+          >
+            <div
+              className={cn(
+                "flex h-12 w-12 items-center justify-center",
+                "rounded-full bg-white/10 text-[#C8B99A]"
+              )}
+              aria-hidden="true"
+            >
+              <Icon size={22} strokeWidth={1.5} />
             </div>
             <div>
-              <p className="text-sm font-semibold">{title}</p>
-              <p className="mt-0.5 text-xs leading-5 text-white/70">{text}</p>
+              <p className="text-sm font-semibold text-white">{label}</p>
+              <p className="mt-1 text-xs text-white/70">{description}</p>
             </div>
           </div>
         ))}
