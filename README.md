@@ -1,158 +1,118 @@
-# 🌸 Lim'Elle — E-commerce & Personal Shopping (Dakar → Niamey)
+# 🌸 Lim'Elle
 
-**Lim'Elle** est une application web développée avec React (frontend) et Fastify (API), qui met en avant un catalogue de mode, d'accessoires et de produits de beauté sélectionnés à Dakar (Sénégal) et livrés au Niger (Niamey).
+Lim'Elle est une application web de personal shopping entre Dakar et Niamey. Le frontend utilise React/Vite. L'API utilise Fastify et PostgreSQL.
 
-Le prix affiché sur le catalogue est **indicatif** : Lim'Elle confirme la disponibilité et le prix global (produit + transport) avant tout paiement, qui reste manuel.
+Le prix affiché reste indicatif. Lim'Elle confirme la disponibilité et le prix final avant paiement.
 
----
+## Fonctionnalités
 
-## 🚀 Fonctionnalités principales
+- Catalogue avec filtres par catégorie
+- Recherche produit
+- Fiche produit avec variantes
+- Panier persistant côté navigateur
+- Formulaire de commande
+- Calcul indicatif du transport
+- Recalcul serveur des produits, du poids et du total
+- Référence de commande et token de consultation sécurisé
+- Génération d'une facture HTML
+- Contact WhatsApp
+- Module de demande sur-mesure
+- Interface responsive
 
-- **Catalogue dynamique & filtres** : tenues, chaussures, sacs, bijoux, accessoires, beauté et demandes sur-mesure, avec filtrage instantané par catégorie.
-- **Fiche produit détaillée** : tailles, couleurs, description et ajout au panier.
-- **Panier & commande** : panier persistant en session, formulaire client (nom, téléphone, ville, mode de réception), résumé de commande avec référence générée.
-- **Simulateur de frais d'envoi** : calcul du transport en FCFA à partir du poids (kg), configurable.
-- **Commandes via WhatsApp** : génération de messages pré-remplis (contact général, commande, demande sur-mesure).
-- **Module Sur-mesure** : prise de contact directe pour une recherche précise à Dakar.
-- **Design soigné & responsive** : transitions fluides, animations, cartes interactives.
+## Architecture
 
----
-
-## 🏗️ Architecture
-
-Le projet est organisé en deux parties : un frontend React/Vite et une API Fastify, développées par phases documentées dans `docs/`.
-
-```
+```text
 LimElle/
-├── src/                    # Frontend React (Vite)
-│   ├── components/         # Composants UI (catalogue, panier, commande, FAQ...)
-│   ├── config/              # Configuration centralisée (limelle.js)
-│   ├── data/                 # Catalogue produits, catégories, FAQ
-│   ├── services/             # Appels API (api.js) et WhatsApp (whatsapp.js)
-│   ├── types/                 # Modèles métier (Product, Customer, Order)
-│   ├── utils/                  # Calculs (transport, prix)
-│   └── App.jsx
-├── server/                  # API backend (Fastify)
-│   ├── app.js               # Point d'entrée du serveur
-│   ├── routes.js             # Déclaration des routes /api/*
-│   └── data/products.js       # Source de données produits côté serveur
-├── docs/                     # Journal de bord et plans par phase (Phase 1 à 4A)
-├── LimElleSite.jsx           # Ancien prototype monofichier, conservé en sauvegarde
+├── src/
+│   ├── components/       # Interface React
+│   ├── config/            # Configuration Lim'Elle
+│   ├── data/              # Catalogue et données frontend de secours
+│   ├── services/          # Client API et WhatsApp
+│   ├── types/             # Modèles métier
+│   └── utils/             # Calculs et normalisation
+├── server/
+│   ├── app.js             # Construction de l'application Fastify
+│   ├── server.js          # Démarrage du serveur
+│   ├── routes.js          # Routes API
+│   ├── schemas.js         # Validation des payloads
+│   ├── repositories/      # Accès PostgreSQL
+│   └── db/                # Connexion et migrations PostgreSQL
+├── docs/                  # Documentation des phases et audits
+├── LimElleSite.jsx        # Ancien prototype conservé comme sauvegarde
 └── vite.config.js
 ```
 
-### Frontend (`src/`)
+## API
 
-- **React** (Hooks, state management, composants réutilisables)
-- **Tailwind CSS** pour le style
-- **Lucide React** pour l'iconographie
-- **Google Fonts** (Fraunces & Manrope)
+- `GET /api/health` vérifie l'état de l'API
+- `GET /api/health/db` vérifie la connexion PostgreSQL
+- `GET /api/products` retourne le catalogue
+- `GET /api/products/:id` retourne un produit
+- `POST /api/orders` crée une commande après validation serveur
+- `GET /api/orders/:lookupToken` récupère une commande avec son token privé
+- `GET /api/orders/:lookupToken/invoice` retourne la facture HTML
 
-### Backend (`server/`)
+Les prix envoyés par le navigateur ne servent pas de source de vérité. Le serveur recharge les produits et recalcule les montants.
 
-- **Fastify** comme framework API
-- Endpoints actuellement disponibles :
-  - `GET /api/health` — état de l'API
-  - `GET /api/products` — liste des produits
-  - `GET /api/products/:id` — détail d'un produit
+## Configuration
 
-> ⚠️ Le contrat d'API complet (voir `docs/PHASE4A_API_CONTRACT.md`) prévoit également `POST /api/orders` et `GET /api/orders/:reference`, avec recalcul serveur des prix et du transport. Ces routes sont en cours d'implémentation ; le frontend gère pour l'instant la création de commande côté client via `src/types/order.js`.
+La configuration frontend se trouve dans `src/config/limelle.js`.
 
----
+Valeurs actuelles :
 
-## ⚙️ Configuration & Personnalisation
+- Devise : XOF
+- Origine : Dakar
+- Destination : Niamey
+- Transport : 4 000 FCFA par kg arrondi au kg supérieur
+- Retrait à Niamey : actif
+- Livraison à domicile : désactivée
+- Suivi transport : désactivé
+- Paiement : après confirmation du prix final
 
-La configuration du frontend est centralisée dans `src/config/limelle.js` :
+Le frontend utilise `VITE_API_BASE_URL` lorsque cette variable est définie. L'API utilise `PORT`, `HOST`, `DATABASE_URL`, `DATABASE_SSL` et `CORS_ORIGIN` selon l'environnement.
 
-```javascript
-export const LIMELLE_CONFIG = {
-  brand: "Lim'Elle",
-  whatsappNumber: "22799205739",
-  currency: "XOF",
-  country: "NE",
-  origin: "Dakar",
-  destination: "Niamey",
-  transport: {
-    ratePerKg: 4000,
-    minimumWeightKg: 1,
-    mode: "GP / particulier",
-    trackingEnabled: false,
-    homeDeliveryEnabled: false,
-  },
-  social: {
-    instagramUrl: "",
-    instagramHandle: "@limelle",
-    facebookUrl: "",
-  },
-};
-```
-
-Les messages WhatsApp pré-remplis (contact général, commande, demande sur-mesure) sont définis juste en dessous, dans `WA_MESSAGES`.
-
----
-
-## 🧩 Modèles métier
-
-- **Product** : référence, nom, description, catégorie, prix indicatif, poids, tailles, couleurs, disponibilité, stock, badge, image.
-- **Customer** : nom complet, téléphone, ville, mode de livraison (point de retrait ou domicile), adresse, notes.
-- **Order** : référence, statut, type de demande, client, articles, totaux, date de création.
-
-### Cycle de statut d'une commande
-
-```
-EN_ATTENTE → CONFIRMÉE → PAYÉE → EN_PRÉPARATION → EXPÉDIÉE → EN_TRANSIT → ARRIVÉE → LIVRÉE
-```
-
-`ANNULÉE` peut intervenir à tout moment avant la livraison, selon les règles commerciales.
-
----
-
-## 🚦 Démarrer le projet
-
-### Frontend
+## Installation
 
 ```bash
 npm install
-npm run dev       # démarre Vite en local
-npm run build     # build de production
-npm run preview   # prévisualise le build
+npm run dev
 ```
 
-### Backend (API)
+Pour lancer l'API :
 
 ```bash
-cd server
-node app.js       # démarre l'API Fastify (port 3001 par défaut, PORT modifiable)
+npm run dev:api
 ```
 
-Le frontend peut être connecté à l'API via la variable d'environnement `VITE_API_BASE_URL` (voir `src/services/api.js`).
+Pour préparer la base :
 
----
+```bash
+npm run db:migrate
+```
 
-## 📌 Règles métier
+## Tests et build
 
-- Le personal shopping est l'activité initiale du service.
-- Vêtements et chaussures sont prioritaires.
-- Le Niger (Niamey) est le seul marché desservi au lancement.
-- Le retrait à Niamey est le mode de réception initial ; la livraison à domicile est prévue mais désactivée par défaut.
-- Le paiement intervient uniquement après confirmation du prix final par Lim'Elle.
-- Le prix global affiché au client inclut le transport, mais reste indicatif jusqu'à confirmation.
-- Aucun secret métier (coûts internes, marge) n'est exposé côté frontend.
+```bash
+npm run test:server
+npm run test:frontend-api
+npm run test:frontend-integration
+npm run build
+```
 
----
+Le workflow GitHub Actions exécute les migrations PostgreSQL, les tests API, les tests du client frontend, le parcours de commande réel et le build frontend.
 
-## 🗺️ Suivi du développement
+## Règles métier
 
-L'avancement détaillé par phase est documenté dans `docs/` :
+- Le personal shopping est le service initial.
+- Les vêtements et chaussures sont prioritaires.
+- Le marché initial est Niamey.
+- Le retrait à Niamey est le mode de réception actif.
+- La livraison à domicile reste désactivée tant que la configuration ne l'active pas.
+- Le paiement intervient après confirmation du prix final.
+- Aucun coût interne ni aucune marge n'est exposé au frontend.
 
-- `PHASE1_PROGRESS.md` — architecture initiale, configuration centralisée
-- `PHASE2_PROGRESS.md` — refactorisation du catalogue en composants
-- `PHASE3_PLAN.md` — modèles métier, panier, commandes
-- `PHASE4A_API_CONTRACT.md` — contrat d'API frontend ↔ backend
-- `PHASE4_BACKEND_FOUNDATION.md` — fondation du serveur Fastify
+## Historique du projet
 
----
+Les décisions et travaux par phase sont documentés dans `docs/`.
 
-## 📄 Ancien prototype
-
-`LimElleSite.jsx`, à la racine du dépôt, est l'ancien prototype monofichier conservé comme sauvegarde. Il n'est **plus utilisé** par l'application (`src/App.jsx` est le point d'entrée actuel) et ne doit pas servir de source de vérité pour la configuration ou les données.
+`LimElleSite.jsx` est un ancien prototype. Il n'est pas utilisé par l'application actuelle. La source de vérité est `src/` et le backend `server/`.
