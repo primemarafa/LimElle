@@ -10,23 +10,11 @@ const FEATURES = [
 
 export default function TrustStrip() {
   return (
-    <section
-      aria-label="Nos engagements"
-      className="bg-[#1B3A2D] px-5 py-10"
-    >
+    <section aria-label="Nos engagements" className="bg-[#1B3A2D] px-5 py-10">
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4">
         {FEATURES.map(({ icon: Icon, label, description }) => (
-          <div
-            key={label}
-            className="flex flex-col items-center gap-3 text-center"
-          >
-            <div
-              className={cn(
-                "flex h-12 w-12 items-center justify-center",
-                "rounded-full bg-white/10 text-[#C8B99A]"
-              )}
-              aria-hidden="true"
-            >
+          <div key={label} className="flex flex-col items-center gap-3 text-center">
+            <div className={cn("flex h-12 w-12 items-center justify-center", "rounded-full bg-white/10 text-[#C8B99A]")} aria-hidden="true">
               <Icon size={22} strokeWidth={1.5} />
             </div>
             <div>
