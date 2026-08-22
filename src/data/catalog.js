@@ -1,67 +1,74 @@
 export const CATEGORIES = [
-  { id: "soins-visage", label: "Soins visage", emoji: "✨", desc: "Sérums, crèmes, nettoyants pour un éclat naturel" },
-  { id: "soins-corps", label: "Soins corps", emoji: "🧴", desc: "Beurres, huiles, lotions pour une peau nourrie" },
-  { id: "parfums", label: "Parfums", emoji: "🌸", desc: "Eaux de toilette et parfums d'exception" },
-  { id: "accessoires", label: "Accessoires", emoji: "💍", desc: "Sacs, bijoux, accessoires tendance" },
+  { id: "vetements", label: "Vêtements", emoji: "👗", desc: "Tenues féminines, ensembles et pièces de cérémonie" },
+  { id: "tissus", label: "Tissus", emoji: "🧵", desc: "Wax, bazin et tissus choisis pour tes tenues" },
+  { id: "leche", label: "Lèche", emoji: "✨", desc: "Voiles légers et brodés pour boubous et cérémonies" },
+  { id: "bijoux", label: "Bijoux", emoji: "💎", desc: "Colliers, bracelets, bagues et boucles d'oreilles" },
+  { id: "chaussures", label: "Chaussures", emoji: "👠", desc: "Sandales et chaussures pour tes sorties et cérémonies" },
+  { id: "sacs-a-main", label: "Sacs à main", emoji: "👜", desc: "Sacs, pochettes et modèles de cérémonie" },
 ];
 
-/**
- * Fallback products shown when the API is unreachable.
- * These match the 5 products displayed in the approved mockup.
- * Once the backend is live, the API response replaces this list.
- */
 export const FALLBACK_PRODUCTS = [
   {
     id: "le-001",
-    name: "Sérum éclat naturel",
-    description: "Anti-taches · 30ml",
-    price: 9500,
-    img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400&auto=format&fit=crop",
-    cat: "soins-visage",
+    name: "Wax imprimé",
+    description: "Tissu imprimé · 6 yards",
+    price: 18000,
+    weight: 0.8,
+    img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=600&auto=format&fit=crop",
+    cat: "tissus",
     badge: "Sélection",
   },
   {
     id: "le-002",
-    name: "Beurre de karité pur",
-    description: "Hydratation intense · 200g",
-    price: 6000,
-    img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=400&auto=format&fit=crop",
-    cat: "soins-corps",
-    badge: "Sélection",
+    name: "Lèche brodé",
+    description: "Voile brodé · cérémonie",
+    price: 35000,
+    weight: 0.6,
+    img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop",
+    cat: "leche",
+    badge: "Cérémonie",
   },
   {
     id: "le-003",
-    name: "Parfum Élégance",
-    description: "Eau de parfum · 50ml",
-    price: 12500,
-    img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop",
-    cat: "parfums",
+    name: "Parure dorée",
+    description: "Collier et boucles d'oreilles",
+    price: 15000,
+    weight: 0.15,
+    img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600&auto=format&fit=crop",
+    cat: "bijoux",
     badge: "Sélection",
   },
   {
     id: "le-004",
-    name: "Savon clarifiant",
-    description: "Éclat naturel · 100g",
-    price: 2500,
-    img: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=400&auto=format&fit=crop",
-    cat: "soins-corps",
+    name: "Sandales habillées",
+    description: "Chaussures femme · cérémonie",
+    price: 28000,
+    weight: 1.1,
+    img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop",
+    cat: "chaussures",
     badge: "Sélection",
   },
   {
     id: "le-005",
-    name: "Huile précieuse",
-    description: "Nourrissante · 50ml",
-    price: 8500,
-    img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=400&auto=format&fit=crop",
-    cat: "soins-corps",
+    name: "Sac à main cérémonie",
+    description: "Pochette élégante · soirée",
+    price: 22000,
+    weight: 0.5,
+    img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop",
+    cat: "sacs-a-main",
+    badge: "Cérémonie",
+  },
+  {
+    id: "le-006",
+    name: "Ensemble deux pièces",
+    description: "Tenue féminine · cérémonie",
+    price: 45000,
+    weight: 1.2,
+    img: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?q=80&w=600&auto=format&fit=crop",
+    cat: "vetements",
     badge: "Sélection",
   },
 ];
-
-// Le catalogue affiché sur le site vient de l'API (voir src/services/api.js,
-// api.products()), pas de ce fichier. PRODUCTS a été retiré : il n'était
-// plus utilisé nulle part et risquait de désynchroniser avec le vrai
-// catalogue en base (voir server/db/migrations/003_catalog_images.sql).
 
 export const STEPS = [
   { key: "browse", num: "ÉTAPE 1", title: "Parcourez", text: "Choisis tes articles ou envoie une recherche précise." },
