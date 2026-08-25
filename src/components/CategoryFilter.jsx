@@ -26,7 +26,7 @@ export default function CategoryFilter({ categories, activeCategory, onCategoryC
           role="tab"
           aria-selected={activeCategory === category.id}
         >
-          {category.name}
+          {category.label || category.name}
         </Button>
       ))}
     </div>

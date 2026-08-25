@@ -6,7 +6,7 @@ export function registerSecurityHeaders(app) {
     reply.header("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
     reply.header(
       "Content-Security-Policy",
-      "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' https://images.unsplash.com data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' http://localhost:3001; font-src 'self' data:; form-action 'self'"
+      "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' https://images.unsplash.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self' https://fonts.gstatic.com data:; form-action 'self'"
     );
   });
 }
