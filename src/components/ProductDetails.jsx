@@ -17,22 +17,38 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
 
   return (
     <section className="view-transition mx-auto max-w-5xl px-5 pb-16 pt-8">
-      <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-bold"><ArrowLeft size={17} /> Retour au catalogue</button>
+      <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#6A5A4A] hover:text-[#2B2620]">
+        <ArrowLeft size={17} /> Retour au catalogue
+      </button>
       <div className="grid gap-8 md:grid-cols-2">
-        <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover" />
+        <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover shadow-sm bg-[#F4EFE6]" />
         <div>
-          <div className="inline-flex rounded-full bg-[#EBE3D2] px-3 py-1 text-xs font-bold">{product.badge}</div>
-          <h1 className="mt-4 text-4xl font-semibold">{product.name}</h1>
-          <p className="mt-4 leading-7 text-[#5B5348]">{product.description ?? "Produit recherché à Dakar par Lim'Elle. Les détails sont confirmés avant paiement."}</p>
-          <div className="mt-6 text-2xl font-extrabold text-[#A6512F]">À partir de {formatXof(totalEstimate)}</div>
-          <p className="mt-1 text-xs leading-5 text-[#5B5348]">Prix indicatif incluant l'estimation du transport. Le montant final est confirmé après vérification.</p>
+          <div className="inline-flex rounded-full bg-[#F4EFE6] px-3.5 py-1 text-xs font-bold text-[#B58A4A]">{product.badge}</div>
+          <h1 className="mt-4 font-serif text-3xl font-medium text-[#2B2620] md:text-4xl">{product.name}</h1>
+          <p className="mt-3 text-sm leading-relaxed text-[#6A5A4A]">{product.description ?? "Produit sélectionné avec soin par Lim'Elle. Les détails sont confirmés avant paiement."}</p>
+          <div className="mt-5 text-2xl font-bold text-[#B58A4A]">À partir de {formatXof(totalEstimate)}</div>
+          <p className="mt-1 text-xs text-[#8A7A6A]">Prix indicatif incluant l'estimation du transport. Le montant final est confirmé après vérification.</p>
 
-          {product.sizes?.length > 0 && <div className="mt-7"><label className="text-sm font-bold">Taille</label><div className="mt-2 flex flex-wrap gap-2">{product.sizes.map((item) => <button type="button" key={item} onClick={() => setSize(item)} className={`rounded-full border px-4 py-2 text-sm font-bold ${size === item ? "border-[#B8753C] bg-[#B8753C] text-white" : "border-black/10 bg-white"}`}>{item}</button>)}</div></div>}
+          {product.sizes?.length > 0 && <div className="mt-6"><label className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Contenance / Format</label><div className="mt-2 flex flex-wrap gap-2">{product.sizes.map((item) => <button type="button" key={item} onClick={() => setSize(item)} className={`rounded-xl border px-4 py-2 text-xs font-bold transition ${size === item ? "border-[#B58A4A] bg-[#B58A4A] text-white" : "border-[#E8E0D4] bg-white text-[#2B2620]"}`}>{item}</button>)}</div></div>}
 
-          {product.colors?.length > 0 && <div className="mt-6"><label className="text-sm font-bold">Couleur</label><div className="mt-2 flex flex-wrap gap-2">{product.colors.map((item) => <button type="button" key={item} onClick={() => setColor(item)} className={`rounded-full border px-4 py-2 text-sm font-bold ${color === item ? "border-[#B8753C] bg-[#B8753C] text-white" : "border-black/10 bg-white"}`}>{item}</button>)}</div></div>}
+          {product.colors?.length > 0 && <div className="mt-5"><label className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Variante</label><div className="mt-2 flex flex-wrap gap-2">{product.colors.map((item) => <button type="button" key={item} onClick={() => setColor(item)} className={`rounded-xl border px-4 py-2 text-xs font-bold transition ${color === item ? "border-[#B58A4A] bg-[#B58A4A] text-white" : "border-[#E8E0D4] bg-white text-[#2B2620]"}`}>{item}</button>)}</div></div>}
 
-          <div className="mt-6 flex items-center justify-between rounded-2xl bg-[#EBE3D2] p-3"><span className="text-sm font-bold">Quantité</span><div className="flex items-center gap-3"><button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="rounded-full bg-white p-2"><Minus size={16} /></button><strong>{quantity}</strong><button type="button" onClick={() => setQuantity(quantity + 1)} className="rounded-full bg-white p-2"><Plus size={16} /></button></div></div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2"><button type="button" onClick={handleAdd} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B8753C] px-5 py-3 font-bold text-white"><ShoppingBag size={18} /> Ajouter au panier</button><WhatsAppButton message={message} className="bg-[#3FBF63] text-white">Vérifier et commander</WhatsAppButton></div>
+          <div className="mt-6 flex items-center justify-between rounded-2xl bg-white border border-[#E8E0D4] p-3.5">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Quantité</span>
+            <div className="flex items-center gap-3">
+              <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="rounded-lg bg-[#F4EFE6] p-2 hover:bg-[#EAE4D8]"><Minus size={15} /></button>
+              <strong className="min-w-6 text-center text-sm">{quantity}</strong>
+              <button type="button" onClick={() => setQuantity(quantity + 1)} className="rounded-lg bg-[#F4EFE6] p-2 hover:bg-[#EAE4D8]"><Plus size={15} /></button>
+            </div>
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <button type="button" onClick={handleAdd} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B3A2D] px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-[#142D24]">
+              <ShoppingBag size={17} /> Ajouter au panier
+            </button>
+            <WhatsAppButton message={message} className="bg-[#25D366] text-white rounded-xl py-3.5">
+              Vérifier et commander
+            </WhatsAppButton>
+          </div>
         </div>
       </div>
     </section>
