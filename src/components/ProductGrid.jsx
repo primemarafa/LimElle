@@ -1,7 +1,7 @@
 import ProductCard from "./ProductCard";
 import { cn } from "@/lib/utils";
 
-export default function ProductGrid({ products, onAddToCart }) {
+export default function ProductGrid({ products, onAddToCart, onSelectProduct }) {
   if (!products?.length) {
     return (
       <div className="py-16 text-center">
@@ -15,13 +15,13 @@ export default function ProductGrid({ products, onAddToCart }) {
       role="list"
       aria-label="Produits"
       className={cn(
-        "grid gap-4 sm:gap-5",
-        "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        "grid gap-4",
+        "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
       )}
     >
       {products.map((product) => (
         <div key={product.id || product.name} role="listitem">
-          <ProductCard product={product} onAddToCart={onAddToCart} />
+          <ProductCard product={product} onAddToCart={onAddToCart} onSelectProduct={onSelectProduct} />
         </div>
       ))}
     </div>

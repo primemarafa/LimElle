@@ -45,11 +45,18 @@ export default function OrderForm({ items, onBack, onComplete }) {
     setSubmitting(true);
     try {
       const order = await api.createOrder({
-        items,
-        customer: form,
+        customer: {
+          fullName: form.fullName.trim(),
+          phone: form.phone.trim(),
+          city: form.city.trim(),
+        },
+        items: items.map((item) => ({
+          product: { id: item.product.id },
+          quantity: item.quantity,
+        })),
         deliveryMode: form.deliveryMode,
-        deliveryAddress: form.deliveryMode === DELIVERY_MODES.HOME ? form.deliveryAddress : "",
-        notes: form.notes,
+        deliveryAddress: form.deliveryMode === DELIVERY_MODES.HOME ? form.deliveryAddress.trim() : "",
+        notes: form.notes.trim(),
       });
       onComplete(order);
     } catch (requestError) {
@@ -89,29 +96,29 @@ export default function OrderForm({ items, onBack, onComplete }) {
 
             <div>
               <label htmlFor="notes" className="mb-1 block text-sm font-bold">Note (facultatif)</label>
-              <textarea id="notes" maxLength={MAX_NOTES_LENGTH} value={form.notes} onChange={(event) => { update("notes", event.target.value); clearFieldError("notes"); }} className="mt-2 min-h-24 w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:ring-2 focus:ring-[#B8753C]" placeholder="Précision sur la commande" />
+              <textarea id="notes" maxLength={MAX_NOTES_LENGTH} value={form.notes} onChange={(event) => { update("notes", event.target.value); clearFieldError("notes"); }} className="mt-2 min-h-24 w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:ring-2 focus:ring-[#B58A4A]" placeholder="Précision sur la commande" />
               <div className="mt-1 flex justify-between text-xs text-[#5B5348]"><span>{form.notes.length}/{MAX_NOTES_LENGTH}</span>{fieldErrors.notes && <span className="font-semibold text-red-600">{fieldErrors.notes}</span>}</div>
             </div>
           </div>
 
           {error && <p className="mt-4 rounded-2xl bg-red-50 p-3 text-sm font-semibold text-red-700">{error}</p>}
 
-          <button type="submit" disabled={submitting} className="mt-5 flex w-full items-center justify-center rounded-full bg-[#B8753C] px-6 py-3 font-bold text-white transition-colors hover:bg-[#c8854a] disabled:cursor-not-allowed disabled:opacity-60">
+          <button type="submit" disabled={submitting} className="mt-5 flex w-full items-center justify-center rounded-2xl bg-[#1B3A2D] px-6 py-3.5 font-bold text-white transition-colors hover:bg-[#142D24] disabled:cursor-not-allowed disabled:opacity-60 shadow-md">
             {submitting ? "Envoi en cours…" : "Envoyer la commande"}
           </button>
         </form>
 
-        <aside className="h-fit rounded-3xl bg-[#EBE3D2] p-6">
-          <h2 className="text-xl font-semibold">Résumé indicatif</h2>
+        <aside className="h-fit rounded-3xl bg-[#F3EDE2] border border-[#E8E0D4] p-6">
+          <h2 className="text-xl font-serif font-semibold text-[#2B2620]">Résumé indicatif</h2>
           <div className="mt-5 space-y-3">
-            {items.map((item) => <div key={`${item.product.id}-${item.product.selectedSize || ""}-${item.product.selectedColor || ""}`} className="flex justify-between gap-4 text-sm"><span>{item.product.name} × {item.quantity}</span><strong>{formatXof(item.product.price * item.quantity)}</strong></div>)}
+            {items.map((item) => <div key={`${item.product.id}-${item.product.selectedSize || ""}-${item.product.selectedColor || ""}`} className="flex justify-between gap-4 text-sm text-[#2B2620]"><span>{item.product.name} × {item.quantity}</span><strong>{formatXof(item.product.price * item.quantity)}</strong></div>)}
           </div>
-          <div className="mt-5 border-t border-black/10 pt-4 text-sm">
+          <div className="mt-5 border-t border-[#E8E0D4] pt-4 text-sm text-[#2B2620]">
             <div className="flex justify-between"><span>Poids estimé</span><strong>{weight.toFixed(2)} kg</strong></div>
             <div className="mt-2 flex justify-between"><span>Transport estimé</span><strong>{formatXof(transport)}</strong></div>
-            <div className="mt-3 flex justify-between text-lg font-extrabold"><span>Total indicatif</span><strong>{formatXof(total)}</strong></div>
+            <div className="mt-3 flex justify-between text-lg font-bold text-[#B58A4A]"><span>Total indicatif</span><strong>{formatXof(total)}</strong></div>
           </div>
-          <p className="mt-4 text-xs leading-5 text-[#5B5348]">Le serveur recalcule les produits, le transport et le total avant d'enregistrer la commande.</p>
+          <p className="mt-4 text-xs leading-5 text-[#6A5A4A]">Le serveur recalcule les produits, le transport et le total avant d'enregistrer la commande.</p>
         </aside>
       </div>
     </section>
@@ -122,7 +129,7 @@ function Field({ id, label, value, error, onChange, placeholder, inputMode }) {
   return (
     <div>
       <label htmlFor={id} className="mb-1 block text-sm font-bold">{label} <span className="text-red-500">*</span></label>
-      <input id={id} required value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:ring-2 focus:ring-[#B8753C]" placeholder={placeholder} inputMode={inputMode} aria-describedby={error ? `${id}-error` : undefined} />
+      <input id={id} required value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:ring-2 focus:ring-[#B58A4A]" placeholder={placeholder} inputMode={inputMode} aria-describedby={error ? `${id}-error` : undefined} />
       {error && <p id={`${id}-error`} className="mt-1 text-sm font-semibold text-red-600">{error}</p>}
     </div>
   );
@@ -130,9 +137,9 @@ function Field({ id, label, value, error, onChange, placeholder, inputMode }) {
 
 function DeliveryOption({ selected, onClick, title, description }) {
   return (
-    <button type="button" onClick={onClick} className={`rounded-2xl border p-4 text-left ${selected ? "border-[#B8753C] bg-[#EBE3D2]" : "border-black/10 hover:bg-[#F8F3EA]"}`} role="radio" aria-checked={selected}>
-      <MapPin size={18} />
-      <div className="flex flex-col items-start"><strong className="mt-2 block">{title}</strong><span className="text-xs text-[#5B5348]">{description}</span></div>
+    <button type="button" onClick={onClick} className={`rounded-2xl border p-4 text-left transition ${selected ? "border-[#B58A4A] bg-[#F3EDE2]" : "border-black/10 hover:bg-[#F8F4EC]"}`} role="radio" aria-checked={selected}>
+      <MapPin size={18} className={selected ? "text-[#B58A4A]" : "text-[#6A5A4A]"} />
+      <div className="flex flex-col items-start"><strong className="mt-2 block text-[#2B2620]">{title}</strong><span className="text-xs text-[#6A5A4A]">{description}</span></div>
     </button>
   );
 }
