@@ -60,10 +60,10 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
     name: "",
     description: "",
     price: "",
-    weight: "0.2",
-    category: "soins-visage",
+    weight: "0.8",
+    category: "pagnes-leche",
     badge: "Nouveau",
-    img: "/images/product-serum-eclat.jpg",
+    img: "/images/product-bazin-riche.jpg",
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
