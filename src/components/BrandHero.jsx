@@ -4,23 +4,23 @@ import { LIMELLE_CONFIG, WA_MESSAGES } from "@/config/limelle";
 const TRUST_FEATURES = [
   {
     icon: Leaf,
-    label: "Ingrédients naturels",
-    description: "Sains et respectueux de votre peau",
+    label: "Bazin & Pagnes Nobles",
+    description: "Getzner, Bazin Riche & Lèche authentique",
   },
   {
     icon: Gem,
-    label: "Qualité premium",
-    description: "Sélection rigoureuse des meilleurs produits",
+    label: "Bijoux & Maroquinerie",
+    description: "Filigranes dorés et cuir d'atelier dakarois",
   },
   {
     icon: Truck,
-    label: "Livraison rapide",
-    description: "Partout au Sénégal et au Niger",
+    label: "Fret GP Dakar ➔ Niamey",
+    description: "Expédition sécurisée et livraison rapide",
   },
   {
     icon: HeartHandshake,
-    label: "Service attentionné",
-    description: "À votre écoute tous les jours",
+    label: "Personal Shopping",
+    description: "Service sur-mesure à votre écoute 7j/7",
   },
 ];
 
@@ -35,7 +35,7 @@ export default function BrandHero({ onCatalogue }) {
           <div className="absolute inset-0 z-0">
             <img
               src="/images/hero-portrait.jpg"
-              alt="Femme élégante avec soins de beauté Lim'Elle"
+              alt="Femme élégante avec pagnes, bijoux et accessoires Lim'Elle"
               className="h-full w-full object-cover object-[70%_center] sm:object-[75%_center] lg:object-[85%_center]"
               loading="eager"
             />
@@ -49,7 +49,7 @@ export default function BrandHero({ onCatalogue }) {
             <p className="font-serif text-xs font-light leading-snug text-[#F8F4EC] sm:text-sm">
               L'élégance<br />
               au féminin,<br />
-              <span className="italic text-[#C8B99A]">naturellement.</span>
+              <span className="italic text-[#C8B99A]">Dakar ➔ Niamey.</span>
             </p>
             <div className="mt-1.5 flex justify-center text-[#B58A4A]" aria-hidden="true">
               <Flower2 size={15} strokeWidth={1.5} />
@@ -61,13 +61,13 @@ export default function BrandHero({ onCatalogue }) {
             
             {/* Main Headline */}
             <h1 className="font-serif text-4xl leading-[1.12] tracking-tight text-[#1B3A2D] sm:text-5xl lg:text-[3.5rem] xl:text-[3.9rem]">
-              <span className="block font-normal">Votre beauté,</span>
-              <span className="block font-normal italic text-[#B58A4A]">notre priorité.</span>
+              <span className="block font-normal">L'élégance africaine,</span>
+              <span className="block font-normal italic text-[#B58A4A]">de Dakar à Niamey.</span>
             </h1>
 
             {/* Subtitle */}
             <p className="mt-5 max-w-md text-sm leading-relaxed text-[#5A4B3E] sm:text-base">
-              Découvrez des produits soigneusement sélectionnés pour sublimer votre éclat naturel chaque jour.
+              Pagnes &amp; Lèche nobles, chaussures d'exception, parures dorées et maroquinerie sélectionnés au Sénégal pour sublimer votre allure.
             </p>
 
             {/* Action Buttons */}
