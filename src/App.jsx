@@ -104,6 +104,19 @@ function AppContent() {
     try { window.localStorage.setItem("limelle-cart", JSON.stringify(cart)); } catch { /* stockage indisponible */ }
   }, [cart]);
 
+  useEffect(() => {
+    const checkAdminHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      if (hash === "#admin" || hash === "#webmaster" || search.includes("admin=true")) {
+        setAdminModalOpen(true);
+      }
+    };
+    checkAdminHash();
+    window.addEventListener("hashchange", checkAdminHash);
+    return () => window.removeEventListener("hashchange", checkAdminHash);
+  }, []);
+
   useEffect(() => loadCatalog(), []);
 
   const filteredProducts = useMemo(() => {
@@ -386,17 +399,7 @@ function AppContent() {
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
-          <div className="flex items-center gap-3">
-            <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
-            <button
-              type="button"
-              onClick={() => setAdminModalOpen(true)}
-              className="text-[10px] text-[#8A7A6A]/60 hover:text-[#B58A4A] transition hover:underline"
-              title="Accès Webmaster Catalogue"
-            >
-              • Espace Webmaster
-            </button>
-          </div>
+          <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
           <p className="text-[11px] text-[#8A7A6A]/80">Cosmétiques et Soins Naturels d'Exception • Sahel</p>
         </div>
       </footer>
