@@ -6,25 +6,25 @@ const CATEGORY_VISUALS = {
     title: "Soins visage",
     subtitle: "Prenez soin de vous",
     icon: Droplets,
-    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop",
+    image: "/images/category-soins-visage.jpg",
   },
   "soins-corps": {
     title: "Soins corps",
     subtitle: "Hydratez et sublimez",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=800&auto=format&fit=crop",
+    image: "/images/category-soins-corps.jpg",
   },
   parfums: {
     title: "Parfums",
     subtitle: "Laissez votre empreinte",
     icon: Gem,
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800&auto=format&fit=crop",
+    image: "/images/category-parfums.jpg",
   },
   accessoires: {
     title: "Accessoires",
     subtitle: "L'élégance dans les détails",
     icon: ShoppingBag,
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop",
+    image: "/images/category-accessoires.jpg",
   },
 };
 

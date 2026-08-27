@@ -1,4 +1,4 @@
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Bookmark } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -55,18 +55,17 @@ export default function ProductCard({ product, onAddToCart, onSelectProduct }) {
           <p className="text-xs font-bold text-[#2B2620] md:text-sm">
             {typeof price === "number" ? `${price.toLocaleString("fr-FR")} FCFA` : price}
           </p>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 rounded-full text-[#8A7A6A] hover:bg-[#F4EFE6] hover:text-[#1B3A2D]"
+          <button
+            type="button"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-[#8A7A6A] transition hover:bg-[#F4EFE6] hover:text-[#B58A4A]"
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart?.(product);
             }}
             aria-label={`Ajouter ${name} au panier`}
           >
-            <ShoppingBag size={14} />
-          </Button>
+            <Bookmark size={15} className="hover:fill-[#B58A4A]" />
+          </button>
         </div>
       </CardContent>
     </Card>

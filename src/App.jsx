@@ -19,6 +19,8 @@ import SkipLink from "./components/SkipLink";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthModal from "./components/AuthModal";
 import UserProfileModal from "./components/UserProfileModal";
+import BotanicalTreasuresSection from "./components/BotanicalTreasuresSection";
+import BeautyRitualSection from "./components/BeautyRitualSection";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 
@@ -266,6 +268,12 @@ function AppContent() {
         <div id="catalogue-wrapper">
           <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} onSelectProduct={setSelectedProduct} />
         </div>
+
+        {/* Section Trésors Botaniques du Sahel */}
+        <BotanicalTreasuresSection />
+
+        {/* Section Rituel Beauté en 3 Étapes */}
+        <BeautyRitualSection onDiscover={openBoutique} />
 
         <TrustBar />
 
