@@ -2,7 +2,7 @@ export const LIMELLE_CONFIG = {
   brand: "Lim'Elle",
   tagline: "L'élégance au féminin",
   whatsappNumber: "22799205739",
-  email: "contact@limelle.com",
+  email: "contact.limelle@gmail.com",
   currency: "XOF",
   country: "NE",
   origin: "Dakar",
