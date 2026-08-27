@@ -22,11 +22,11 @@ export function buildApp({ productRepository = null, orderRepository = null, db 
 
   app.register(cors, {
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["http://localhost:5173"],
+    strictPreflight: false,
   });
 
   registerSecurityHeaders(app);
 
-  app.options("/*", async (_request, reply) => reply.code(204).send());
   registerRoutes(app, { products, productRepository, orderRepository, db, orders });
   return app;
 }
