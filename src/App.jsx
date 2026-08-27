@@ -16,10 +16,16 @@ import BrandLogo from "./components/BrandLogo";
 import OrderForm from "./components/OrderForm";
 import OrderConfirmation from "./components/OrderConfirmation";
 import SkipLink from "./components/SkipLink";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import AuthModal from "./components/AuthModal";
+import UserProfileModal from "./components/UserProfileModal";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 
-export default function App() {
+function AppContent() {
+  const { user, isAuthenticated } = useAuth();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [filter, setFilter] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
@@ -172,8 +178,14 @@ export default function App() {
             <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
               <Search size={18} />
             </button>
-            <button type="button" aria-label="Mon profil" className="hidden rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] sm:flex">
-              <User size={18} />
+            <button
+              type="button"
+              aria-label={isAuthenticated ? "Mon profil client" : "Se connecter"}
+              onClick={() => (isAuthenticated ? setProfileModalOpen(true) : setAuthModalOpen(true))}
+              className="hidden items-center gap-1.5 rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] sm:flex"
+            >
+              <User size={18} className={isAuthenticated ? "text-[#B58A4A]" : ""} />
+              {isAuthenticated && <span className="max-w-[90px] truncate text-xs font-semibold text-[#14261F]">{user?.fullName?.split(" ")[0]}</span>}
             </button>
             <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
               <ShoppingBag size={18} />
@@ -209,6 +221,24 @@ export default function App() {
                 : <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A]"}`}>{label}</button>
             ))}
           </nav>
+          <div className="mt-8 pt-6 border-t border-[#E8E0D4]">
+            {isAuthenticated ? (
+              <button
+                onClick={() => { setMenuOpen(false); setProfileModalOpen(true); }}
+                className="flex w-full items-center justify-between rounded-xl bg-white border border-[#E8E0D4] p-4 text-sm font-semibold text-[#14261F]"
+              >
+                <span>Mon Compte ({user?.fullName})</span>
+                <User size={18} className="text-[#B58A4A]" />
+              </button>
+            ) : (
+              <button
+                onClick={() => { setMenuOpen(false); setAuthModalOpen(true); }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#14261F] py-3.5 text-xs font-semibold text-white shadow-sm"
+              >
+                <User size={16} /> Se connecter / S'inscrire
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -291,6 +321,17 @@ export default function App() {
 
       <WhatsAppButton className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#25D366] p-0 text-white shadow-xl" message={WA_TEXT} iconSize={26} aria-label="Contacter Lim'Elle sur WhatsApp" />
       {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout} />}
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <UserProfileModal isOpen={profileModalOpen} onClose={() => setProfileModalOpen(false)} />
     </main>
   );
 }
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+

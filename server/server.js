@@ -2,6 +2,7 @@ import { buildApp } from "./app.js";
 import { getDb, closeDb } from "./db/client.js";
 import { createProductRepository } from "./repositories/productRepository.js";
 import { createOrderRepository } from "./repositories/orderRepository.js";
+import { createUserRepository } from "./repositories/userRepository.js";
 
 const port = Number(process.env.PORT || 3001);
 const host = process.env.HOST || "0.0.0.0";
@@ -25,7 +26,8 @@ try {
 
   const productRepository = createProductRepository(db);
   const orderRepository = createOrderRepository(db);
-  app = buildApp({ productRepository, orderRepository, db });
+  const userRepository = createUserRepository(db);
+  app = buildApp({ productRepository, orderRepository, userRepository, db });
   process.once("SIGINT", () => shutdown("SIGINT"));
   process.once("SIGTERM", () => shutdown("SIGTERM"));
   await app.listen({ port, host });
