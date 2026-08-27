@@ -316,14 +316,53 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                 </div>
 
                 <div>
-                  <label className="block font-medium text-[#2B2620]">Lien de l'image (URL ou fichier local)</label>
-                  <input
-                    type="text"
-                    value={formData.img}
-                    onChange={(e) => setFormData({ ...formData, img: e.target.value })}
-                    placeholder="/images/product-serum-eclat.jpg ou https://..."
-                    className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
-                  />
+                  <label className="block font-medium text-[#2B2620]">Image du produit *</label>
+                  
+                  {/* Visual Preview */}
+                  <div className="mt-2 flex items-center gap-4">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#E8E0D4] bg-white shadow-2xs">
+                      <img
+                        src={formData.img || "/images/product-serum-eclat.jpg"}
+                        alt="Aperçu du produit"
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = "/images/product-serum-eclat.jpg";
+                        }}
+                      />
+                    </div>
+
+                    <div className="flex-1 space-y-2">
+                      {/* Direct File Upload (Converts to DataURL/Image) */}
+                      <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-white border border-[#E8E0D4] px-4 py-2 text-xs font-semibold text-[#14261F] shadow-2xs hover:bg-[#F4EFE6] transition">
+                        <span>📁 Choisir une photo depuis l'appareil</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (uploadEvent) => {
+                                setFormData({ ...formData, img: uploadEvent.target.result });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
+                      <p className="text-[11px] text-[#8A7A6A]">
+                        Ou saisissez un lien d'image web / chemin local :
+                      </p>
+                      <input
+                        type="text"
+                        value={formData.img}
+                        onChange={(e) => setFormData({ ...formData, img: e.target.value })}
+                        placeholder="/images/product-serum-eclat.jpg ou https://..."
+                        className="w-full rounded-xl border border-[#E8E0D4] bg-white p-2.5 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="pt-3 flex gap-3">
