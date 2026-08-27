@@ -13,7 +13,7 @@ test("OrderRepository persists and reads a real PostgreSQL order", { skip: !inte
     lookupToken: "b".repeat(64),
     status: "EN_ATTENTE",
     customer: { fullName: "Awa Diallo", phone: "+227700000000", city: "Niamey" },
-    items: [{ product: { id: "LE-001", name: "Robe", price: 35000, weight: 0.8 }, quantity: 1 }],
+    items: [{ product: { id: "le-001", name: "Robe", price: 35000, weight: 0.8 }, quantity: 1 }],
     deliveryMode: "point_retrait",
     deliveryAddress: "",
     notes: "CI integration",
@@ -30,7 +30,7 @@ test("OrderRepository persists and reads a real PostgreSQL order", { skip: !inte
     assert.equal(found.reference, order.reference);
     assert.equal(found.customer.city, "Niamey");
     assert.equal(found.items.length, 1);
-    assert.equal(found.items[0].product.id, "LE-001");
+    assert.equal(found.items[0].product.id, "le-001");
     assert.equal(found.items[0].quantity, 1);
     assert.equal(found.totals.total, 39000);
   } finally {
