@@ -161,8 +161,8 @@ export default function App() {
 
           <nav className="hidden items-center gap-7 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
-            <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
+            <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">À propos</span>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Journal</span>
             <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Contact</span>
