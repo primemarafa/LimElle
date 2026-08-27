@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aperçu du Logo & Identité Visuelle — Lim'Elle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #f4efe6;
+        color: #2b2620;
+        padding: 40px 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 960px;
+        width: 100%;
+      }
+      .header-title {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .header-title h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 36px;
+        font-weight: 600;
+        color: #14261f;
+        margin-bottom: 8px;
+      }
+      .header-title p {
+        font-size: 14px;
+        color: #6a5a4a;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+      .card {
+        border-radius: 24px;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+      }
+      .card-light {
+        background: #fdfbf7;
+        border: 1px solid #e8e0d4;
+      }
+      .card-dark {
+        background: #14261f;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .card-gold {
+        background: linear-gradient(135deg, #f8f4ec 0%, #ede3d2 100%);
+        border: 1px solid #dfc386;
+      }
+      .brand-text {
+        margin-top: 16px;
+      }
+      .brand-title {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .brand-subtitle {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-top: 4px;
+      }
+      .nav-preview {
+        width: 100%;
+        background: #ffffff;
+        border-radius: 20px;
+        border: 1px solid #e8e0d4;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6a5a4a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-title">
+        <h1>Identité Visuelle & Logo Lim'Elle</h1>
+        <p>Emblème Haute Joaillerie & Cosmétiques du Sahel</p>
+      </div>
+
+      <div class="grid">
+        <!-- Fond Clair -->
+        <div class="card card-light">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 120px; height: 120px;">
+            <defs>
+              <linearGradient id="goldLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DFC386" />
+                <stop offset="50%" stop-color="#B58A4A" />
+                <stop offset="100%" stop-color="#8E672B" />
+              </linearGradient>
+              <linearGradient id="softGoldLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#B58A4A" stop-opacity="0.22" />
+                <stop offset="100%" stop-color="#B58A4A" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="54" stroke="url(#goldLight)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
+            <circle cx="60" cy="60" r="48" stroke="url(#goldLight)" stroke-width="1.2" />
+            <g stroke="url(#goldLight)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M42 92 C 50 75, 58 52, 68 28" />
+              <path d="M68 28 C 64 36, 65 44, 68 50 C 73 44, 75 36, 68 28 Z" fill="url(#softGoldLight)" />
+              <path d="M61 46 C 47 40, 44 30, 46 28 C 53 30, 60 36, 61 46 Z" fill="url(#softGoldLight)" />
+              <path d="M65 42 C 77 34, 84 30, 85 32 C 84 40, 75 49, 65 42 Z" fill="url(#softGoldLight)" />
+              <path d="M54 64 C 42 58, 38 48, 41 46 C 48 48, 54 54, 54 64 Z" fill="url(#softGoldLight)" />
+              <path d="M58 58 C 74 54, 80 60, 79 63 C 70 71, 58 68, 58 58 Z" fill="url(#softGoldLight)" />
+              <circle cx="68" cy="24" r="2.2" fill="url(#goldLight)" stroke="none" />
+            </g>
+          </svg>
+          <div class="brand-text">
+            <h2 class="brand-title" style="color: #2b2620;">Lim'Elle</h2>
+            <p class="brand-subtitle" style="color: #b58a4a;">L'élégance au féminin</p>
+          </div>
+        </div>
+
+        <!-- Fond Sombre Vert Forêt Prestige -->
+        <div class="card card-dark">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 120px; height: 120px;">
+            <defs>
+              <linearGradient id="goldDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F2DFB3" />
+                <stop offset="50%" stop-color="#DFC386" />
+                <stop offset="100%" stop-color="#B58A4A" />
+              </linearGradient>
+              <linearGradient id="softGoldDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DFC386" stop-opacity="0.35" />
+                <stop offset="100%" stop-color="#DFC386" stop-opacity="0.1" />
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="54" stroke="url(#goldDark)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
+            <circle cx="60" cy="60" r="48" stroke="url(#goldDark)" stroke-width="1.2" />
+            <g stroke="url(#goldDark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M42 92 C 50 75, 58 52, 68 28" />
+              <path d="M68 28 C 64 36, 65 44, 68 50 C 73 44, 75 36, 68 28 Z" fill="url(#softGoldDark)" />
+              <path d="M61 46 C 47 40, 44 30, 46 28 C 53 30, 60 36, 61 46 Z" fill="url(#softGoldDark)" />
+              <path d="M65 42 C 77 34, 84 30, 85 32 C 84 40, 75 49, 65 42 Z" fill="url(#softGoldDark)" />
+              <path d="M54 64 C 42 58, 38 48, 41 46 C 48 48, 54 54, 54 64 Z" fill="url(#softGoldDark)" />
+              <path d="M58 58 C 74 54, 80 60, 79 63 C 70 71, 58 68, 58 58 Z" fill="url(#softGoldDark)" />
+              <circle cx="68" cy="24" r="2.2" fill="url(#goldDark)" stroke="none" />
+            </g>
+          </svg>
+          <div class="brand-text">
+            <h2 class="brand-title" style="color: #fdfbf7;">Lim'Elle</h2>
+            <p class="brand-subtitle" style="color: #dfc386;">L'élégance au féminin</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aperçu en Situation Header -->
+      <div style="text-align: center; margin-bottom: 12px;">
+        <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: #b58a4a;">
+          Aperçu dans la Barre de Navigation
+        </p>
+      </div>
+
+      <div class="nav-preview">
+        <div class="nav-brand">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 36px; height: 36px;">
+            <circle cx="60" cy="60" r="54" stroke="#B58A4A" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
+            <circle cx="60" cy="60" r="48" stroke="#B58A4A" stroke-width="1.2" />
+            <g stroke="#B58A4A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M42 92 C 50 75, 58 52, 68 28" />
+              <path d="M68 28 C 64 36, 65 44, 68 50 C 73 44, 75 36, 68 28 Z" fill="#B58A4A" fill-opacity="0.18" />
+              <path d="M61 46 C 47 40, 44 30, 46 28 C 53 30, 60 36, 61 46 Z" fill="#B58A4A" fill-opacity="0.18" />
+              <path d="M65 42 C 77 34, 84 30, 85 32 C 84 40, 75 49, 65 42 Z" fill="#B58A4A" fill-opacity="0.18" />
+              <path d="M54 64 C 42 58, 38 48, 41 46 C 48 48, 54 54, 54 64 Z" fill="#B58A4A" fill-opacity="0.18" />
+              <path d="M58 58 C 74 54, 80 60, 79 63 C 70 71, 58 68, 58 58 Z" fill="#B58A4A" fill-opacity="0.18" />
+              <circle cx="68" cy="24" r="2.2" fill="#B58A4A" stroke="none" />
+            </g>
+          </svg>
+          <div>
+            <span style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: #2b2620;">Lim'Elle</span>
+            <span style="margin-left: 6px; font-size: 10px; font-weight: 600; color: #b58a4a;">L'élégance au féminin</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <span style="color: #b58a4a; font-weight: 600;">Accueil</span>
+          <span>Catégories</span>
+          <span>Boutique</span>
+          <span>Sur-Mesure</span>
+          <span>À propos</span>
+          <span>FAQ</span>
+          <span>Contact</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

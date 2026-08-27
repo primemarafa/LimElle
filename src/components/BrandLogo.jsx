@@ -1,11 +1,11 @@
 /**
- * BrandLogo — Emblème haute joaillerie vectoriel original pour Lim'Elle.
- * Combine la silhouette d'une branche de karité/baobab dorée et un médaillon prestige.
+ * BrandLogo — Branche botanique officielle Lim'Elle (silhouette pure, gracieuse et dorée).
+ * Sans cadre ni cercle, intégration transparente et fluide.
  */
-export default function BrandLogo({ className = "h-9 w-auto", alt = "Lim'Elle" }) {
+export default function BrandLogo({ className = "h-8 w-auto", alt = "Lim'Elle" }) {
   return (
     <svg
-      viewBox="0 0 120 120"
+      viewBox="0 0 100 110"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -13,45 +13,27 @@ export default function BrandLogo({ className = "h-9 w-auto", alt = "Lim'Elle" }
       aria-label={alt}
     >
       <title>{alt}</title>
-      <defs>
-        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#DFC386" />
-          <stop offset="50%" stopColor="#B58A4A" />
-          <stop offset="100%" stopColor="#8E672B" />
-        </linearGradient>
-        <linearGradient id="softGold" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#B58A4A" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#B58A4A" stopOpacity="0.04" />
-        </linearGradient>
-      </defs>
-
-      {/* Cercle médaillon extérieur fin */}
-      <circle cx="60" cy="60" r="54" stroke="url(#goldGradient)" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.6" />
-      <circle cx="60" cy="60" r="48" stroke="url(#goldGradient)" strokeWidth="1.2" />
-
-      {/* Branche botanique élégante centrale */}
-      <g stroke="url(#goldGradient)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        {/* Tige courbée */}
-        <path d="M42 92 C 50 75, 58 52, 68 28" />
+      <g stroke="#B58A4A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        {/* Tige courbée fluide */}
+        <path d="M18 102 C 34 82, 48 55, 62 12" />
         
-        {/* Feuilles stylisées organiques avec remplissage délicat */}
         {/* Feuille sommitale */}
-        <path d="M68 28 C 64 36, 65 44, 68 50 C 73 44, 75 36, 68 28 Z" fill="url(#softGold)" />
+        <path d="M62 12 C 58 24, 60 38, 62 48 C 68 38, 70 24, 62 12 Z" fill="#B58A4A" fillOpacity="0.12" />
         
         {/* Feuille haute gauche */}
-        <path d="M61 46 C 47 40, 44 30, 46 28 C 53 30, 60 36, 61 46 Z" fill="url(#softGold)" />
+        <path d="M52 42 C 35 34, 32 20, 34 18 C 44 19, 52 28, 52 42 Z" fill="#B58A4A" fillOpacity="0.12" />
         
         {/* Feuille haute droite */}
-        <path d="M65 42 C 77 34, 84 30, 85 32 C 84 40, 75 49, 65 42 Z" fill="url(#softGold)" />
+        <path d="M58 35 C 72 26, 78 20, 78 20 C 78 30, 68 44, 58 35 Z" fill="#B58A4A" fillOpacity="0.12" />
         
         {/* Feuille médiane gauche */}
-        <path d="M54 64 C 42 58, 38 48, 41 46 C 48 48, 54 54, 54 64 Z" fill="url(#softGold)" />
+        <path d="M42 66 C 30 60, 28 50, 31 52 C 37 54, 42 58, 42 66 Z" fill="#B58A4A" fillOpacity="0.12" />
         
         {/* Feuille médiane droite */}
-        <path d="M58 58 C 74 54, 80 60, 79 63 C 70 71, 58 68, 58 58 Z" fill="url(#softGold)" />
-
-        {/* Goutte d'essence précieuse au sommet */}
-        <circle cx="68" cy="24" r="2.2" fill="url(#goldGradient)" stroke="none" />
+        <path d="M48 56 C 68 52, 74 60, 72 63 C 60 74, 46 72, 48 56 Z" fill="#B58A4A" fillOpacity="0.12" />
+        
+        {/* Petite perle d'accent */}
+        <circle cx="43" cy="80" r="2.5" fill="#B58A4A" stroke="none" />
       </g>
     </svg>
   );
