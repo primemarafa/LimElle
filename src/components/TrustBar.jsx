@@ -1,21 +1,26 @@
-import { ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
+import { ShieldCheck, Sparkles, RotateCcw, CreditCard, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const TRUST_ITEMS = [
   {
-    icon: ShieldCheck,
-    title: "Paiement sécurisé",
-    description: "Transactions fiables et sécurisées",
+    icon: RotateCcw,
+    title: "Retours acceptés sous 7 jours",
+    description: "Pour les articles non conformes",
   },
   {
     icon: Sparkles,
-    title: "Authenticité garantie",
-    description: "Produits 100% originaux et de qualité",
+    title: "Garantie authenticité",
+    description: "Produits 100% originaux & nobles",
+  },
+  {
+    icon: CreditCard,
+    title: "Paiement sécurisé",
+    description: "Cash à la livraison / Nita / Wave",
   },
   {
     icon: MessageCircle,
     title: "Besoin d'aide ?",
-    description: "Écrivez-nous sur WhatsApp, réponse rapide.",
+    description: "Écrivez-nous sur WhatsApp 7j/7",
   },
 ];
 
@@ -25,7 +30,7 @@ export default function TrustBar() {
       aria-label="Confiance et sécurité"
       className="bg-[#F8F4EC] px-5 py-12"
     >
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 rounded-2xl border border-[#E8E0D4] bg-[#F3EDE2]/60 p-6 sm:grid-cols-3 sm:p-8">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 rounded-2xl border border-[#E8E0D4] bg-[#F3EDE2]/60 p-6 sm:grid-cols-2 lg:grid-cols-4 sm:p-8">
         {TRUST_ITEMS.map((item, i) => {
           const Icon = item.icon;
           return (
