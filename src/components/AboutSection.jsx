@@ -24,8 +24,8 @@ export default function AboutSection() {
           <div className="relative lg:col-span-6">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl sm:aspect-[16/11]">
               <img
-                src="/images/category-soins-corps.jpg"
-                alt="Femme africaine moderne rayonnante avec Lim'Elle"
+                src="/images/category-pagnes-leche.jpg"
+                alt="Femme africaine moderne rayonnante avec pagnes et accessoires Lim'Elle"
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -33,10 +33,10 @@ export default function AboutSection() {
               
               <div className="absolute bottom-6 left-6 right-6 text-white">
                 <span className="rounded-full bg-[#B58A4A] px-3 py-1 text-[11px] font-semibold">
-                  Maison Sahélienne de Beauté
+                  Personal Shopping Dakar ➔ Niamey
                 </span>
                 <p className="mt-2 font-serif text-lg font-normal">
-                  Célébrer la beauté authentique et l'éclat unique de chaque femme.
+                  L'élégance du Bazin, la noblesse du Lèche et le raffinement des parures.
                 </p>
               </div>
             </div>
@@ -45,15 +45,15 @@ export default function AboutSection() {
           {/* Right Text & Values */}
           <div className="space-y-6 text-[#6A5A4A] text-sm leading-relaxed lg:col-span-6">
             <h3 className="font-serif text-2xl font-normal text-[#2B2620]">
-              Une marque née de la passion pour le précieux patrimoine végétal du Sahel.
+              Une passerelle d'exception entre les marchés de Dakar et les femmes de Niamey.
             </h3>
             
             <p>
-              Fondée avec la conviction que la beauté n'est pas un luxe inaccessible mais une célébration de soi, <strong className="text-[#14261F]">Lim'Elle</strong> propose des soins cosmétiques purs, des huiles précieuses et des fragrances d'exception rigoureusement sélectionnées.
+              Fondée avec la passion du beau et de l'élégance africaine, <strong className="text-[#14261F]">Lim'Elle</strong> déniche pour vous les plus beaux tissus (Bazin Getzner brodé, Lèche traditionnel tissé main), des chaussures d'ateliers en cuir véritable, des bijoux filigranes dorés et une maroquinerie d'exception.
             </p>
             
             <p>
-              Du Sénégal au Niger, nous travaillons main dans la main avec des coopératives locales et des formulateurs passionnés pour extraire le meilleur du beurre de karité sauvage, des graines de baobab et des fleurs d'hibiscus dans le respect absolu de la nature et de votre peau.
+              Directement sourcés auprès des meilleurs artisans et marchands de Dakar, vos articles sont vérifiés, soigneusement emballés et acheminés à Niamey en fret sécurisé avec un suivi personnalisé.
             </p>
 
             {/* 3 Pillars */}
