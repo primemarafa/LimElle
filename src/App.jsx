@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Menu, Search, ShoppingBag, X, User, Leaf } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FALLBACK_PRODUCTS } from "./data/catalog";
@@ -8,7 +8,6 @@ import { cartKey } from "./utils/cart";
 import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
-import TrustStrip from "./components/TrustStrip";
 import TrustBar from "./components/TrustBar";
 
 import ProductDetails from "./components/ProductDetails";
@@ -217,20 +216,25 @@ export default function App() {
         <div id="accueil" className="scroll-mt-16"><BrandHero onCatalogue={openBoutique} /></div>
 
         <div id="catalogue-wrapper">
-          <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} />
+          <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} onSelectProduct={setSelectedProduct} />
         </div>
 
         <TrustBar />
 
         {/* Bottom CTA banner */}
-        <section className="bg-[#1B3A2D] px-5 py-10">
-          <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
-            <div className="flex items-center gap-3">
+        <section className="bg-[#1B3A2D] px-5 py-9">
+          <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
+            <div className="flex items-center gap-3.5">
               <Leaf size={24} className="text-[#C8B99A]" aria-hidden="true" />
-              <p className="text-xl font-medium italic text-white md:text-2xl">La beauté n'est pas un luxe, c'est votre droit.</p>
+              <p className="font-serif text-lg font-normal italic text-white md:text-xl">
+                La beauté n'est pas un luxe, c'est votre droit.
+              </p>
             </div>
-            <button onClick={openBoutique} className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#1B3A2D] transition hover:bg-[#F0EBE3]">
-              Découvrir la boutique <span>→</span>
+            <button
+              onClick={openBoutique}
+              className="inline-flex items-center gap-2 rounded-xl bg-[#142D24] border border-white/20 px-6 py-3 text-xs font-bold text-white transition hover:bg-[#0E2019]"
+            >
+              Découvrir la boutique <span aria-hidden="true">→</span>
             </button>
           </div>
         </section>
@@ -241,7 +245,7 @@ export default function App() {
           <div>
             <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2B2620]">Lim'Elle</span></div>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#B58A4A]">{LIMELLE_CONFIG.tagline}</p>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beauté de confiance au Sahel. Des produits naturels et de qualité pour sublimer votre beauté.</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beauté et élégance de confiance au Sahel. Des produits d'exception pour sublimer votre éclat naturel.</p>
             <div className="mt-5 flex gap-3">
               {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
               <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">FB</a>
@@ -254,7 +258,7 @@ export default function App() {
               <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Soins corps</button>
               <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Parfums</button>
               <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Accessoires</button>
-              <button onClick={openBoutique} className="text-left hover:text-[#B58A4A] transition">Tous les produits</button>
+              <button onClick={openBoutique} className="text-left font-semibold text-[#B58A4A] hover:underline transition">Tous les produits</button>
             </nav>
           </div>
           <div>

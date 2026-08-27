@@ -2,10 +2,10 @@ import { Leaf, Award, Truck, HeartHandshake } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FEATURES = [
-  { icon: Leaf, label: "Ingrédients naturels", description: "Sains et respectueux de votre peau" },
-  { icon: Award, label: "Qualité premium", description: "Sélection rigoureuse des meilleurs produits" },
-  { icon: Truck, label: "Livraison rapide", description: "Partout au Sénégal et au Niger" },
-  { icon: HeartHandshake, label: "Service attentionné", description: "À votre écoute tous les jours" },
+  { icon: Leaf, label: "Sélection soignée", description: "Chaque pièce choisie à la main à Dakar" },
+  { icon: Award, label: "Qualité premium", description: "Tissus, confection et finitions vérifiés" },
+  { icon: Truck, label: "Livraison Dakar → Niamey", description: "Expédition rapide et sécurisée" },
+  { icon: HeartHandshake, label: "Service attentionné", description: "Personal shopping à votre écoute" },
 ];
 
 export default function TrustStrip() {

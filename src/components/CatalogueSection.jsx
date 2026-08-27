@@ -1,74 +1,84 @@
-import { ArrowRight, Gem, Handbag, Shirt, Scissors, Sparkles, Footprints } from "lucide-react";
+import { ArrowRight, Sparkles, Droplets, Gem, ShoppingBag } from "lucide-react";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
-  vetements: {
-    title: "Vêtements",
-    subtitle: "Tenues et ensembles féminins",
-    icon: Shirt,
-    image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?q=80&w=600&auto=format&fit=crop",
+  "soins-visage": {
+    title: "Soins visage",
+    subtitle: "Prenez soin de vous",
+    icon: Droplets,
+    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop",
   },
-  tissus: {
-    title: "Tissus",
-    subtitle: "Wax, bazin et imprimés",
-    icon: Scissors,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=600&auto=format&fit=crop",
-  },
-  leche: {
-    title: "Lèche",
-    subtitle: "Voiles légers et brodés",
+  "soins-corps": {
+    title: "Soins corps",
+    subtitle: "Hydratez et sublimez",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=800&auto=format&fit=crop",
   },
-  bijoux: {
-    title: "Bijoux",
-    subtitle: "Les détails qui font la différence",
+  parfums: {
+    title: "Parfums",
+    subtitle: "Laissez votre empreinte",
     icon: Gem,
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800&auto=format&fit=crop",
   },
-  chaussures: {
-    title: "Chaussures",
-    subtitle: "Pour tes sorties et cérémonies",
-    icon: Footprints,
-    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop",
-  },
-  "sacs-a-main": {
-    title: "Sacs à main",
-    subtitle: "Sacs et pochettes élégantes",
-    icon: Handbag,
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop",
+  accessoires: {
+    title: "Accessoires",
+    subtitle: "L'élégance dans les détails",
+    icon: ShoppingBag,
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop",
   },
 };
 
-export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onAddToCart }) {
+export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onAddToCart, onSelectProduct }) {
   const visualCategories = categories.filter((category) => CATEGORY_VISUALS[category.id]);
 
   return (
-    <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-20 md:pt-28">
+    <section id="catalogue" className="bg-[#F8F4EC] px-5 pt-16 md:pt-24">
       <div className="mx-auto max-w-7xl">
+        {/* Categories Heading */}
         <div id="categories" className="scroll-mt-24 text-center">
-          <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">Nos catégories</p>
-          <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2B2620] md:text-4xl">Mode, tissus et accessoires</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#8A7A6A]">Une sélection pensée pour les tenues du quotidien et les cérémonies.</p>
+          <p className="text-xs font-bold uppercase tracking-[.24em] text-[#B58A4A]">Nos catégories</p>
+          <h2 className="mt-2.5 font-serif text-3xl font-normal tracking-tight text-[#2B2620] md:text-4xl">
+            Trouvez ce qui vous sublime
+          </h2>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 4 Cards Grid */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {visualCategories.map((category) => {
             const visual = CATEGORY_VISUALS[category.id];
             const Icon = visual.icon;
             const active = activeCategory === category.id;
             return (
-              <button key={category.id} type="button" onClick={() => onCategoryChange(category.id)} aria-pressed={active} className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${active ? "ring-2 ring-[#B58A4A]" : ""}`}>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={visual.image} alt={visual.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/85 via-[#1B1712]/25 to-transparent" />
-                  <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => onCategoryChange(category.id)}
+                aria-pressed={active}
+                className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                  active ? "ring-2 ring-[#B58A4A]" : ""
+                }`}
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#2B2620]">
+                  <img
+                    src={visual.image}
+                    alt={visual.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1B1712]/90 via-[#1B1712]/30 to-transparent" />
+                  
+                  {/* Frosted icon badge top left */}
+                  <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-md">
                     <Icon size={18} className="text-white" strokeWidth={1.5} />
                   </div>
+
+                  {/* Text bottom */}
                   <div className="absolute inset-x-0 bottom-0 p-5 text-left">
                     <h3 className="text-lg font-semibold text-white">{visual.title}</h3>
-                    <p className="mt-1 text-xs text-white/75">{visual.subtitle}</p>
-                    <span className="mt-3 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm">Découvrir <ArrowRight size={12} /></span>
+                    <p className="mt-1 text-xs text-white/80">{visual.subtitle}</p>
+                    <span className="mt-3.5 inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-4 py-1 text-xs font-medium text-white backdrop-blur-sm transition group-hover:bg-white/20">
+                      Découvrir
+                    </span>
                   </div>
                 </div>
               </button>
@@ -76,15 +86,30 @@ export default function CatalogueSection({ categories, products, activeCategory,
           })}
         </div>
 
-        <div id="products" className="mt-24 scroll-mt-24">
-          <div className="flex items-end justify-between gap-4">
+        {/* Featured Products Heading */}
+        <div id="products" className="mt-20 scroll-mt-24 md:mt-24">
+          <div className="flex items-end justify-between gap-4 border-b border-[#E8E0D4]/70 pb-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[.22em] text-[#B58A4A]">Produits phares</p>
-              <h2 className="mt-3 text-3xl font-medium tracking-tight text-[#2B2620] md:text-4xl">Nos coups de cœur</h2>
+              <p className="text-xs font-bold uppercase tracking-[.24em] text-[#B58A4A]">Produits phares</p>
+              <h2 className="mt-1.5 font-serif text-2xl font-normal tracking-tight text-[#2B2620] md:text-3xl">
+                Nos coups de cœur
+              </h2>
             </div>
-            <button type="button" onClick={() => onCategoryChange("all")} className="hidden items-center gap-1 text-sm font-medium text-[#B58A4A] hover:text-[#9A7540] sm:flex">Voir tout <ArrowRight size={14} /></button>
+            <button
+              type="button"
+              onClick={() => onCategoryChange("all")}
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2B2620] hover:text-[#B58A4A] transition"
+            >
+              Voir tout <ArrowRight size={13} />
+            </button>
           </div>
-          <div className="mt-10"><ProductGrid products={products} onAddToCart={onAddToCart} /></div>
+          <div className="mt-8">
+            <ProductGrid
+              products={products}
+              onAddToCart={onAddToCart}
+              onSelectProduct={onSelectProduct}
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -42,17 +42,18 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
   ).join("\n")}\n\nPoids estimé : ${weight.toFixed(2)} kg\nPrix global indicatif : ${formatXof(total)}\n\nMerci de confirmer la disponibilité et le prix final.`;
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/40"
-      onClick={onClose}
-      aria-hidden="true"
-    >
+    <div className="fixed inset-0 z-50 flex justify-end">
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <aside
         ref={asideRef}
         role="dialog"
+        aria-modal="true"
         aria-label="Panier"
-        className="ml-auto flex h-full w-full max-w-md flex-col bg-[#F8F3EA] p-5"
-        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 flex h-full w-full max-w-md flex-col bg-[#F8F3EA] p-5 shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -136,21 +137,21 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
             </div>
 
             {/* Summary */}
-            <div className="mt-5 border-t border-black/10 pt-5">
-              <div className="flex justify-between text-sm">
+            <div className="mt-5 border-t border-[#E8E0D4] pt-4">
+              <div className="flex justify-between text-xs text-[#6A5A4A]">
                 <span>Poids estimé</span>
-                <strong>{weight.toFixed(2)} kg</strong>
+                <strong className="text-[#2B2620]">{weight.toFixed(2)} kg</strong>
               </div>
-              <div className="mt-2 flex justify-between text-lg font-extrabold">
+              <div className="mt-2 flex justify-between text-base font-bold text-[#2B2620]">
                 <span>Total indicatif</span>
-                <strong>{formatXof(total)}</strong>
+                <strong className="text-[#B58A4A]">{formatXof(total)}</strong>
               </div>
-              <p className="mt-2 text-xs leading-5 text-[#5B5348]">
+              <p className="mt-2 text-[11px] leading-relaxed text-[#8A7A6A]">
                 Le prix final et la disponibilité sont confirmés par Lim'Elle avant paiement.
               </p>
               <Button
-                variant="gold"
-                className="mt-4 w-full"
+                variant="green"
+                className="mt-4 w-full rounded-xl bg-[#1B3A2D] py-5 font-bold text-white shadow-sm hover:bg-[#142D24]"
                 size="lg"
                 onClick={onCheckout}
               >
@@ -158,7 +159,7 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
               </Button>
               <WhatsAppButton
                 message={message}
-                className="mt-3 w-full bg-[#3FBF63] text-white"
+                className="mt-2.5 w-full rounded-xl bg-[#25D366] py-3 text-sm font-semibold text-white shadow-xs"
               >
                 Vérifier sur WhatsApp
               </WhatsAppButton>

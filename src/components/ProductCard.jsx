@@ -5,62 +5,55 @@ import { cn } from "@/lib/utils";
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=400&auto=format&fit=crop";
 
-export default function ProductCard({ product, onAddToCart }) {
-  const { name, description, price, image, category } = product;
+export default function ProductCard({ product, onAddToCart, onSelectProduct }) {
+  const { name, description, price, img, category } = product;
 
   return (
-    <Card className={cn(
-      "group relative overflow-hidden border-[#E8E0D4]/60 bg-white",
-      "transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-    )}>
+    <Card
+      onClick={() => onSelectProduct?.(product)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelectProduct?.(product);
+        }
+      }}
+      className={cn(
+        "group relative overflow-hidden rounded-2xl border border-[#E8E0D4] bg-white cursor-pointer",
+        "transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+      )}
+    >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-[#E9DFCE]">
+      <div className="relative aspect-square overflow-hidden bg-[#F4EFE6]">
         <img
-          src={image || PLACEHOLDER_IMG}
+          src={img || PLACEHOLDER_IMG}
           alt={name}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-[#1B1712]/0 transition-colors duration-300 group-hover:bg-[#1B1712]/10" />
-        {/* Cart button on hover */}
-        <Button
-          variant="gold"
-          size="icon"
-          className={cn(
-            "absolute bottom-3 right-3 h-9 w-9 rounded-full",
-            "opacity-0 translate-y-2 transition-all duration-300",
-            "group-hover:opacity-100 group-hover:translate-y-0",
-            "shadow-lg"
-          )}
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddToCart?.(product);
-          }}
-          aria-label={`Ajouter ${name} au panier`}
-        >
-          <ShoppingBag size={15} />
-        </Button>
+        <div className="absolute inset-0 bg-[#1B1712]/0 transition-colors duration-300 group-hover:bg-[#1B1712]/5" />
       </div>
 
       {/* Content */}
-      <CardContent className="p-4">
-        <h3 className="font-sans text-sm font-semibold text-[#2B2620] line-clamp-1">
+      <CardContent className="p-3.5">
+        <h3 className="font-sans text-xs font-semibold text-[#2B2620] line-clamp-1 md:text-sm">
           {name}
         </h3>
         {description && (
-          <p className="mt-1 text-xs text-[#6A5A4A] line-clamp-1">
+          <p className="mt-0.5 text-[11px] text-[#8A7A6A] line-clamp-1">
             {description}
           </p>
         )}
-        <div className="mt-3 flex items-center justify-between">
-          <p className="text-sm font-bold text-[#B58A4A]">
+        <div className="mt-2.5 flex items-center justify-between">
+          <p className="text-xs font-bold text-[#2B2620] md:text-sm">
             {typeof price === "number" ? `${price.toLocaleString("fr-FR")} FCFA` : price}
           </p>
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 rounded-full text-[#6A5A4A] hover:text-[#1B3A2D] hover:bg-[#E9DFCE]"
+            className="h-7 w-7 rounded-full text-[#8A7A6A] hover:bg-[#F4EFE6] hover:text-[#1B3A2D]"
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart?.(product);

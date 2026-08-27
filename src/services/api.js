@@ -21,4 +21,5 @@ export const api = {
   product: (id) => request(`/api/products/${encodeURIComponent(id)}`),
   createOrder: (order) => request("/api/orders", { method: "POST", body: JSON.stringify(order) }),
   order: (lookupToken) => request(`/api/orders/${encodeURIComponent(lookupToken)}`),
+  invoiceUrl: (lookupToken) => `${API_BASE_URL}/api/orders/${encodeURIComponent(lookupToken)}/invoice`,
 };

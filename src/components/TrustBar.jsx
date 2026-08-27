@@ -41,7 +41,7 @@ function AvatarStack({ urls }) {
           key={i}
           src={url}
           alt={`Cliente ${i + 1}`}
-          className="h-8 w-8 rounded-full border-2 border-[#1B3A2D] object-cover"
+          className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-xs"
           loading="lazy"
         />
       ))}
@@ -53,20 +53,20 @@ export default function TrustBar() {
   return (
     <section
       aria-label="Confiance et sécurité"
-      className="bg-[#1B3A2D] px-5 py-12"
+      className="bg-[#F8F4EC] px-5 py-12"
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 rounded-2xl border border-[#E8E0D4] bg-[#F3EDE2]/60 p-6 sm:grid-cols-3 sm:p-8">
         {TRUST_ITEMS.map((item, i) => {
           if (item.type === "reviews") {
             return (
               <div
                 key={i}
-                className="flex flex-col items-center gap-3 text-center"
+                className="flex flex-col items-center gap-2.5 text-center"
               >
                 <AvatarStack urls={item.avatars} />
                 <div>
-                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
-                  <div className="mt-1.5 flex justify-center">
+                  <h3 className="text-sm font-semibold text-[#2B2620]">{item.title}</h3>
+                  <div className="mt-1 flex justify-center">
                     <StarRating />
                   </div>
                 </div>
@@ -78,20 +78,20 @@ export default function TrustBar() {
           return (
             <div
               key={i}
-              className="flex flex-col items-center gap-3 text-center"
+              className="flex flex-col items-center gap-2.5 text-center"
             >
               <div
                 className={cn(
-                  "flex h-11 w-11 items-center justify-center",
-                  "rounded-full bg-white/10 text-[#C8B99A]"
+                  "flex h-10 w-10 items-center justify-center",
+                  "rounded-full bg-[#B58A4A]/15 text-[#B58A4A]"
                 )}
                 aria-hidden="true"
               >
                 <Icon size={20} strokeWidth={1.5} />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-white">{item.title}</h3>
-                <p className="mt-1 text-xs leading-relaxed text-white/70">
+                <h3 className="text-sm font-semibold text-[#2B2620]">{item.title}</h3>
+                <p className="mt-0.5 text-xs text-[#6A5A4A]">
                   {item.description}
                 </p>
               </div>

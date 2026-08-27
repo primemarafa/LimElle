@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import { products } from "./data/products.js";
 import { registerRoutes } from "./routes.js";
@@ -19,17 +20,13 @@ export function buildApp({ productRepository = null, orderRepository = null, db 
     }),
   });
 
-  app.addHook("onSend", async (_request, reply) => {
-    const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
-    reply.header("Access-Control-Allow-Origin", allowedOrigin);
-    reply.header("Vary", "Origin");
-    reply.header("Access-Control-Allow-Headers", "Content-Type");
-    reply.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  app.register(cors, {
+    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["http://localhost:5173"],
+    strictPreflight: false,
   });
 
   registerSecurityHeaders(app);
 
-  app.options("/*", async (_request, reply) => reply.code(204).send());
   registerRoutes(app, { products, productRepository, orderRepository, db, orders });
   return app;
 }
