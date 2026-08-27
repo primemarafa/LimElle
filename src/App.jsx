@@ -22,6 +22,24 @@ import UserProfileModal from "./components/UserProfileModal";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 
+function InstagramIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  );
+}
+
 function AppContent() {
   const { user, isAuthenticated } = useAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -276,9 +294,27 @@ function AppContent() {
             <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2B2620]">Lim'Elle</span></div>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#B58A4A]">{LIMELLE_CONFIG.tagline}</p>
             <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beauté et élégance de confiance au Sahel. Des produits d'exception pour sublimer votre éclat naturel.</p>
-            <div className="mt-5 flex gap-3">
-              {LIMELLE_CONFIG.social.instagramHandle && <a href={LIMELLE_CONFIG.social.instagramUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">IG</a>}
-              <a href={LIMELLE_CONFIG.social.facebookUrl || "#"} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-xs font-bold text-black/50 transition hover:bg-[#173F34] hover:text-white">FB</a>
+            <div className="mt-5 flex items-center gap-3">
+              {LIMELLE_CONFIG.social.instagramHandle && (
+                <a
+                  href={LIMELLE_CONFIG.social.instagramUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Suivez Lim'Elle sur Instagram"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#14261F] text-[#C8B99A] shadow-2xs transition hover:bg-[#B58A4A] hover:text-white"
+                >
+                  <InstagramIcon size={17} />
+                </a>
+              )}
+              <a
+                href={LIMELLE_CONFIG.social.facebookUrl || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Suivez Lim'Elle sur Facebook"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#14261F] text-[#C8B99A] shadow-2xs transition hover:bg-[#B58A4A] hover:text-white"
+              >
+                <FacebookIcon size={17} />
+              </a>
             </div>
           </div>
           <div>
@@ -310,12 +346,7 @@ function AppContent() {
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
           <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
-          <div className="flex gap-3">
-            <span className="rounded-md bg-black/5 px-3 py-1.5">Orange Money</span>
-            <span className="rounded-md bg-black/5 px-3 py-1.5">MTN MoMo</span>
-            <span className="rounded-md bg-black/5 px-3 py-1.5">Visa</span>
-            <span className="rounded-md bg-black/5 px-3 py-1.5">Mastercard</span>
-          </div>
+          <p className="text-[11px] text-[#8A7A6A]/80">Cosmétiques et Soins Naturels d'Exception • Sahel</p>
         </div>
       </footer>
 
