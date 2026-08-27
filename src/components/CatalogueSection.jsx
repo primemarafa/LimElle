@@ -86,23 +86,56 @@ export default function CatalogueSection({ categories, products, activeCategory,
           })}
         </div>
 
-        {/* Featured Products Heading */}
+        {/* Featured Products Heading & Filter Tabs */}
         <div id="products" className="mt-20 scroll-mt-24 md:mt-24">
-          <div className="flex items-end justify-between gap-4 border-b border-[#E8E0D4]/70 pb-4">
+          <div className="flex flex-col gap-4 border-b border-[#E8E0D4]/70 pb-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[.24em] text-[#B58A4A]">Produits phares</p>
+              <p className="text-xs font-bold uppercase tracking-[.24em] text-[#B58A4A]">Sélection Lim'Elle</p>
               <h2 className="mt-1.5 font-serif text-2xl font-normal tracking-tight text-[#2B2620] md:text-3xl">
                 Nos coups de cœur
               </h2>
             </div>
-            <button
-              type="button"
-              onClick={() => onCategoryChange("all")}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2B2620] hover:text-[#B58A4A] transition"
-            >
-              Voir tout <ArrowRight size={13} />
-            </button>
+
+            {/* Quick Filter Tabs : Tous | Meilleures Ventes | Nouveautés */}
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => onCategoryChange("all")}
+                className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
+                  activeCategory === "all"
+                    ? "bg-[#14261F] text-white shadow-xs"
+                    : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#2B2620]"
+                }`}
+              >
+                Tous les produits
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onCategoryChange("bestsellers")}
+                className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
+                  activeCategory === "bestsellers"
+                    ? "bg-[#B58A4A] text-white shadow-xs"
+                    : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#B58A4A]"
+                }`}
+              >
+                ⭐ Meilleures Ventes
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onCategoryChange("nouveautes")}
+                className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
+                  activeCategory === "nouveautes"
+                    ? "bg-[#14261F] text-white shadow-xs"
+                    : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#2B2620]"
+                }`}
+              >
+                ✨ Nouveautés
+              </button>
+            </div>
           </div>
+
           <div className="mt-8">
             <ProductGrid
               products={products}
