@@ -4,4 +4,4 @@
 -- ou LE-006, cette migration échouera avec une erreur de clé étrangère au
 -- lieu de supprimer silencieusement l'historique — dans ce cas, remplacer
 -- le DELETE par un flag "discontinué" plutôt qu'une suppression physique.
-DELETE FROM products WHERE id IN ('LE-002', 'LE-006');
+DELETE FROM products WHERE id IN ('LE-001', 'LE-002', 'LE-003', 'LE-004', 'LE-005', 'LE-006');

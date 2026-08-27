@@ -2,12 +2,11 @@ BEGIN;
 
 INSERT INTO products (id, name, description, price, weight, category, size, color, stock, availability, image_url)
 VALUES
-  ('LE-001', 'Boubou bazin sénégalais', 'Tenue féminine inspirée du bazin sénégalais, disponibilité à confirmer à Dakar.', 35000, 0.800, 'tenues', 'M,L,XL', 'Terracotta,Bordeaux,Noir', 0, 'SUR_DEMANDE', '/images/category-tenues.jpg'),
-  ('LE-002', 'Tenue peulh du Niger', 'Tenue inspirée de l''art vestimentaire peulh du Niger, disponibilité à confirmer.', 30000, 0.900, 'tenues', 'S,M,L,XL', 'Selon disponibilité', 0, 'SUR_DEMANDE', 'https://commons.wikimedia.org/wiki/Special:FilePath/Femmes_peulh_portant_l%27accoutrement_traditionnel_au_Niger.jpg'),
-  ('LE-003', 'Sac artisanal sahélien', 'Sac inspiré de l''artisanat ouest-africain, disponibilité à confirmer à Dakar.', 24000, 1.100, 'sacs', 'Unique', 'Camel,Noir', 0, 'SUR_DEMANDE', '/images/category-sacs.jpg'),
-  ('LE-004', 'Parure sahélienne', 'Bijou inspiré des savoir-faire sahéliens, disponibilité à confirmer.', 17000, 0.300, 'bijoux', 'Unique', 'Argent', 0, 'SUR_DEMANDE', '/images/category-tenues.jpg'),
-  ('LE-005', 'Soin au karité', 'Produit de soin au karité à vérifier selon la disponibilité et les conditions de transport.', 12000, 0.400, 'beaute', 'Unique', 'Standard', 0, 'SUR_DEMANDE', '/images/category-beaute.jpg'),
-  ('LE-006', 'Foulard sahélien', 'Foulard sélectionné selon les pièces disponibles à Dakar ou Niamey.', 13000, 0.200, 'accessoires', 'Unique', 'Selon disponibilité', 0, 'SUR_DEMANDE', 'https://commons.wikimedia.org/wiki/Special:FilePath/Femmes_peulh_portant_l%27accoutrement_traditionnel_au_Niger.jpg')
+  ('le-001', 'Sérum éclat naturel', 'Anti-taches - 30ml', 9500, 0.200, 'soins-visage', 'Unique', 'Standard', 0, 'disponible', 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=700&auto=format&fit=crop'),
+  ('le-002', 'Beurre de karité pur', 'Hydratation intense - 200g', 6000, 0.300, 'soins-corps', 'Unique', 'Standard', 0, 'disponible', 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=700&auto=format&fit=crop'),
+  ('le-003', 'Parfum Élégance', 'Eau de parfum - 50ml', 12500, 0.350, 'parfums', 'Unique', 'Standard', 0, 'disponible', 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=700&auto=format&fit=crop'),
+  ('le-004', 'Savon clarifiant', 'Éclat naturel - 100g', 2500, 0.150, 'soins-visage', 'Unique', 'Standard', 0, 'disponible', 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=700&auto=format&fit=crop'),
+  ('le-005', 'Huile précieuse', 'Nourrissante - 50ml', 8500, 0.250, 'soins-corps', 'Unique', 'Standard', 0, 'disponible', 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=700&auto=format&fit=crop')
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   description = EXCLUDED.description,
