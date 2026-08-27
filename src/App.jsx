@@ -21,6 +21,8 @@ import AuthModal from "./components/AuthModal";
 import UserProfileModal from "./components/UserProfileModal";
 import BotanicalTreasuresSection from "./components/BotanicalTreasuresSection";
 import BeautyRitualSection from "./components/BeautyRitualSection";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 
@@ -189,9 +191,8 @@ function AppContent() {
             <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
             <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
-            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">À propos</span>
-            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Journal</span>
-            <span className="cursor-default text-sm font-medium text-[#8A7A6A]/60">Contact</span>
+            <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")}`}>À propos</button>
+            <button onClick={() => scrollTo("contact")} className={`${navLinkClass("contact")} ${navUnderline("contact")}`}>Contact</button>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -231,14 +232,32 @@ function AppContent() {
       {menuOpen && (
         <div className="fixed inset-0 z-[70] bg-[#F8F4EC] p-6 lg:hidden">
           <div className="flex items-center justify-between">
-            <BrandLogo className="h-7 w-auto" />
+            <div className="flex items-center gap-2">
+              <BrandLogo className="h-7 w-auto" />
+              <span className="font-serif text-lg font-normal text-[#2B2620]">Lim'Elle</span>
+            </div>
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
-            {[{ id: "accueil", label: "Accueil" }, { id: "categories", label: "Catégories" }, { id: "products", label: "Boutique" }, { id: "apropos", label: "À propos", disabled: true }, { id: "journal", label: "Journal", disabled: true }, { id: "contact", label: "Contact", disabled: true }].map(({ id, label, disabled }) => (
-              disabled
-                ? <span key={id} className="border-b border-[#E8E0D4] py-4 text-left text-lg font-medium text-[#8A7A6A]/50">{label}</span>
-                : <button key={id} onClick={() => id === "products" ? openBoutique() : id === "categories" ? openCategories() : scrollTo(id)} className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A]"}`}>{label}</button>
+            {[
+              { id: "accueil", label: "Accueil" },
+              { id: "categories", label: "Catégories" },
+              { id: "products", label: "Boutique" },
+              { id: "apropos", label: "À propos" },
+              { id: "contact", label: "Contact" },
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => {
+                  setMenuOpen(false);
+                  if (id === "products") openBoutique();
+                  else if (id === "categories") openCategories();
+                  else scrollTo(id);
+                }}
+                className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A]"}`}
+              >
+                {label}
+              </button>
             ))}
           </nav>
           <div className="mt-8 pt-6 border-t border-[#E8E0D4]">
@@ -274,6 +293,12 @@ function AppContent() {
 
         {/* Section Rituel Beauté en 3 Étapes */}
         <BeautyRitualSection onDiscover={openBoutique} />
+
+        {/* Section À Propos & Vision de Marque */}
+        <AboutSection />
+
+        {/* Section Contact & Conciergerie */}
+        <ContactSection />
 
         <TrustBar />
 
