@@ -1,11 +1,11 @@
 const DEFAULT_BADGE = "Sélection";
 
 const BEAUTY_FALLBACKS_BY_KEY = {
-  "le-001": { id: "le-001", name: "Sérum éclat naturel", description: "Anti-taches - 30ml", price: 9500, weight: 0.2, cat: "soins-visage", img: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=700&auto=format&fit=crop", badge: "Bestseller" },
-  "le-002": { id: "le-002", name: "Beurre de karité pur", description: "Hydratation intense - 200g", price: 6000, weight: 0.3, cat: "soins-corps", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=700&auto=format&fit=crop", badge: "Naturel" },
-  "le-003": { id: "le-003", name: "Parfum Élégance", description: "Eau de parfum - 50ml", price: 12500, weight: 0.35, cat: "parfums", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=700&auto=format&fit=crop", badge: "Exclusif" },
-  "le-004": { id: "le-004", name: "Savon clarifiant", description: "Éclat naturel - 100g", price: 2500, weight: 0.15, cat: "soins-visage", img: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=700&auto=format&fit=crop", badge: "Doux" },
-  "le-005": { id: "le-005", name: "Huile précieuse", description: "Nourrissante - 50ml", price: 8500, weight: 0.25, cat: "soins-corps", img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=700&auto=format&fit=crop", badge: "Coup de cœur" },
+  "le-001": { id: "le-001", name: "Sérum éclat naturel", description: "Anti-taches - 30ml", price: 9500, weight: 0.2, cat: "soins-visage", img: "/images/product-serum-eclat.jpg", badge: "Bestseller" },
+  "le-002": { id: "le-002", name: "Beurre de karité pur", description: "Hydratation intense - 200g", price: 6000, weight: 0.3, cat: "soins-corps", img: "/images/product-beurre-karite.jpg", badge: "Naturel" },
+  "le-003": { id: "le-003", name: "Parfum Élégance", description: "Eau de parfum - 50ml", price: 12500, weight: 0.35, cat: "parfums", img: "/images/product-parfum-elegance.jpg", badge: "Exclusif" },
+  "le-004": { id: "le-004", name: "Savon clarifiant", description: "Éclat naturel - 100g", price: 2500, weight: 0.15, cat: "soins-visage", img: "/images/product-savon-clarifiant.jpg", badge: "Doux" },
+  "le-005": { id: "le-005", name: "Huile précieuse", description: "Nourrissante - 50ml", price: 8500, weight: 0.25, cat: "soins-corps", img: "/images/product-huile-precieuse.jpg", badge: "Coup de cœur" },
 };
 
 function splitList(value) {
