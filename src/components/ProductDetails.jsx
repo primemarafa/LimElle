@@ -26,8 +26,25 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
           <div className="inline-flex rounded-full bg-[#F4EFE6] px-3.5 py-1 text-xs font-bold text-[#B58A4A]">{product.badge}</div>
           <h1 className="mt-4 font-serif text-3xl font-medium text-[#2B2620] md:text-4xl">{product.name}</h1>
           <p className="mt-3 text-sm leading-relaxed text-[#6A5A4A]">{product.description ?? "Produit sélectionné avec soin par Lim'Elle. Les détails sont confirmés avant paiement."}</p>
-          <div className="mt-5 text-2xl font-bold text-[#B58A4A]">À partir de {formatXof(totalEstimate)}</div>
-          <p className="mt-1 text-xs text-[#8A7A6A]">Prix indicatif incluant l'estimation du transport. Le montant final est confirmé après vérification.</p>
+          {/* Prix & Remise éventuelle */}
+          <div className="mt-5 flex items-baseline gap-3">
+            <div className="text-2xl font-bold text-[#14261F] md:text-3xl">
+              {formatXof(totalEstimate)}
+            </div>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <span className="text-base text-[#8A7A6A] line-through">
+                {formatXof(product.originalPrice * quantity)}
+              </span>
+            )}
+            {product.discountPercent && (
+              <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-800">
+                -{product.discountPercent}%
+              </span>
+            )}
+          </div>
+          <p className="mt-1 text-xs text-[#8A7A6A]">
+            📦 Sélectionné à <strong>Dakar</strong>, expédié et livré à <strong>Niamey</strong> (fret GP inclus).
+          </p>
 
           {product.sizes?.length > 0 && <div className="mt-6"><label className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Contenance / Format</label><div className="mt-2 flex flex-wrap gap-2">{product.sizes.map((item) => <button type="button" key={item} onClick={() => setSize(item)} className={`rounded-xl border px-4 py-2 text-xs font-bold transition ${size === item ? "border-[#B58A4A] bg-[#B58A4A] text-white" : "border-[#E8E0D4] bg-white text-[#2B2620]"}`}>{item}</button>)}</div></div>}
 
@@ -42,11 +59,11 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
             </div>
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={handleAdd} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B3A2D] px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-[#142D24]">
+            <button type="button" onClick={handleAdd} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#14261F] px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-[#0E1B15]">
               <ShoppingBag size={17} /> Ajouter au panier
             </button>
-            <WhatsAppButton message={message} className="bg-[#25D366] text-white rounded-xl py-3.5">
-              Vérifier et commander
+            <WhatsAppButton message={message} className="bg-[#25D366] text-white rounded-xl py-3.5 font-bold shadow-md hover:bg-[#20BA5A]">
+              Commander en 1 clic sur WhatsApp
             </WhatsAppButton>
           </div>
         </div>
