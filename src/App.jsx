@@ -23,6 +23,8 @@ import BotanicalTreasuresSection from "./components/BotanicalTreasuresSection";
 import BeautyRitualSection from "./components/BeautyRitualSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
+import CustomRequestSection from "./components/CustomRequestSection";
+import FaqSection from "./components/FaqSection";
 import AdminModal, { getCustomProducts } from "./components/AdminModal";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
@@ -120,10 +122,17 @@ function AppContent() {
   useEffect(() => loadCatalog(), []);
 
   const filteredProducts = useMemo(() => {
-    const byCategory = filter === "all" ? products : products.filter((product) => product.cat === filter);
+    let list = products;
+    if (filter === "bestsellers") {
+      list = products.filter((p) => (p.badge?.toLowerCase().includes("bestseller") || p.badge?.toLowerCase().includes("coup de cœur") || p.price > 8000));
+    } else if (filter === "nouveautes") {
+      list = products.filter((p) => (p.badge?.toLowerCase().includes("nouveau") || p.badge?.toLowerCase().includes("exclusif") || p.badge?.toLowerCase().includes("naturel") || p.badge?.toLowerCase().includes("doux")));
+    } else if (filter !== "all") {
+      list = products.filter((product) => product.cat === filter || product.category === filter);
+    }
     const term = searchTerm.trim().toLowerCase();
-    if (!term) return byCategory;
-    return byCategory.filter((product) => product.name?.toLowerCase().includes(term) || product.description?.toLowerCase().includes(term));
+    if (!term) return list;
+    return list.filter((product) => product.name?.toLowerCase().includes(term) || product.description?.toLowerCase().includes(term));
   }, [filter, products, searchTerm]);
 
   const addToCart = (product, quantity = 1) => {
@@ -208,10 +217,12 @@ function AppContent() {
             </div>
           </button>
 
-          <nav className="hidden items-center gap-7 lg:flex">
+          <nav className="hidden items-center gap-6 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
             <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
+            <button onClick={() => scrollTo("sur-mesure")} className={`${navLinkClass("sur-mesure")} ${navUnderline("sur-mesure")}`}>Sur-Mesure</button>
+            <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")}`}>FAQ</button>
             <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")}`}>À propos</button>
             <button onClick={() => scrollTo("contact")} className={`${navLinkClass("contact")} ${navUnderline("contact")}`}>Contact</button>
           </nav>
@@ -264,6 +275,8 @@ function AppContent() {
               { id: "accueil", label: "Accueil" },
               { id: "categories", label: "Catégories" },
               { id: "products", label: "Boutique" },
+              { id: "sur-mesure", label: "Demande Sur-Mesure" },
+              { id: "faq", label: "FAQ & Questions" },
               { id: "apropos", label: "À propos" },
               { id: "contact", label: "Contact" },
             ].map(({ id, label }) => (
@@ -309,11 +322,17 @@ function AppContent() {
           <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} onSelectProduct={setSelectedProduct} />
         </div>
 
+        {/* Section Demande Sur-Mesure (Personal Shopping Dakar -> Niamey) */}
+        <CustomRequestSection />
+
         {/* Section Trésors Botaniques du Sahel */}
         <BotanicalTreasuresSection />
 
         {/* Section Rituel Beauté en 3 Étapes */}
         <BeautyRitualSection onDiscover={openBoutique} />
+
+        {/* FAQ Déroulante Interactive */}
+        <FaqSection />
 
         {/* Section À Propos & Vision de Marque */}
         <AboutSection />
