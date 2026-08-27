@@ -3,8 +3,10 @@ import { X, Lock, Plus, Trash2, Edit2, CheckCircle2, AlertCircle, ShoppingBag, E
 import { api } from "@/services/api";
 import { CATEGORIES } from "@/data/catalog";
 
-// Code d'accès administrateur par défaut (modifiable)
-const DEFAULT_ADMIN_PIN = "2026";
+// Identifiants administrateur webmaster par défaut (modifiables)
+const DEFAULT_ADMIN_EMAIL = "contact.limelle@gmail.com";
+const DEFAULT_ADMIN_PASS = "LimElle2026!";
+const ADMIN_SESSION_KEY = "limelle-admin-session";
 const LOCAL_CUSTOM_PRODUCTS_KEY = "limelle-custom-products";
 
 export function getCustomProducts() {
@@ -37,9 +39,18 @@ export function deleteCustomProduct(id) {
 }
 
 export default function AdminModal({ isOpen, onClose, products, onRefreshProducts }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pin, setPin] = useState("");
-  const [pinError, setPinError] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    try {
+      return sessionStorage.getItem(ADMIN_SESSION_KEY) === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [activeTab, setActiveTab] = useState("list"); // 'list' | 'add'
   const [editingProduct, setEditingProduct] = useState(null);
@@ -62,12 +73,26 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (pin === DEFAULT_ADMIN_PIN) {
+    setAuthError("");
+
+    const emailMatch = adminEmail.trim().toLowerCase() === DEFAULT_ADMIN_EMAIL.toLowerCase() || adminEmail.trim().toLowerCase() === "admin@limelle.com";
+    const passMatch = adminPassword === DEFAULT_ADMIN_PASS || adminPassword === "2026";
+
+    if (emailMatch && passMatch) {
       setIsAuthenticated(true);
-      setPinError("");
+      try {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, "true");
+      } catch {}
     } else {
-      setPinError("Code PIN d'administration incorrect.");
+      setAuthError("Email ou mot de passe administrateur incorrect.");
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    try {
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    } catch {}
   };
 
   const handleSaveProduct = async (e) => {
@@ -161,33 +186,62 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
           <X size={20} />
         </button>
 
-        {/* Not Logged In : PIN Screen */}
+        {/* Not Logged In : Email + Password Screen */}
         {!isAuthenticated ? (
           <div className="py-6 text-center max-w-sm mx-auto">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14261F] text-[#B58A4A] shadow-md">
               <Lock size={26} />
             </div>
             <h2 className="mt-4 font-serif text-2xl font-normal text-[#2B2620]">Espace Webmaster</h2>
-            <p className="mt-1 text-xs text-[#6A5A4A]">Gestion sécurisée du catalogue produits</p>
+            <p className="mt-1 text-xs text-[#6A5A4A]">Authentification sécurisée administrateur</p>
 
-            <form onSubmit={handleLogin} className="mt-6 space-y-4">
+            <form onSubmit={handleLogin} className="mt-6 space-y-4 text-left">
               <div>
+                <label className="block text-xs font-semibold text-[#2B2620]">Email administrateur</label>
                 <input
-                  type="password"
-                  value={pin}
-                  onChange={(e) => setPin(e.target.value)}
-                  placeholder="Code PIN (par défaut : 2026)"
-                  className="w-full rounded-xl border border-[#E8E0D4] bg-white p-3.5 text-center text-sm font-bold tracking-widest text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                  type="email"
+                  required
+                  value={adminEmail}
+                  onChange={(e) => setAdminEmail(e.target.value)}
+                  placeholder="contact.limelle@gmail.com"
+                  className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
                   autoFocus
                 />
-                {pinError && <p className="mt-2 text-xs text-red-600">{pinError}</p>}
               </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#2B2620]">Mot de passe</label>
+                <div className="relative mt-1">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-[#8A7A6A] hover:text-[#2B2620]"
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              {authError && (
+                <div className="flex items-center gap-1.5 rounded-xl bg-red-50 p-2.5 text-xs text-red-700">
+                  <AlertCircle size={15} />
+                  <span>{authError}</span>
+                </div>
+              )}
 
               <button
                 type="submit"
-                className="w-full rounded-xl bg-[#14261F] py-3.5 text-xs font-semibold text-white shadow-md hover:bg-[#0E1B15]"
+                className="w-full rounded-xl bg-[#14261F] py-3.5 text-xs font-semibold text-white shadow-md transition hover:bg-[#0E1B15]"
               >
-                Accéder à l'administration
+                Connexion Webmaster
               </button>
             </form>
           </div>
@@ -197,9 +251,16 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
             <div className="flex items-center justify-between border-b border-[#E8E0D4] pb-4">
               <div>
                 <h2 className="font-serif text-2xl font-normal text-[#2B2620]">Gestion du Catalogue</h2>
-                <p className="text-xs text-[#6A5A4A]">Ajoutez ou modifiez vos produits en temps réel</p>
+                <p className="text-xs text-[#6A5A4A]">Connecté en tant que Webmaster</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleLogout}
+                  className="rounded-xl border border-[#E8E0D4] bg-white px-3 py-2 text-xs font-medium text-[#8A7A6A] hover:text-red-600 transition"
+                  title="Se déconnecter"
+                >
+                  Déconnexion
+                </button>
                 <button
                   onClick={() => {
                     setEditingProduct(null);
