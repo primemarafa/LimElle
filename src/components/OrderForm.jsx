@@ -4,7 +4,7 @@ import { DELIVERY_MODES } from "../types/customer";
 import { LIMELLE_CONFIG } from "../config/limelle";
 import { api } from "../services/api";
 import { formatXof } from "../utils/limelle";
-import { useAuth } from "../context/AuthContext";
+import { useAuth, saveLocalOrderForUser } from "../context/AuthContext";
 
 const MAX_NOTES_LENGTH = 500;
 
@@ -63,6 +63,9 @@ export default function OrderForm({ items, onBack, onComplete }) {
         },
         token
       );
+      if (user?.id) {
+        saveLocalOrderForUser(user.id, order);
+      }
       onComplete(order);
     } catch (requestError) {
       setError(requestError.message || "Impossible d'envoyer la commande.");
