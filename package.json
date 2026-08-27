@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "db:migrate": "node server/db/migrate.js",
     "test:server": "NODE_ENV=test node --test server/*.test.js server/repositories/*.test.js",
-    "test:frontend-api": "node --test src/services/*.test.js",
+    "test:frontend-api": "node --test src/services/api.test.js",
     "test:frontend-integration": "node --test src/services/api.integration.test.js"
   },
   "dependencies": {

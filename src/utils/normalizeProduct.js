@@ -16,7 +16,7 @@ export function normalizeProduct(product) {
   return {
     ...product,
     img: product.imageUrl || product.img || "",
-    cat: product.category || product.cat || "vetements",
+    cat: product.category || product.cat || "soins-visage",
     sizes: splitList(product.size || product.sizes),
     colors: splitList(product.color || product.colors),
     availability: typeof product.availability === "string" ? product.availability.toLowerCase() : (product.availability ?? "en_stock"),

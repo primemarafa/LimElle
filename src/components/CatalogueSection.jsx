@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Droplets, Gem, Handbag } from "lucide-react";
+import { ArrowRight, Sparkles, Droplets, Gem, ShoppingBag } from "lucide-react";
 import ProductGrid from "./ProductGrid";
 
 const CATEGORY_VISUALS = {
@@ -23,7 +23,7 @@ const CATEGORY_VISUALS = {
   accessoires: {
     title: "Accessoires",
     subtitle: "L'élégance dans les détails",
-    icon: Handbag,
+    icon: ShoppingBag,
     image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop",
   },
 };

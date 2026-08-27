@@ -18,7 +18,7 @@ test("malformed JSON is rejected without leaking internals", async () => {
 
 test("oversized notes are rejected", async () => {
   const app = await setup();
-  const response = await app.inject({ method: "POST", url: "/api/orders", payload: { customer: { fullName: "Test", phone: "770000000", city: "Dakar" }, items: [{ product: { id: "LE-001" }, quantity: 1 }], deliveryMode: "point_retrait", notes: "x".repeat(501) } });
+  const response = await app.inject({ method: "POST", url: "/api/orders", payload: { customer: { fullName: "Test", phone: "770000000", city: "Dakar" }, items: [{ product: { id: "le-001" }, quantity: 1 }], deliveryMode: "point_retrait", notes: "x".repeat(501) } });
   assert.equal(response.statusCode, 400);
   await app.close();
 });
