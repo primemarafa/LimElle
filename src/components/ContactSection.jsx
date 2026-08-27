@@ -49,7 +49,7 @@ export default function ContactSection() {
 
             {/* Email Card */}
             <a
-              href="mailto:contact@limelle-beaute.com"
+              href={`mailto:${LIMELLE_CONFIG.email}`}
               className="group flex items-start gap-4 rounded-3xl border border-[#E8E0D4] bg-white p-6 shadow-xs transition hover:border-[#B58A4A] hover:shadow-md"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#B58A4A]/15 text-[#B58A4A] transition group-hover:bg-[#B58A4A] group-hover:text-white">
@@ -64,7 +64,7 @@ export default function ContactSection() {
                   Pour toute demande de collaboration, suivi de facture ou question générale.
                 </p>
                 <p className="mt-2 text-xs font-bold text-[#14261F] underline group-hover:text-[#B58A4A]">
-                  contact@limelle-beaute.com
+                  {LIMELLE_CONFIG.email}
                 </p>
               </div>
             </a>
