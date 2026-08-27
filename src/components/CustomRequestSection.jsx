@@ -107,14 +107,24 @@ export default function CustomRequestSection() {
               </div>
 
               <div>
-                <label className="block font-medium text-white">Détails, teinte, contenance ou photo</label>
+                <label className="block font-medium text-white">Détails, teinte, contenance ou référence</label>
                 <textarea
-                  rows={3}
+                  rows={2}
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
-                  placeholder="Précisez la taille, le parfum souhaité, ou collez un lien..."
+                  placeholder="Précisez la teinte, la texture, le format ou collez un lien..."
                   className="mt-1 w-full rounded-xl border border-white/20 bg-white/10 p-3 text-xs text-white placeholder:text-white/50 focus:border-[#C8B99A] focus:outline-none"
                 />
+              </div>
+
+              {/* Encadré d'aide photo */}
+              <div className="flex items-center gap-3 rounded-xl border border-[#C8B99A]/30 bg-[#C8B99A]/10 p-3 text-xs text-[#E8E0D4]">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C8B99A]/20 text-[#C8B99A]">
+                  <Camera size={16} />
+                </div>
+                <p className="leading-snug">
+                  <strong className="text-white">Vous avez une photo ou capture d'écran ?</strong> Vous pourrez la joindre directement dans la discussion WhatsApp en 1 clic !
+                </p>
               </div>
 
               <button
