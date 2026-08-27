@@ -5,7 +5,7 @@
 
 @theme inline {
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --font-serif: "Playfair Display", Georgia, serif;
   --color-cream: #FDFBF7;
   --color-cream-dark: #F8F4EC;
   --color-ink: #2B2620;
@@ -24,6 +24,7 @@ body {
   background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-weight: 450;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,7 +32,8 @@ body {
 /* Typographie premium */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 /* Animations d'apparition */
