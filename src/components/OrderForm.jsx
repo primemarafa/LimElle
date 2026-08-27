@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { ArrowLeft, MapPin, UserRound } from "lucide-react";
+import { ArrowLeft, MapPin, UserRound, Sparkles } from "lucide-react";
 import { DELIVERY_MODES } from "../types/customer";
 import { LIMELLE_CONFIG } from "../config/limelle";
 import { api } from "../services/api";
 import { formatXof } from "../utils/limelle";
+import { useAuth } from "../context/AuthContext";
 
 const MAX_NOTES_LENGTH = 500;
 
 export default function OrderForm({ items, onBack, onComplete }) {
+  const { user, token } = useAuth();
   const homeDeliveryEnabled = Boolean(LIMELLE_CONFIG.transport.homeDeliveryEnabled);
   const [form, setForm] = useState({
-    fullName: "",
-    phone: "",
-    city: "Niamey",
+    fullName: user?.fullName || "",
+    phone: user?.phone || "",
+    city: user?.city || "Niamey",
     deliveryMode: DELIVERY_MODES.PICKUP,
     deliveryAddress: "",
     notes: "",
@@ -44,20 +46,23 @@ export default function OrderForm({ items, onBack, onComplete }) {
 
     setSubmitting(true);
     try {
-      const order = await api.createOrder({
-        customer: {
-          fullName: form.fullName.trim(),
-          phone: form.phone.trim(),
-          city: form.city.trim(),
+      const order = await api.createOrder(
+        {
+          customer: {
+            fullName: form.fullName.trim(),
+            phone: form.phone.trim(),
+            city: form.city.trim(),
+          },
+          items: items.map((item) => ({
+            product: { id: item.product.id },
+            quantity: item.quantity,
+          })),
+          deliveryMode: form.deliveryMode,
+          deliveryAddress: form.deliveryMode === DELIVERY_MODES.HOME ? form.deliveryAddress.trim() : "",
+          notes: form.notes.trim(),
         },
-        items: items.map((item) => ({
-          product: { id: item.product.id },
-          quantity: item.quantity,
-        })),
-        deliveryMode: form.deliveryMode,
-        deliveryAddress: form.deliveryMode === DELIVERY_MODES.HOME ? form.deliveryAddress.trim() : "",
-        notes: form.notes.trim(),
-      });
+        token
+      );
       onComplete(order);
     } catch (requestError) {
       setError(requestError.message || "Impossible d'envoyer la commande.");

@@ -15,9 +15,9 @@ export function createOrderRepository(db) {
 
         const orderResult = await client.query(
           `INSERT INTO orders
-            (reference, lookup_token, customer_id, status, delivery_mode, delivery_address, notes,
+            (reference, lookup_token, customer_id, user_id, status, delivery_mode, delivery_address, notes,
              product_total, weight, transport, total)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
            RETURNING id, reference, lookup_token AS "lookupToken", status, delivery_mode AS "deliveryMode",
                      delivery_address AS "deliveryAddress", notes, product_total AS "productTotal",
                      weight, transport, total, created_at AS "createdAt"`,
@@ -25,6 +25,7 @@ export function createOrderRepository(db) {
             order.reference,
             order.lookupToken,
             customerId,
+            order.userId ?? null,
             order.status,
             order.deliveryMode,
             order.deliveryAddress,
