@@ -167,7 +167,7 @@ function AppContent() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products"];
+    const ids = ["accueil", "categories", "products", "sur-mesure", "apropos", "faq", "contact"];
     const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
     let sections = getSections();
 
@@ -222,8 +222,8 @@ function AppContent() {
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
             <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
             <button onClick={() => scrollTo("sur-mesure")} className={`${navLinkClass("sur-mesure")} ${navUnderline("sur-mesure")}`}>Sur-Mesure</button>
-            <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")}`}>FAQ</button>
             <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")}`}>À propos</button>
+            <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")}`}>FAQ</button>
             <button onClick={() => scrollTo("contact")} className={`${navLinkClass("contact")} ${navUnderline("contact")}`}>Contact</button>
           </nav>
 
@@ -276,8 +276,8 @@ function AppContent() {
               { id: "categories", label: "Catégories" },
               { id: "products", label: "Boutique" },
               { id: "sur-mesure", label: "Demande Sur-Mesure" },
-              { id: "faq", label: "FAQ & Questions" },
               { id: "apropos", label: "À propos" },
+              { id: "faq", label: "FAQ & Questions" },
               { id: "contact", label: "Contact" },
             ].map(({ id, label }) => (
               <button
@@ -331,11 +331,11 @@ function AppContent() {
         {/* Section Rituel Beauté en 3 Étapes */}
         <BeautyRitualSection onDiscover={openBoutique} />
 
-        {/* FAQ Déroulante Interactive */}
-        <FaqSection />
-
         {/* Section À Propos & Vision de Marque */}
         <AboutSection />
+
+        {/* FAQ Déroulante Interactive */}
+        <FaqSection />
 
         {/* Section Contact & Conciergerie */}
         <ContactSection />
