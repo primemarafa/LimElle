@@ -54,7 +54,7 @@ test("ProductRepository reads and writes PostgreSQL products", { skip: !integrat
       description: "Produit de validation PostgreSQL",
       price: 42000,
       weight: 0.8,
-      category: "tissus",
+      category: "soins-corps",
       size: "M",
       color: "Noir",
       stock: 7,
