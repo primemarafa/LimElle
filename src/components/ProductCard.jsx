@@ -26,6 +26,11 @@ export default function ProductCard({ product, onAddToCart, onSelectProduct }) {
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-[#F4EFE6]">
+        {product.badge && (
+          <span className="absolute top-2.5 left-2.5 z-10 rounded-full bg-[#14261F]/85 px-2.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+            {product.badge}
+          </span>
+        )}
         <img
           src={img || PLACEHOLDER_IMG}
           alt={name}

@@ -1,116 +1,133 @@
-import { Leaf, Award, Truck, HeartHandshake } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { ArrowRight, Leaf, Gem, Truck, HeartHandshake, MapPin, MessageCircle, Flower2 } from "lucide-react";
 import { LIMELLE_CONFIG, WA_MESSAGES } from "@/config/limelle";
 
 const TRUST_FEATURES = [
-  { icon: Leaf, label: "Ingrédients naturels", description: "Sains et respectueux de votre peau" },
-  { icon: Award, label: "Qualité premium", description: "Sélection rigoureuse des meilleurs produits" },
-  { icon: Truck, label: "Livraison rapide", description: "Partout au Sénégal et au Niger" },
-  { icon: HeartHandshake, label: "Service attentionné", description: "À votre écoute tous les jours" },
+  {
+    icon: Leaf,
+    label: "Ingrédients naturels",
+    description: "Sains et respectueux de votre peau",
+  },
+  {
+    icon: Gem,
+    label: "Qualité premium",
+    description: "Sélection rigoureuse des meilleurs produits",
+  },
+  {
+    icon: Truck,
+    label: "Livraison rapide",
+    description: "Partout au Sénégal et au Niger",
+  },
+  {
+    icon: HeartHandshake,
+    label: "Service attentionné",
+    description: "À votre écoute tous les jours",
+  },
 ];
 
 export default function BrandHero({ onCatalogue }) {
   return (
-    <section
-      aria-label="Bienvenue"
-      className="relative min-h-[560px] overflow-hidden pb-[96px] md:min-h-[640px] md:pb-[100px] lg:min-h-[700px]"
-    >
-      {/* Full-width background image */}
-      <img
-        src="/images/hero-portrait.jpg"
-        alt="Lim'Elle beauté"
-        className="absolute inset-0 h-full w-full object-cover object-right md:object-center"
-        loading="eager"
-        aria-hidden="true"
-      />
+    <section aria-label="Bienvenue sur Lim'Elle" className="relative overflow-hidden bg-[#F7F2EB] pt-6 pb-10 md:pt-10 md:pb-14">
+      {/* Main Hero Container */}
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-8">
+          
+          {/* Left Column: Typography & CTAs */}
+          <div className="z-10 flex flex-col justify-center lg:col-span-6 xl:col-span-5">
+            <h1 className="font-serif text-4xl leading-[1.12] tracking-tight text-[#1B3A2D] sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem]">
+              <span className="block font-normal">Votre beauté,</span>
+              <span className="block font-normal italic text-[#B58A4A]">notre priorité.</span>
+            </h1>
 
-      {/* Content overlay */}
-      <div className="relative z-10 mx-auto flex min-h-[560px] max-w-7xl items-center px-6 py-20 md:min-h-[640px] md:px-12 lg:min-h-[700px]">
-        {/* Text panel with subtle background */}
-        <div className="flex max-w-xl flex-col gap-6 rounded-3xl bg-[#F8F4EC]/90 p-8 shadow-sm backdrop-blur-md md:bg-[#F8F4EC]/80 md:p-10">
-          <h1 className="text-4xl font-normal leading-[1.12] tracking-tight text-[#2B2620] md:text-5xl lg:text-[3.6rem]">
-            <span className="block font-serif italic text-[#B58A4A]">Votre beauté,</span>
-            <span className="block font-serif font-medium text-[#2B2620]">notre priorité.</span>
-          </h1>
-          <p className="max-w-md text-[15px] leading-relaxed text-[#6A5A4A]">
-            Découvrez des produits soigneusement sélectionnés pour sublimer votre éclat naturel chaque jour.
-          </p>
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-[#6A5A4A] sm:text-base">
+              Découvrez des produits soigneusement sélectionnés pour sublimer votre éclat naturel chaque jour.
+            </p>
 
-          <div className="flex flex-wrap items-center gap-3.5 pt-1">
-            <Button
-              variant="green"
-              size="lg"
-              onClick={onCatalogue}
-              className="rounded-xl bg-[#1B3A2D] px-7 py-6 text-sm font-semibold text-white shadow-md hover:bg-[#142D24]"
-            >
-              Découvrir la boutique <span aria-hidden="true" className="ml-1">→</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => window.open(`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}?text=${encodeURIComponent(WA_MESSAGES.general)}`, "_blank", "noopener,noreferrer")}
-              className="rounded-xl border border-[#2B2620]/30 bg-transparent px-6 py-6 text-sm font-semibold text-[#2B2620] hover:bg-[#2B2620]/5"
-            >
-              <span aria-hidden="true" className="mr-1">💬</span> Commander sur WhatsApp
-            </Button>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6 pt-2 text-xs text-[#6A5A4A]">
-            <span className="flex items-center gap-2" aria-label="Livraison rapide">
-              <Truck size={16} className="text-[#B58A4A]" />
-              <span>
-                <strong className="block font-semibold text-[#2B2620]">Livraison rapide</strong>
-                Partout au Sénégal &amp; au Niger
-              </span>
-            </span>
-            <span className="flex items-center gap-2" aria-label="Expédié depuis">
-              <Award size={16} className="text-[#B58A4A]" />
-              <span>
-                <strong className="block font-semibold text-[#2B2620]">Expédié depuis</strong>
-                Dakar · Niamey
-              </span>
-            </span>
-          </div>
-        </div>
-
-        {/* Floating tag top right */}
-        <div
-          className={cn(
-            "absolute top-20 right-10 rounded-2xl bg-[#221B14]/85 px-6 py-5",
-            "shadow-xl backdrop-blur-md hidden lg:block border border-white/10 text-center"
-          )}
-        >
-          <p className="font-serif text-sm font-light italic leading-snug text-[#F8F4EC]">
-            L'élégance<br />
-            au féminin,<br />
-            <span className="text-[#C8B99A]">naturellement.</span>
-          </p>
-        </div>
-      </div>
-
-      {/* Trust strip — glued to bottom of hero */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 bg-[#1B3A2D]">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-5 py-5 md:grid-cols-4 md:gap-6 md:py-6">
-          {TRUST_FEATURES.map(({ icon: Icon, label, description }) => (
-            <div
-              key={label}
-              className="flex flex-col items-center gap-2 text-center"
-            >
-              <div
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-[#C8B99A]"
-                aria-hidden="true"
+            {/* Action Buttons */}
+            <div className="mt-7 flex flex-wrap items-center gap-3.5">
+              <button
+                type="button"
+                onClick={onCatalogue}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#14261F] px-6 py-3.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0E1B15] sm:text-sm"
               >
-                <Icon size={18} strokeWidth={1.5} />
+                Découvrir la boutique <ArrowRight size={15} aria-hidden="true" />
+              </button>
+
+              <a
+                href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}?text=${encodeURIComponent(WA_MESSAGES.general)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#2B2620]/20 bg-[#FDFBF7] px-5 py-3.5 text-xs font-semibold text-[#2B2620] shadow-sm transition hover:bg-white sm:text-sm"
+              >
+                <MessageCircle size={16} className="text-[#B58A4A]" aria-hidden="true" /> Commander sur WhatsApp
+              </a>
+            </div>
+
+            {/* Mini Trust Badges */}
+            <div className="mt-8 flex flex-wrap items-center gap-6 pt-2 text-xs sm:gap-8">
+              <div className="flex items-center gap-3">
+                <Truck size={22} strokeWidth={1.5} className="shrink-0 text-[#B58A4A]" aria-hidden="true" />
+                <div>
+                  <p className="font-semibold text-[#2B2620]">Livraison rapide</p>
+                  <p className="text-[#8A7A6A]">Partout au Sénégal &amp; au Niger</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-semibold text-white md:text-sm">{label}</p>
-                <p className="mt-0.5 text-[11px] text-white/75">{description}</p>
+
+              <div className="flex items-center gap-3">
+                <MapPin size={22} strokeWidth={1.5} className="shrink-0 text-[#B58A4A]" aria-hidden="true" />
+                <div>
+                  <p className="font-semibold text-[#2B2620]">Expédié depuis</p>
+                  <p className="text-[#8A7A6A]">Dakar • Niamey</p>
+                </div>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Right Column: Hero Visual & Floating Tag */}
+          <div className="relative lg:col-span-6 xl:col-span-7">
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-2xl overflow-hidden rounded-3xl sm:aspect-[16/11] lg:aspect-[16/11]">
+              <img
+                src="/images/hero-portrait.jpg"
+                alt="Femme élégante avec soins de beauté Lim'Elle"
+                className="h-full w-full object-cover object-center"
+                loading="eager"
+              />
+
+              {/* Subtle warm overlay to harmonize with page background */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+
+              {/* Floating Badge (Top Right) */}
+              <div className="absolute top-4 right-4 z-20 rounded-2xl bg-[#1C1611]/85 px-5 py-3.5 text-center shadow-lg backdrop-blur-md border border-white/10 sm:top-6 sm:right-6 sm:px-6 sm:py-4">
+                <p className="font-serif text-xs font-light leading-snug text-[#F8F4EC] sm:text-sm">
+                  L'élégance<br />
+                  au féminin,<br />
+                  <span className="italic text-[#C8B99A]">naturellement.</span>
+                </p>
+                <div className="mt-1.5 flex justify-center text-[#B58A4A]" aria-hidden="true">
+                  <Flower2 size={15} strokeWidth={1.5} />
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        {/* Dark Forest Green Trust Strip */}
+        <div className="mt-10 md:mt-14 rounded-2xl bg-[#14261F] px-6 py-6 text-white shadow-md">
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-4">
+            {TRUST_FEATURES.map(({ icon: Icon, label, description }) => (
+              <div key={label} className="flex items-start gap-3">
+                <Icon size={22} strokeWidth={1.5} className="mt-0.5 shrink-0 text-[#C8B99A]" aria-hidden="true" />
+                <div>
+                  <p className="text-xs font-semibold text-white sm:text-sm">{label}</p>
+                  <p className="mt-0.5 text-[11px] text-white/75">{description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
 }
+
