@@ -23,6 +23,7 @@ import BotanicalTreasuresSection from "./components/BotanicalTreasuresSection";
 import BeautyRitualSection from "./components/BeautyRitualSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
+import AdminModal, { getCustomProducts } from "./components/AdminModal";
 
 const WA_TEXT = "Bonjour, je viens du site Lim'Elle 🌸";
 
@@ -48,6 +49,7 @@ function AppContent() {
   const { user, isAuthenticated } = useAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [adminModalOpen, setAdminModalOpen] = useState(false);
   const [filter, setFilter] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
@@ -71,14 +73,20 @@ function AppContent() {
 
   const loadCatalog = () => {
     setCatalogError("");
-    setProducts(FALLBACK_PRODUCTS);
+    const custom = getCustomProducts();
+    const baseList = [...custom, ...FALLBACK_PRODUCTS.filter((fb) => !custom.some((c) => String(c.id) === String(fb.id)))];
+    setProducts(baseList);
+
     let active = true;
     const attempt = (retriesLeft) => {
       api.products()
         .then((payload) => {
           if (active) {
             const apiProducts = Array.isArray(payload.products) ? payload.products.map(normalizeProduct) : [];
-            if (apiProducts.length > 0) setProducts(apiProducts);
+            if (apiProducts.length > 0) {
+              const merged = [...custom, ...apiProducts.filter((ap) => !custom.some((c) => String(c.id) === String(ap.id)))];
+              setProducts(merged);
+            }
           }
         })
         .catch(() => {
@@ -378,7 +386,17 @@ function AppContent() {
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
-          <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
+          <div className="flex items-center gap-3">
+            <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
+            <button
+              type="button"
+              onClick={() => setAdminModalOpen(true)}
+              className="text-[10px] text-[#8A7A6A]/60 hover:text-[#B58A4A] transition hover:underline"
+              title="Accès Webmaster Catalogue"
+            >
+              • Espace Webmaster
+            </button>
+          </div>
           <p className="text-[11px] text-[#8A7A6A]/80">Cosmétiques et Soins Naturels d'Exception • Sahel</p>
         </div>
       </footer>
@@ -387,6 +405,12 @@ function AppContent() {
       {cartOpen && <CartDrawer items={cart} onClose={() => setCartOpen(false)} onQuantityChange={updateQuantity} onRemove={removeFromCart} onCheckout={startCheckout} />}
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
       <UserProfileModal isOpen={profileModalOpen} onClose={() => setProfileModalOpen(false)} />
+      <AdminModal
+        isOpen={adminModalOpen}
+        onClose={() => setAdminModalOpen(false)}
+        products={products}
+        onRefreshProducts={loadCatalog}
+      />
     </main>
   );
 }
