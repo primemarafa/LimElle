@@ -325,12 +325,6 @@ function AppContent() {
         {/* Section Demande Sur-Mesure (Personal Shopping Dakar -> Niamey) */}
         <CustomRequestSection />
 
-        {/* Section Trésors Botaniques du Sahel */}
-        <BotanicalTreasuresSection />
-
-        {/* Section Rituel Beauté en 3 Étapes */}
-        <BeautyRitualSection onDiscover={openBoutique} />
-
         {/* Section À Propos & Vision de Marque */}
         <AboutSection />
 
