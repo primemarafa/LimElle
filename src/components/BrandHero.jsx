@@ -39,10 +39,9 @@ export default function BrandHero({ onCatalogue }) {
               className="h-full w-full object-cover object-[70%_center] sm:object-[75%_center] lg:object-[85%_center]"
               loading="eager"
             />
-            {/* Seamless Left Fade Gradient to harmoniously blend with page cream color */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F2EB] via-[#F7F2EB]/90 via-40% to-transparent lg:via-[#F7F2EB]/75 lg:via-45%" />
-            {/* Soft bottom darkening to prepare for the overlapping trust bar */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+            {/* Seamless Subtle Left Fade Gradient to let the model image shine vibrantly */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F2EB] via-[#F7F2EB]/65 via-30% to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
           </div>
 
           {/* Floating Luxury Tag (Top Right) */}
