@@ -104,6 +104,61 @@ export function registerRoutes(app, { products, productRepository, orderReposito
     return product;
   });
 
+  app.post("/api/products", async (request, reply) => {
+    const payload = request.body;
+    if (!payload || !payload.name || !payload.price) {
+      return reply.code(400).send({ message: "Nom et prix sont requis." });
+    }
+    const newProduct = {
+      id: payload.id || `le-${Date.now().toString(36)}`,
+      name: String(payload.name).trim(),
+      description: String(payload.description || "").trim(),
+      price: Number(payload.price),
+      weight: Number(payload.weight || 0.2),
+      category: String(payload.category || "soins-visage"),
+      badge: payload.badge ? String(payload.badge).trim() : null,
+      imageUrl: payload.imageUrl || payload.img || "/images/product-serum-eclat.jpg",
+      stock: Number(payload.stock ?? 10),
+      availability: payload.availability || "DISPONIBLE",
+    };
+
+    if (productRepository) {
+      const created = await productRepository.create(newProduct);
+      return reply.code(201).send(created);
+    }
+    products.unshift(newProduct);
+    return reply.code(201).send(newProduct);
+  });
+
+  app.put("/api/products/:id", async (request, reply) => {
+    const id = String(request.params.id);
+    const payload = request.body;
+    if (!payload) return reply.code(400).send({ message: "Données requises." });
+
+    if (productRepository) {
+      const updated = await productRepository.update(id, payload);
+      if (!updated) return reply.code(404).send({ message: "Produit introuvable." });
+      return updated;
+    }
+    const index = products.findIndex((p) => String(p.id) === id);
+    if (index === -1) return reply.code(404).send({ message: "Produit introuvable." });
+    products[index] = { ...products[index], ...payload, id };
+    return products[index];
+  });
+
+  app.delete("/api/products/:id", async (request, reply) => {
+    const id = String(request.params.id);
+    if (productRepository) {
+      const deleted = await productRepository.delete(id);
+      if (!deleted) return reply.code(404).send({ message: "Produit introuvable." });
+      return { success: true };
+    }
+    const index = products.findIndex((p) => String(p.id) === id);
+    if (index === -1) return reply.code(404).send({ message: "Produit introuvable." });
+    products.splice(index, 1);
+    return { success: true };
+  });
+
   // Authentication endpoints
   app.post("/api/auth/register", { schema: { body: registerBodySchema }, config: { rateLimit: { max: 10, timeWindow: "1 minute" } } }, async (request, reply) => {
     if (!userRepository) return reply.code(503).send({ message: "Authentification indisponible." });

@@ -30,5 +30,8 @@ export const api = {
   register: (data) => request("/api/auth/register", { method: "POST", body: JSON.stringify(data) }),
   login: (credentials) => request("/api/auth/login", { method: "POST", body: JSON.stringify(credentials) }),
   me: (token) => request("/api/auth/me", { headers: { Authorization: `Bearer ${token}` } }),
+  createProduct: (data) => request("/api/products", { method: "POST", body: JSON.stringify(data) }),
+  updateProduct: (id, data) => request(`/api/products/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(data) }),
+  deleteProduct: (id) => request(`/api/products/${encodeURIComponent(id)}`, { method: "DELETE" }),
 };
 
