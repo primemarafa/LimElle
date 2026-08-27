@@ -4,10 +4,12 @@ import rateLimit from "@fastify/rate-limit";
 import { products } from "./data/products.js";
 import { registerRoutes } from "./routes.js";
 import { registerSecurityHeaders } from "./securityHeaders.js";
+import { createUserRepository } from "./repositories/userRepository.js";
 
-export function buildApp({ productRepository = null, orderRepository = null, db = null } = {}) {
+export function buildApp({ productRepository = null, orderRepository = null, userRepository = null, db = null } = {}) {
   const app = Fastify({ logger: true });
   const orders = new Map();
+  const resolvedUserRepo = userRepository || createUserRepository(db);
 
   app.register(rateLimit, {
     global: true,
@@ -27,6 +29,6 @@ export function buildApp({ productRepository = null, orderRepository = null, db 
 
   registerSecurityHeaders(app);
 
-  registerRoutes(app, { products, productRepository, orderRepository, db, orders });
+  registerRoutes(app, { products, productRepository, orderRepository, userRepository: resolvedUserRepo, db, orders });
   return app;
 }
