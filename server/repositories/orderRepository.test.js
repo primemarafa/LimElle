@@ -8,7 +8,7 @@ function makeOrder() {
     lookupToken: "a".repeat(64),
     status: "EN_ATTENTE",
     customer: { fullName: "Awa Diallo", phone: "+221700000000", city: "Dakar" },
-    items: [{ product: { id: "LE-001", name: "Robe", price: 35000, weight: 0.8 }, quantity: 1 }],
+    items: [{ product: { id: "le-001", name: "Robe", price: 35000, weight: 0.8 }, quantity: 1 }],
     deliveryMode: "point_retrait",
     totals: { productTotal: 35000, weight: 0.8, transport: 4000, total: 39000 },
   };
