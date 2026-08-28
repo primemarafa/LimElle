@@ -1,64 +1,35 @@
-import { ArrowRight, Shirt, Footprints, Sparkles, ShoppingBag } from "lucide-react";
+import { ArrowRight, Shirt, Footprints, Sparkles, ShoppingBag, Star, Zap } from "lucide-react";
 import ProductGrid from "./ProductGrid";
-
-const CATEGORY_VISUALS = {
-  "pagnes-leche": {
-    id: "pagnes-leche",
-    title: "Pagnes & Lèche",
-    subtitle: "Bazin Riche, Getzner & Tissages Nobles",
-    icon: Shirt,
-    image: "/images/category-pagnes-leche.jpg",
-  },
-  "chaussures": {
-    id: "chaussures",
-    title: "Chaussures",
-    subtitle: "Mules en cuir, Sandales & Talons d'Exception",
-    icon: Footprints,
-    image: "/images/category-chaussures.jpg",
-  },
-  "bijoux": {
-    id: "bijoux",
-    title: "Bijoux",
-    subtitle: "Filigranes dorés & Parures Sahéliennes",
-    icon: Sparkles,
-    image: "/images/category-bijoux.jpg",
-  },
-  "sacs": {
-    id: "sacs",
-    title: "Sacs",
-    subtitle: "Maroquinerie & Cabas d'Ateliers",
-    icon: ShoppingBag,
-    image: "/images/category-sacs.jpg",
-  },
-};
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function CatalogueSection({ categories, products, activeCategory, onCategoryChange, onAddToCart, onSelectProduct }) {
   const filterCategories = categories.filter((c) => c.id !== "all");
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="products" aria-label="Boutique & Articles" className="bg-[#F8F4EC] px-5 py-16 md:py-24 scroll-mt-20 border-t border-[#E8E0D4]/60">
-      <div className="mx-auto max-w-7xl">
-        {/* Boutique Heading & Filters */}
-        <div className="flex flex-col gap-6 border-b border-[#E8E0D4]/70 pb-6 sm:flex-row sm:items-end sm:justify-between">
+    <section id="products" aria-label="Boutique & Articles" className="bg-[#FAFAF9] px-5 py-20 md:py-28 scroll-mt-20">
+      <div className="mx-auto max-w-7xl" ref={revealRef}>
+        {/* Heading & Filters */}
+        <div className="reveal flex flex-col gap-6 pb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.24em] text-[#B58A4A]">Boutique &amp; Prêt-à-porter</p>
-            <h2 className="mt-1.5 font-serif text-3xl font-normal tracking-tight text-[#2B2620] md:text-4xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[.28em] text-[#A16207]">Boutique & Prêt-à-porter</p>
+            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-[#1C1917] md:text-[2.5rem]">
               Nos Articles Sélectionnés
             </h2>
-            <p className="mt-1 text-sm text-[#6A5A4A]">
+            <p className="mt-1.5 text-sm text-[#57534E]">
               Disponibilités en temps réel selon arrivages de Dakar à Niamey
             </p>
           </div>
 
-          {/* Quick Filter Tabs & Categories */}
+          {/* Filter Pills */}
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => onCategoryChange("all")}
-              className={`rounded-xl px-4 py-2 text-xs font-semibold transition cursor-pointer ${
+              className={`rounded-xl px-4 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
                 activeCategory === "all"
-                  ? "bg-[#14261F] text-white shadow-sm"
-                  : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#2B2620]"
+                  ? "bg-[#1C1917] text-white shadow-md"
+                  : "bg-white border border-[#E7E5E4] text-[#57534E] hover:text-[#1C1917] hover:border-[#D6D3D1]"
               }`}
             >
               Tous ({products.length})
@@ -71,10 +42,10 @@ export default function CatalogueSection({ categories, products, activeCategory,
                   key={cat.id}
                   type="button"
                   onClick={() => onCategoryChange(cat.id)}
-                  className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition cursor-pointer ${
+                  className={`rounded-xl px-4 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
                     active
-                      ? "bg-[#B58A4A] text-white shadow-sm"
-                      : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#B58A4A]"
+                      ? "bg-[#A16207] text-white shadow-md"
+                      : "bg-white border border-[#E7E5E4] text-[#57534E] hover:text-[#A16207] hover:border-[#A16207]/30"
                   }`}
                 >
                   {cat.label || cat.name}
@@ -85,31 +56,34 @@ export default function CatalogueSection({ categories, products, activeCategory,
             <button
               type="button"
               onClick={() => onCategoryChange("bestsellers")}
-              className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
                 activeCategory === "bestsellers"
-                  ? "bg-[#B58A4A] text-white shadow-sm"
-                  : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#B58A4A]"
+                  ? "bg-[#A16207] text-white shadow-md"
+                  : "bg-white border border-[#E7E5E4] text-[#57534E] hover:text-[#A16207] hover:border-[#A16207]/30"
               }`}
             >
-              ⭐ Bestsellers
+              <Star size={12} aria-hidden="true" /> Bestsellers
             </button>
 
             <button
               type="button"
               onClick={() => onCategoryChange("nouveautes")}
-              className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
                 activeCategory === "nouveautes"
-                  ? "bg-[#14261F] text-white shadow-sm"
-                  : "bg-white border border-[#E8E0D4] text-[#6A5A4A] hover:text-[#2B2620]"
+                  ? "bg-[#1C1917] text-white shadow-md"
+                  : "bg-white border border-[#E7E5E4] text-[#57534E] hover:text-[#1C1917] hover:border-[#D6D3D1]"
               }`}
             >
-              ✨ Nouveautés
+              <Zap size={12} aria-hidden="true" /> Nouveautés
             </button>
           </div>
         </div>
 
+        {/* Separator */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[#D6D3D1] to-transparent" />
+
         {/* Products Grid */}
-        <div className="mt-10">
+        <div className="mt-10 reveal">
           <ProductGrid
             products={products}
             onAddToCart={onAddToCart}

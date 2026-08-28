@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Menu, Search, ShoppingBag, X, User, Leaf } from "lucide-react";
+import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FALLBACK_PRODUCTS } from "./data/catalog";
 import { api } from "./services/api";
@@ -186,29 +186,29 @@ function AppContent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [navOverride, products]);
 
-  const navLinkClass = (id) => `relative text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A] hover:text-[#2B2620]"}`;
-  const navUnderline = (id) => (navOverride || activeSection) === id ? "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#B58A4A]" : "";
+  const navLinkClass = (id) => `relative text-sm font-medium transition-colors duration-300 ${(navOverride || activeSection) === id ? "text-[#A16207]" : "text-[#57534E] hover:text-[#1C1917]"}`;
+  const navUnderline = (id) => (navOverride || activeSection) === id ? "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#A16207]" : "";
 
-  if (order) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#F8F4EC] text-[#2B2620]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
+  if (order) return <main className="min-h-screen bg-[#FAFAF9] text-[#1C1917]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#FAFAF9] text-[#1C1917]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main id="main-content" className="min-h-screen bg-[#F8F4EC] text-[#2B2620]">
+    <main id="main-content" className="min-h-screen bg-[#FAFAF9] text-[#1C1917]">
       <SkipLink />
 
 
 
-      <header className="sticky top-0 z-50 border-b border-[#E8E0D4]/60 bg-[#F8F4EC]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-[#E7E5E4]/40 glass">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
-          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2">
+          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2.5">
             <BrandLogo className="h-8 w-auto" />
             <div>
-              <span className="text-lg font-semibold tracking-tight text-[#2B2620]">Lim'Elle</span>
-              <span className="ml-1 hidden text-[10px] font-medium text-[#B58A4A] sm:inline">L'élégance au féminin</span>
+              <span className="text-lg font-semibold tracking-tight text-[#1C1917]">Lim'Elle</span>
+              <span className="ml-1.5 hidden text-[10px] font-semibold text-[#A16207] sm:inline">L'élégance au féminin</span>
             </div>
           </button>
 
-          <nav className="hidden items-center gap-6 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
             <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
@@ -219,23 +219,23 @@ function AppContent() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
+            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917]">
               <Search size={18} />
             </button>
             <button
               type="button"
               aria-label={isAuthenticated ? "Mon profil client" : "Se connecter"}
               onClick={() => (isAuthenticated ? setProfileModalOpen(true) : setAuthModalOpen(true))}
-              className="hidden items-center gap-1.5 rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] sm:flex"
+              className="hidden items-center gap-1.5 rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917] sm:flex"
             >
-              <User size={18} className={isAuthenticated ? "text-[#B58A4A]" : ""} />
-              {isAuthenticated && <span className="max-w-[90px] truncate text-xs font-semibold text-[#14261F]">{user?.fullName?.split(" ")[0]}</span>}
+              <User size={18} className={isAuthenticated ? "text-[#A16207]" : ""} />
+              {isAuthenticated && <span className="max-w-[90px] truncate text-xs font-semibold text-[#1C1917]">{user?.fullName?.split(" ")[0]}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620]">
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917]">
               <ShoppingBag size={18} />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1B3A2D] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1C1917] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-lg p-2.5 text-[#6A5A4A] transition hover:bg-[#E8E0D4]/50 hover:text-[#2B2620] lg:hidden">
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917] lg:hidden">
               <Menu size={18} />
             </button>
           </div>
@@ -243,23 +243,23 @@ function AppContent() {
       </header>
 
       {searchOpen && (
-        <div className="border-b border-[#E8E0D4] bg-[#F8F4EC] px-5 py-3">
+        <div className="border-b border-[#E7E5E4] bg-[#FAFAF9] px-5 py-3">
           <div className="mx-auto flex max-w-7xl items-center gap-3">
-            <Search size={16} className="text-[#8A7A6A]" />
-            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-[#2B2620] placeholder:text-[#8A7A6A] focus:outline-none" />
-            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#8A7A6A] hover:text-[#2B2620]">Effacer</button>}
+            <Search size={16} className="text-[#A8A29E]" />
+            <input autoFocus type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") openBoutique(); }} placeholder="Rechercher un produit..." className="flex-1 bg-transparent text-sm text-[#1C1917] placeholder:text-[#A8A29E] focus:outline-none" />
+            {searchTerm && <button type="button" onClick={() => setSearchTerm("")} className="text-xs font-bold text-[#A8A29E] hover:text-[#1C1917]">Effacer</button>}
           </div>
         </div>
       )}
 
       {menuOpen && (
-        <div className="fixed inset-0 z-[70] bg-[#F8F4EC] p-6 lg:hidden">
+        <div className="fixed inset-0 z-[70] bg-[#FAFAF9] p-6 lg:hidden">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <BrandLogo className="h-7 w-auto" />
-              <span className="font-serif text-lg font-normal text-[#2B2620]">Lim'Elle</span>
+              <span className="font-serif text-lg font-semibold text-[#1C1917]">Lim'Elle</span>
             </div>
-            <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-lg p-2 hover:bg-[#E8E0D4]/50"><X size={20} /></button>
+            <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-xl p-2 hover:bg-[#1C1917]/5"><X size={20} /></button>
           </div>
           <nav className="mt-8 flex flex-col">
             {[
@@ -279,25 +279,25 @@ function AppContent() {
                   else if (id === "categories") openCategories();
                   else scrollTo(id);
                 }}
-                className={`border-b border-[#E8E0D4] py-4 text-left text-lg font-medium ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A]"}`}
+                className={`border-b border-[#E7E5E4] py-4 text-left text-lg font-medium transition-colors duration-300 ${(navOverride || activeSection) === id ? "text-[#A16207]" : "text-[#57534E]"}`}
               >
                 {label}
               </button>
             ))}
           </nav>
-          <div className="mt-8 pt-6 border-t border-[#E8E0D4]">
+          <div className="mt-8 pt-6 border-t border-[#E7E5E4]">
             {isAuthenticated ? (
               <button
                 onClick={() => { setMenuOpen(false); setProfileModalOpen(true); }}
-                className="flex w-full items-center justify-between rounded-xl bg-white border border-[#E8E0D4] p-4 text-sm font-semibold text-[#14261F]"
+                className="flex w-full items-center justify-between rounded-xl bg-white border border-[#E7E5E4] p-4 text-sm font-semibold text-[#1C1917]"
               >
                 <span>Mon Compte ({user?.fullName})</span>
-                <User size={18} className="text-[#B58A4A]" />
+                <User size={18} className="text-[#A16207]" />
               </button>
             ) : (
               <button
                 onClick={() => { setMenuOpen(false); setAuthModalOpen(true); }}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#14261F] py-3.5 text-xs font-semibold text-white shadow-sm"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1C1917] py-3.5 text-xs font-semibold text-white shadow-sm"
               >
                 <User size={16} /> Se connecter / S'inscrire
               </button>
@@ -348,17 +348,17 @@ function AppContent() {
         <TrustBar />
 
         {/* Bottom CTA banner */}
-        <section className="bg-[#1B3A2D] px-5 py-9">
-          <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
-            <div className="flex items-center gap-3.5">
-              <Leaf size={24} className="text-[#C8B99A]" aria-hidden="true" />
-              <p className="font-serif text-lg font-normal italic text-white md:text-xl">
-                La beauté n'est pas un luxe, c'est votre droit.
+        <section className="bg-[#1C1917] px-5 py-10">
+          <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
+            <div className="flex items-center gap-4">
+              <span className="text-[#D4A853] text-lg" aria-hidden="true">✦</span>
+              <p className="font-serif text-lg font-medium italic text-white md:text-xl">
+                L'élégance n'attend pas, elle se porte.
               </p>
             </div>
             <button
               onClick={openBoutique}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#142D24] border border-white/20 px-6 py-3 text-xs font-bold text-white transition hover:bg-[#0E2019]"
+              className="btn-shimmer inline-flex items-center gap-2.5 rounded-xl bg-[#292524] border border-white/15 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#0C0A09] hover:shadow-lg"
             >
               Découvrir la boutique <span aria-hidden="true">→</span>
             </button>
@@ -366,12 +366,12 @@ function AppContent() {
         </section>
       </>}
 
-      <footer className="border-t border-[#E8E0D4] bg-[#F8F4EC] px-5 py-14">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <footer className="border-t border-[#E7E5E4] bg-[#FAFAF9] px-5 py-16">
+        <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#2B2620]">Lim'Elle</span></div>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#B58A4A]">{LIMELLE_CONFIG.tagline}</p>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-[#8A7A6A]">Votre destination beauté et élégance de confiance au Sahel. Des produits d'exception pour sublimer votre éclat naturel.</p>
+            <div className="flex items-center gap-2.5"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#1C1917]">Lim'Elle</span></div>
+            <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-[#A16207]">{LIMELLE_CONFIG.tagline}</p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#78716C]">Votre destination mode et élégance de confiance au Sahel. Des articles d'exception pour sublimer votre style.</p>
             <div className="mt-5 flex items-center gap-3">
               {LIMELLE_CONFIG.social.instagramHandle && (
                 <a
@@ -379,7 +379,7 @@ function AppContent() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Suivez Lim'Elle sur Instagram"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#14261F] text-[#C8B99A] shadow-2xs transition hover:bg-[#B58A4A] hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1C1917] text-[#D4A853] shadow-sm transition-all duration-300 hover:bg-[#A16207] hover:text-white hover:-translate-y-0.5"
                 >
                   <InstagramIcon size={17} />
                 </a>
@@ -389,42 +389,42 @@ function AppContent() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Suivez Lim'Elle sur Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#14261F] text-[#C8B99A] shadow-2xs transition hover:bg-[#B58A4A] hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1C1917] text-[#D4A853] shadow-sm transition-all duration-300 hover:bg-[#A16207] hover:text-white hover:-translate-y-0.5"
               >
                 <FacebookIcon size={17} />
               </a>
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Boutique</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
-              <button onClick={() => { setFilter("soins-visage"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Soins visage</button>
-              <button onClick={() => { setFilter("soins-corps"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Soins corps</button>
-              <button onClick={() => { setFilter("parfums"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Parfums</button>
-              <button onClick={() => { setFilter("accessoires"); scrollTo("products"); }} className="text-left hover:text-[#B58A4A] transition">Accessoires</button>
-              <button onClick={openBoutique} className="text-left font-semibold text-[#B58A4A] hover:underline transition">Tous les produits</button>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#1C1917]">Boutique</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#57534E]">
+              <button onClick={() => { setFilter("pagnes-leche"); scrollTo("products"); }} className="text-left hover:text-[#A16207] transition-colors duration-300">Pagnes & Lèche</button>
+              <button onClick={() => { setFilter("chaussures"); scrollTo("products"); }} className="text-left hover:text-[#A16207] transition-colors duration-300">Chaussures</button>
+              <button onClick={() => { setFilter("bijoux"); scrollTo("products"); }} className="text-left hover:text-[#A16207] transition-colors duration-300">Bijoux</button>
+              <button onClick={() => { setFilter("sacs"); scrollTo("products"); }} className="text-left hover:text-[#A16207] transition-colors duration-300">Sacs</button>
+              <button onClick={openBoutique} className="text-left font-semibold text-[#A16207] hover:underline transition-colors duration-300">Tous les articles</button>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Support</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#B58A4A] transition">Centre d'aide</a>
-              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#B58A4A] transition">Contactez-nous</a>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#1C1917]">Support</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#57534E]">
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A16207] transition-colors duration-300">Centre d'aide</a>
+              <a href={`https://wa.me/${LIMELLE_CONFIG.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#A16207] transition-colors duration-300">Contactez-nous</a>
               <span className="text-left">Livraison & retours</span>
             </nav>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#2B2620]">Legal</p>
-            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#6A5A4A]">
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-[#1C1917]">Legal</p>
+            <nav className="mt-4 flex flex-col gap-2.5 text-sm text-[#57534E]">
               <span className="text-left">Politique de confidentialité</span>
               <span className="text-left">Conditions générales</span>
               <span className="text-left">Mentions légales</span>
             </nav>
           </div>
         </div>
-        <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E8E0D4] pt-6 text-xs text-[#8A7A6A] sm:flex-row">
+        <div className="mx-auto mt-12 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#E7E5E4] pt-6 text-xs text-[#A8A29E] sm:flex-row">
           <p>&copy; 2026 Lim'Elle. Tous droits réservés.</p>
-          <p className="text-[11px] text-[#8A7A6A]/80">Cosmétiques et Soins Naturels d'Exception • Sahel</p>
+          <p className="text-[11px] text-[#A8A29E]/80">Mode & Élégance Africaine d'Exception • Dakar → Niamey</p>
         </div>
       </footer>
 
