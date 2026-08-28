@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 export default function ProductGrid({ products, onAddToCart, onSelectProduct }) {
   if (!products?.length) {
     return (
-      <div className="py-16 text-center">
-        <p className="text-sm text-[#6A5A4A]">Aucun produit ne correspond à cette catégorie.</p>
+      <div className="py-20 text-center">
+        <p className="text-sm text-[#57534E]">Aucun produit ne correspond à cette catégorie.</p>
       </div>
     );
   }
@@ -15,8 +15,8 @@ export default function ProductGrid({ products, onAddToCart, onSelectProduct }) 
       role="list"
       aria-label="Produits"
       className={cn(
-        "grid gap-4",
-        "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
+        "grid gap-5",
+        "grid-cols-2 sm:grid-cols-2 lg:grid-cols-4"
       )}
     >
       {products.map((product) => (
