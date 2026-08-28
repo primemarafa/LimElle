@@ -4,18 +4,19 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
-  --color-cream: #FDFBF7;
-  --color-cream-dark: #F8F4EC;
-  --color-ink: #2B2620;
-  --color-ink-soft: #6A5A4A;
-  --color-gold: #B58A4A;
-  --color-green: #1B3A2D;
-  --color-green-dark: #142D24;
+  --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Cormorant", Georgia, serif;
+  --color-cream: #FAFAF9;
+  --color-cream-dark: #F5F3EF;
+  --color-ink: #1C1917;
+  --color-ink-soft: #57534E;
+  --color-gold: #A16207;
+  --color-gold-light: #D4A853;
+  --color-green: #1C1917;
+  --color-green-dark: #0C0A09;
 }
 
-/* Base */
+/* ─── Base ─────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
@@ -24,20 +25,40 @@ body {
   background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-weight: 450;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typographie premium */
+/* ─── Typography ───────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
-/* Animations d'apparition */
-@keyframes fade-up {
+/* ─── Focus Visible ────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Glassmorphism Utilities ──────────────────────── */
+.glass {
+  background: rgba(250, 250, 249, 0.72);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+}
+
+.glass-dark {
+  background: rgba(28, 25, 23, 0.85);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+/* ─── Scroll Reveal Animations ─────────────────────── */
+@keyframes reveal-up {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -48,21 +69,137 @@ h1, h2, h3, h4 {
   }
 }
 
-.animate-fade-up {
-  animation: fade-up 0.8s ease-out both;
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
-/* Scrollbar élégante */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for grid children */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 400ms; }
+.reveal-stagger > .reveal:nth-child(7) { transition-delay: 480ms; }
+.reveal-stagger > .reveal:nth-child(8) { transition-delay: 560ms; }
+
+/* Hero entrance animation */
+.animate-hero-up {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-up-delay-1 {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.animate-hero-up-delay-2 {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.animate-hero-up-delay-3 {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+/* Old animation kept for compat */
+.animate-fade-up {
+  animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── Accordion Smooth ─────────────────────────────── */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-content[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+  overflow: hidden;
+}
+
+/* ─── Shimmer CTA ──────────────────────────────────── */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ─── Scrollbar Élégante ───────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-cream);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-gold);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-green);
+  background: var(--color-ink);
+}
+
+/* ─── Respect Reduced Motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-hero-up,
+  .animate-hero-up-delay-1,
+  .animate-hero-up-delay-2,
+  .animate-hero-up-delay-3,
+  .animate-fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .btn-shimmer::after {
+    animation: none;
+  }
+  .accordion-content {
+    transition: none;
+  }
 }
