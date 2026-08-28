@@ -19,8 +19,7 @@ import SkipLink from "./components/SkipLink";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthModal from "./components/AuthModal";
 import UserProfileModal from "./components/UserProfileModal";
-import BotanicalTreasuresSection from "./components/BotanicalTreasuresSection";
-import BeautyRitualSection from "./components/BeautyRitualSection";
+import CategoriesSection from "./components/CategoriesSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import CustomRequestSection from "./components/CustomRequestSection";
@@ -156,10 +155,12 @@ function AppContent() {
     setMenuOpen(false);
     const el = document.getElementById(id);
     if (el) {
+      setActiveSection(id);
       setNavOverride(id);
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      // Reset override after scroll settles so scroll spy takes back over
-      setTimeout(() => setNavOverride(null), 2000);
+      const yOffset = -72; // Header height offset
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      setTimeout(() => setNavOverride(null), 1000);
     }
   };
 
@@ -168,32 +169,22 @@ function AppContent() {
 
   useEffect(() => {
     const ids = ["accueil", "categories", "products", "sur-mesure", "apropos", "faq", "contact"];
-    const getSections = () => ids.map((id) => document.getElementById(id)).filter(Boolean);
-    let sections = getSections();
-
-    const updateActiveSection = () => {
-      if (navOverride) return; // Don't fight with manual nav click
-      const referenceLine = 96;
-      let current = sections[0]?.id;
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= referenceLine) current = section.id;
+    const handleScroll = () => {
+      if (navOverride) return;
+      const scrollPosition = window.scrollY + 120;
+      for (let i = ids.length - 1; i >= 0; i--) {
+        const section = document.getElementById(ids[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(ids[i]);
+          break;
+        }
       }
-      if (current) setActiveSection(current);
     };
 
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => { updateActiveSection(); ticking = false; });
-    };
-
-    sections = getSections();
-    updateActiveSection();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
-  }, [products, navOverride]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navOverride, products]);
 
   const navLinkClass = (id) => `relative text-sm font-medium transition ${(navOverride || activeSection) === id ? "text-[#B58A4A]" : "text-[#6A5A4A] hover:text-[#2B2620]"}`;
   const navUnderline = (id) => (navOverride || activeSection) === id ? "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#B58A4A]" : "";
@@ -316,10 +307,30 @@ function AppContent() {
       )}
 
       {selectedProduct ? <ProductDetails product={selectedProduct} onBack={() => setSelectedProduct(null)} onAddToCart={addToCart} /> : <>
-        <div id="accueil" className="scroll-mt-16"><BrandHero onCatalogue={openBoutique} /></div>
+        {/* 1. Accueil */}
+        <div id="accueil" className="scroll-mt-16">
+          <BrandHero onCatalogue={openBoutique} />
+        </div>
 
+        {/* 2. Catégories */}
+        <CategoriesSection
+          activeCategory={filter}
+          onSelectCategory={(catId) => {
+            setFilter(catId);
+            scrollTo("products");
+          }}
+        />
+
+        {/* 3. Boutique */}
         <div id="catalogue-wrapper">
-          <CatalogueSection categories={CATEGORIES} products={filteredProducts} activeCategory={filter} onCategoryChange={setFilter} onAddToCart={addToCart} onSelectProduct={setSelectedProduct} />
+          <CatalogueSection
+            categories={CATEGORIES}
+            products={filteredProducts}
+            activeCategory={filter}
+            onCategoryChange={setFilter}
+            onAddToCart={addToCart}
+            onSelectProduct={setSelectedProduct}
+          />
         </div>
 
         {/* Section Demande Sur-Mesure (Personal Shopping Dakar -> Niamey) */}
