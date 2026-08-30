@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Menu, Search, ShoppingBag, X, User } from "lucide-react";
+import { Menu, Search, ShoppingBag, X, User, Sun, Moon } from "lucide-react";
 import { LIMELLE_CONFIG } from "./config/limelle";
 import { CATEGORIES, FALLBACK_PRODUCTS } from "./data/catalog";
 import { api } from "./services/api";
@@ -9,6 +9,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import BrandHero from "./components/BrandHero";
 import CatalogueSection from "./components/CatalogueSection";
 import TrustBar from "./components/TrustBar";
+import HowItWorksSection from "./components/HowItWorksSection";
 
 import ProductDetails from "./components/ProductDetails";
 import CartDrawer from "./components/CartDrawer";
@@ -71,6 +72,29 @@ function AppContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSection, setActiveSection] = useState("accueil");
   const [navOverride, setNavOverride] = useState(null);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      const saved = window.localStorage.getItem("limelle-dark-mode");
+      if (saved !== null) return saved === "true";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      if (darkMode) {
+        document.documentElement.classList.add("dark");
+        window.localStorage.setItem("limelle-dark-mode", "true");
+      } else {
+        document.documentElement.classList.remove("dark");
+        window.localStorage.setItem("limelle-dark-mode", "false");
+      }
+    } catch {}
+  }, [darkMode]);
+
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   const loadCatalog = () => {
     setCatalogError("");
@@ -168,7 +192,7 @@ function AppContent() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "sur-mesure", "apropos", "faq", "contact"];
+    const ids = ["accueil", "categories", "products", "comment-ca-marche", "sur-mesure", "apropos", "faq", "contact"];
     const handleScroll = () => {
       if (navOverride) return;
       const scrollPosition = window.scrollY + 120;
@@ -189,53 +213,61 @@ function AppContent() {
   const navLinkClass = (id) => `relative text-sm font-medium transition-colors duration-300 ${(navOverride || activeSection) === id ? "text-[#A16207]" : "text-[#57534E] hover:text-[#1C1917]"}`;
   const navUnderline = (id) => (navOverride || activeSection) === id ? "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#A16207]" : "";
 
-  if (order) return <main className="min-h-screen bg-[#FAFAF9] text-[#1C1917]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
-  if (checkout) return <main className="min-h-screen bg-[#FAFAF9] text-[#1C1917]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
+  if (order) return <main className="min-h-screen bg-[#FAFAF9] dark:bg-[#0F0E0D] text-[#1C1917] dark:text-[#FAFAF9]"><OrderConfirmation order={order} onDone={() => setOrder(null)} /></main>;
+  if (checkout) return <main className="min-h-screen bg-[#FAFAF9] dark:bg-[#0F0E0D] text-[#1C1917] dark:text-[#FAFAF9]"><OrderForm items={cart} onBack={() => setCheckout(false)} onComplete={completeOrder} /></main>;
 
   return (
-    <main id="main-content" className="min-h-screen bg-[#FAFAF9] text-[#1C1917]">
+    <main id="main-content" className="min-h-screen bg-[#FAFAF9] dark:bg-[#0F0E0D] text-[#1C1917] dark:text-[#FAFAF9] transition-colors duration-400">
       <SkipLink />
 
-
-
-      <header className="sticky top-0 z-50 border-b border-[#E7E5E4]/40 glass">
+      <header className="sticky top-0 z-50 border-b border-[#E7E5E4]/40 dark:border-[#292524]/60 glass">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
-          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2.5">
+          <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2.5 cursor-pointer">
             <BrandLogo className="h-8 w-auto" />
             <div>
-              <span className="text-lg font-semibold tracking-tight text-[#1C1917]">Lim'Elle</span>
+              <span className="text-lg font-semibold tracking-tight text-[#1C1917] dark:text-[#FAFAF9]">Lim'Elle</span>
               <span className="ml-1.5 hidden text-[10px] font-semibold text-[#A16207] sm:inline">L'élégance au féminin</span>
             </div>
           </button>
 
           <nav className="hidden items-center gap-7 lg:flex">
-            <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")}`}>Accueil</button>
-            <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")}`}>Catégories</button>
-            <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")}`}>Boutique</button>
-            <button onClick={() => scrollTo("sur-mesure")} className={`${navLinkClass("sur-mesure")} ${navUnderline("sur-mesure")}`}>Sur-Mesure</button>
-            <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")}`}>À propos</button>
-            <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")}`}>FAQ</button>
-            <button onClick={() => scrollTo("contact")} className={`${navLinkClass("contact")} ${navUnderline("contact")}`}>Contact</button>
+            <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")} cursor-pointer`}>Accueil</button>
+            <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")} cursor-pointer`}>Catégories</button>
+            <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")} cursor-pointer`}>Boutique</button>
+            <button onClick={() => scrollTo("comment-ca-marche")} className={`${navLinkClass("comment-ca-marche")} ${navUnderline("comment-ca-marche")} cursor-pointer`}>Étapes</button>
+            <button onClick={() => scrollTo("sur-mesure")} className={`${navLinkClass("sur-mesure")} ${navUnderline("sur-mesure")} cursor-pointer`}>Sur-Mesure</button>
+            <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")} cursor-pointer`}>À propos</button>
+            <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")} cursor-pointer`}>FAQ</button>
+            <button onClick={() => scrollTo("contact")} className={`${navLinkClass("contact")} ${navUnderline("contact")} cursor-pointer`}>Contact</button>
           </nav>
 
           <div className="flex items-center gap-1">
-            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917]">
+            <button
+              type="button"
+              aria-label={darkMode ? "Activer le mode clair" : "Activer le mode sombre"}
+              onClick={toggleDarkMode}
+              className="rounded-xl p-2.5 text-[#57534E] dark:text-[#A8A29E] transition-all duration-300 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 hover:text-[#A16207] dark:hover:text-[#D4A853] cursor-pointer"
+              title={darkMode ? "Mode clair" : "Mode sombre"}
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button type="button" aria-label="Rechercher" onClick={() => setSearchOpen((o) => !o)} className="rounded-xl p-2.5 text-[#57534E] dark:text-[#A8A29E] transition-all duration-300 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 hover:text-[#1C1917] dark:hover:text-[#FAFAF9] cursor-pointer">
               <Search size={18} />
             </button>
             <button
               type="button"
               aria-label={isAuthenticated ? "Mon profil client" : "Se connecter"}
               onClick={() => (isAuthenticated ? setProfileModalOpen(true) : setAuthModalOpen(true))}
-              className="hidden items-center gap-1.5 rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917] sm:flex"
+              className="hidden items-center gap-1.5 rounded-xl p-2.5 text-[#57534E] dark:text-[#A8A29E] transition-all duration-300 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 hover:text-[#1C1917] dark:hover:text-[#FAFAF9] sm:flex cursor-pointer"
             >
               <User size={18} className={isAuthenticated ? "text-[#A16207]" : ""} />
-              {isAuthenticated && <span className="max-w-[90px] truncate text-xs font-semibold text-[#1C1917]">{user?.fullName?.split(" ")[0]}</span>}
+              {isAuthenticated && <span className="max-w-[90px] truncate text-xs font-semibold text-[#1C1917] dark:text-[#FAFAF9]">{user?.fullName?.split(" ")[0]}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917]">
+            <button type="button" aria-label="Ouvrir le panier" onClick={() => setCartOpen(true)} className="relative rounded-xl p-2.5 text-[#57534E] dark:text-[#A8A29E] transition-all duration-300 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 hover:text-[#1C1917] dark:hover:text-[#FAFAF9] cursor-pointer">
               <ShoppingBag size={18} />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1C1917] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#1C1917] dark:bg-[#A16207] px-1 text-[10px] font-bold text-white">{cartCount}</span>}
             </button>
-            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-xl p-2.5 text-[#57534E] transition-all duration-300 hover:bg-[#1C1917]/5 hover:text-[#1C1917] lg:hidden">
+            <button type="button" aria-label="Ouvrir le menu" onClick={() => setMenuOpen(true)} className="rounded-xl p-2.5 text-[#57534E] dark:text-[#A8A29E] transition-all duration-300 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 hover:text-[#1C1917] dark:hover:text-[#FAFAF9] lg:hidden cursor-pointer">
               <Menu size={18} />
             </button>
           </div>
@@ -266,6 +298,7 @@ function AppContent() {
               { id: "accueil", label: "Accueil" },
               { id: "categories", label: "Catégories" },
               { id: "products", label: "Boutique" },
+              { id: "comment-ca-marche", label: "Comment ça marche" },
               { id: "sur-mesure", label: "Demande Sur-Mesure" },
               { id: "apropos", label: "À propos" },
               { id: "faq", label: "FAQ & Questions" },
@@ -279,7 +312,7 @@ function AppContent() {
                   else if (id === "categories") openCategories();
                   else scrollTo(id);
                 }}
-                className={`border-b border-[#E7E5E4] py-4 text-left text-lg font-medium transition-colors duration-300 ${(navOverride || activeSection) === id ? "text-[#A16207]" : "text-[#57534E]"}`}
+                className={`border-b border-[#E7E5E4] dark:border-[#292524] py-4 text-left text-lg font-medium transition-colors duration-300 ${(navOverride || activeSection) === id ? "text-[#A16207]" : "text-[#57534E] dark:text-[#A8A29E]"}`}
               >
                 {label}
               </button>
@@ -332,6 +365,9 @@ function AppContent() {
             onSelectProduct={setSelectedProduct}
           />
         </div>
+
+        {/* 4. Comment ça marche */}
+        <HowItWorksSection onExplore={openBoutique} />
 
         {/* Section Demande Sur-Mesure (Personal Shopping Dakar -> Niamey) */}
         <CustomRequestSection />

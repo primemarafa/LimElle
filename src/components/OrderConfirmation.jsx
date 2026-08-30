@@ -21,13 +21,13 @@ export default function OrderConfirmation({ order, onDone }) {
     <section className="mx-auto max-w-3xl px-5 pb-16 pt-12">
       <div className="rounded-3xl bg-white p-7 text-center shadow-sm">
         <CheckCircle2 className="mx-auto text-[#3FBF63]" size={48} />
-        <p className="mt-5 text-xs font-bold uppercase tracking-[.16em] text-[#5B5348]">
+        <p className="mt-5 text-xs font-bold uppercase tracking-[.16em] text-[#57534E]">
           Commande enregistrée
         </p>
         <h1 className="mt-2 text-3xl font-semibold">
           Merci {order.customer?.fullName?.split(" ")[0] || ""} 🌸
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-[#5B5348]">
+        <p className="mx-auto mt-3 max-w-xl text-[#57534E]">
           Ta demande est prête. Lim’Elle doit maintenant confirmer la disponibilité et le prix final avant ton paiement.
         </p>
 
@@ -40,7 +40,7 @@ export default function OrderConfirmation({ order, onDone }) {
           <Copy size={16} />
         </button>
 
-        <div className="mt-6 rounded-2xl bg-[#F8F3EA] p-5 text-left">
+        <div className="mt-6 rounded-2xl bg-[#FAFAF9] p-5 text-left">
           <div className="flex justify-between gap-4 text-sm">
             <span>Articles</span>
             <strong>{(order.items || []).reduce((sum, item) => sum + item.quantity, 0)}</strong>
@@ -65,7 +65,7 @@ export default function OrderConfirmation({ order, onDone }) {
               href={invoiceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#B58A4A] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#A16207] hover:underline"
             >
               <FileText size={16} />
               Voir / Imprimer la facture officielle
