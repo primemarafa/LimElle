@@ -53,7 +53,7 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
         role="dialog"
         aria-modal="true"
         aria-label="Panier"
-        className="relative z-10 flex h-full w-full max-w-md flex-col bg-[#F8F3EA] p-5 shadow-2xl"
+        className="relative z-10 flex h-full w-full max-w-md flex-col bg-[#FAFAF9] p-5 shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
         </div>
 
         {!items.length ? (
-          <div className="flex flex-1 flex-col items-center justify-center text-center text-[#5B5348]">
+          <div className="flex flex-1 flex-col items-center justify-center text-center text-[#57534E]">
             <ShoppingBag size={42} aria-hidden="true" />
             <p className="mt-4">Ton panier est vide.</p>
           </div>
@@ -89,10 +89,10 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
                       />
                       <div className="min-w-0 flex-1">
                         <div className="font-bold">{item.product.name}</div>
-                        <div className="mt-1 text-xs text-[#5B5348]">
+                        <div className="mt-1 text-xs text-[#57534E]">
                           Taille : {item.product.selectedSize ?? "Unique"} · Couleur : {item.product.selectedColor ?? "Standard"}
                         </div>
-                        <div className="mt-1 text-sm text-[#5B5348]">
+                        <div className="mt-1 text-sm text-[#57534E]">
                           {formatXof(item.product.price)}
                         </div>
                         <div className="mt-2 flex items-center justify-between">
@@ -122,7 +122,7 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-[#A6512F] hover:text-[#C53030]"
+                            className="h-8 w-8 text-[#A16207] hover:text-[#C53030]"
                             onClick={() => onRemove(key)}
                             aria-label={`Supprimer ${item.product.name} du panier`}
                           >
@@ -137,21 +137,21 @@ export default function CartDrawer({ items, onClose, onQuantityChange, onRemove,
             </div>
 
             {/* Summary */}
-            <div className="mt-5 border-t border-[#E8E0D4] pt-4">
-              <div className="flex justify-between text-xs text-[#6A5A4A]">
+            <div className="mt-5 border-t border-[#E7E5E4] pt-4">
+              <div className="flex justify-between text-xs text-[#57534E]">
                 <span>Poids estimé</span>
-                <strong className="text-[#2B2620]">{weight.toFixed(2)} kg</strong>
+                <strong className="text-[#1C1917]">{weight.toFixed(2)} kg</strong>
               </div>
-              <div className="mt-2 flex justify-between text-base font-bold text-[#2B2620]">
+              <div className="mt-2 flex justify-between text-base font-bold text-[#1C1917]">
                 <span>Total indicatif</span>
-                <strong className="text-[#B58A4A]">{formatXof(total)}</strong>
+                <strong className="text-[#A16207]">{formatXof(total)}</strong>
               </div>
-              <p className="mt-2 text-[11px] leading-relaxed text-[#8A7A6A]">
+              <p className="mt-2 text-[11px] leading-relaxed text-[#78716C]">
                 Le prix final et la disponibilité sont confirmés par Lim'Elle avant paiement.
               </p>
               <Button
                 variant="green"
-                className="mt-4 w-full rounded-xl bg-[#1B3A2D] py-5 font-bold text-white shadow-sm hover:bg-[#142D24]"
+                className="mt-4 w-full rounded-xl bg-[#1C1917] py-5 font-bold text-white shadow-sm hover:bg-[#1C1917]"
                 size="lg"
                 onClick={onCheckout}
               >
