@@ -110,7 +110,7 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
       cat: formData.category,
       category: formData.category,
       badge: formData.badge.trim() || null,
-      img: formData.img.trim() || "/images/product-serum-eclat.jpg",
+      img: formData.img.trim() || "/images/product-bazin-riche.jpg",
     };
 
     try {
@@ -135,9 +135,9 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
           description: "",
           price: "",
           weight: "0.2",
-          category: "soins-visage",
+          category: "pagnes-leche",
           badge: "Nouveau",
-          img: "/images/product-serum-eclat.jpg",
+          img: "/images/product-bazin-riche.jpg",
         });
         setActiveTab("list");
         setMessage("");
@@ -167,21 +167,21 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
       description: product.description || "",
       price: String(product.price || ""),
       weight: String(product.weight || "0.2"),
-      category: product.category || product.cat || "soins-visage",
+      category: product.category || product.cat || "pagnes-leche",
       badge: product.badge || "",
-      img: product.img || product.imageUrl || "/images/product-serum-eclat.jpg",
+      img: product.img || product.imageUrl || "/images/product-bazin-riche.jpg",
     });
     setActiveTab("add");
   };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-fade-up">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#E8E0D4] bg-[#F8F4EC] p-6 sm:p-8 shadow-2xl">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#E7E5E4] bg-[#FAFAF9] p-6 sm:p-8 shadow-2xl">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-5 top-5 rounded-full p-2 text-[#8A7A6A] hover:bg-black/5 hover:text-[#2B2620]"
+          className="absolute right-5 top-5 rounded-full p-2 text-[#78716C] hover:bg-black/5 hover:text-[#1C1917]"
         >
           <X size={20} />
         </button>
@@ -189,28 +189,28 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
         {/* Not Logged In : Email + Password Screen */}
         {!isAuthenticated ? (
           <div className="py-6 text-center max-w-sm mx-auto">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14261F] text-[#B58A4A] shadow-md">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1C1917] text-[#A16207] shadow-md">
               <Lock size={26} />
             </div>
-            <h2 className="mt-4 font-serif text-2xl font-normal text-[#2B2620]">Espace Webmaster</h2>
-            <p className="mt-1 text-xs text-[#6A5A4A]">Authentification sécurisée administrateur</p>
+            <h2 className="mt-4 font-serif text-2xl font-normal text-[#1C1917]">Espace Webmaster</h2>
+            <p className="mt-1 text-xs text-[#57534E]">Authentification sécurisée administrateur</p>
 
             <form onSubmit={handleLogin} className="mt-6 space-y-4 text-left">
               <div>
-                <label className="block text-xs font-semibold text-[#2B2620]">Email administrateur</label>
+                <label className="block text-xs font-semibold text-[#1C1917]">Email administrateur</label>
                 <input
                   type="email"
                   required
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
                   placeholder="contact.limelle@gmail.com"
-                  className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#2B2620]">Mot de passe</label>
+                <label className="block text-xs font-semibold text-[#1C1917]">Mot de passe</label>
                 <div className="relative mt-1">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -218,12 +218,12 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                    className="w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-[#8A7A6A] hover:text-[#2B2620]"
+                    className="absolute right-3 top-3 text-[#78716C] hover:text-[#1C1917]"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -239,7 +239,7 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
 
               <button
                 type="submit"
-                className="w-full rounded-xl bg-[#14261F] py-3.5 text-xs font-semibold text-white shadow-md transition hover:bg-[#0E1B15]"
+                className="w-full rounded-xl bg-[#1C1917] py-3.5 text-xs font-semibold text-white shadow-md transition hover:bg-[#0C0A09]"
               >
                 Connexion Webmaster
               </button>
@@ -248,15 +248,15 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
         ) : (
           <div>
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#E8E0D4] pb-4">
+            <div className="flex items-center justify-between border-b border-[#E7E5E4] pb-4">
               <div>
-                <h2 className="font-serif text-2xl font-normal text-[#2B2620]">Gestion du Catalogue</h2>
-                <p className="text-xs text-[#6A5A4A]">Connecté en tant que Webmaster</p>
+                <h2 className="font-serif text-2xl font-normal text-[#1C1917]">Gestion du Catalogue</h2>
+                <p className="text-xs text-[#57534E]">Connecté en tant que Webmaster</p>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleLogout}
-                  className="rounded-xl border border-[#E8E0D4] bg-white px-3 py-2 text-xs font-medium text-[#8A7A6A] hover:text-red-600 transition"
+                  className="rounded-xl border border-[#E7E5E4] bg-white px-3 py-2 text-xs font-medium text-[#78716C] hover:text-red-600 transition"
                   title="Se déconnecter"
                 >
                   Déconnexion
@@ -269,13 +269,13 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                       description: "",
                       price: "",
                       weight: "0.2",
-                      category: "soins-visage",
+                      category: "pagnes-leche",
                       badge: "Nouveau",
-                      img: "/images/product-serum-eclat.jpg",
+                      img: "/images/product-bazin-riche.jpg",
                     });
                     setActiveTab(activeTab === "list" ? "add" : "list");
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#B58A4A] px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#A37839]"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#A16207] px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#A16207]"
                 >
                   {activeTab === "list" ? <><Plus size={15} /> Nouveau produit</> : "Voir les produits"}
                 </button>
@@ -297,29 +297,29 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
             {/* TAB 1: ADD / EDIT PRODUCT */}
             {activeTab === "add" && (
               <form onSubmit={handleSaveProduct} className="mt-6 space-y-4 text-xs">
-                <h3 className="font-semibold text-sm text-[#2B2620]">
+                <h3 className="font-semibold text-sm text-[#1C1917]">
                   {editingProduct ? `Modifier : ${editingProduct.name}` : "Ajouter un nouveau produit"}
                 </h3>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block font-medium text-[#2B2620]">Nom du produit *</label>
+                    <label className="block font-medium text-[#1C1917]">Nom du produit *</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Ex: Savon Noir Purifiant"
-                      className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-medium text-[#2B2620]">Catégorie *</label>
+                    <label className="block font-medium text-[#1C1917]">Catégorie *</label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                     >
                       {CATEGORIES.map((c) => (
                         <option key={c.id} value={c.id}>{c.label}</option>
@@ -330,71 +330,71 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <div>
-                    <label className="block font-medium text-[#2B2620]">Prix (FCFA) *</label>
+                    <label className="block font-medium text-[#1C1917]">Prix (FCFA) *</label>
                     <input
                       type="number"
                       required
                       value={formData.price}
                       onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                       placeholder="Ex: 5000"
-                      className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-medium text-[#2B2620]">Poids estimé (kg)</label>
+                    <label className="block font-medium text-[#1C1917]">Poids estimé (kg)</label>
                     <input
                       type="number"
                       step="0.05"
                       value={formData.weight}
                       onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
                       placeholder="0.2"
-                      className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-medium text-[#2B2620]">Badge (ex: Bestseller, Nouveau)</label>
+                    <label className="block font-medium text-[#1C1917]">Badge (ex: Bestseller, Nouveau)</label>
                     <input
                       type="text"
                       value={formData.badge}
                       onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
                       placeholder="Nouveau"
-                      className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-medium text-[#2B2620]">Description courte</label>
+                  <label className="block font-medium text-[#1C1917]">Description courte</label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Ex: Anti-taches & unifiant - 150g"
-                    className="mt-1 w-full rounded-xl border border-[#E8E0D4] bg-white p-3 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                    className="mt-1 w-full rounded-xl border border-[#E7E5E4] bg-white p-3 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-medium text-[#2B2620]">Image du produit *</label>
+                  <label className="block font-medium text-[#1C1917]">Image du produit *</label>
                   
                   {/* Visual Preview */}
                   <div className="mt-2 flex items-center gap-4">
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#E8E0D4] bg-white shadow-2xs">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#E7E5E4] bg-white shadow-2xs">
                       <img
-                        src={formData.img || "/images/product-serum-eclat.jpg"}
+                        src={formData.img || "/images/product-bazin-riche.jpg"}
                         alt="Aperçu du produit"
                         className="h-full w-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = "/images/product-serum-eclat.jpg";
+                          e.currentTarget.src = "/images/product-bazin-riche.jpg";
                         }}
                       />
                     </div>
 
                     <div className="flex-1 space-y-2">
                       {/* Direct File Upload (Converts to DataURL/Image) */}
-                      <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-white border border-[#E8E0D4] px-4 py-2 text-xs font-semibold text-[#14261F] shadow-2xs hover:bg-[#F4EFE6] transition">
+                      <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-white border border-[#E7E5E4] px-4 py-2 text-xs font-semibold text-[#1C1917] shadow-2xs hover:bg-[#F5F3EF] transition">
                         <span>📁 Choisir une photo depuis l'appareil</span>
                         <input
                           type="file"
@@ -412,15 +412,15 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                           }}
                         />
                       </label>
-                      <p className="text-[11px] text-[#8A7A6A]">
+                      <p className="text-[11px] text-[#78716C]">
                         Ou saisissez un lien d'image web / chemin local :
                       </p>
                       <input
                         type="text"
                         value={formData.img}
                         onChange={(e) => setFormData({ ...formData, img: e.target.value })}
-                        placeholder="/images/product-serum-eclat.jpg ou https://..."
-                        className="w-full rounded-xl border border-[#E8E0D4] bg-white p-2.5 text-xs text-[#2B2620] focus:border-[#B58A4A] focus:outline-none"
+                        placeholder="/images/product-bazin-riche.jpg ou https://..."
+                        className="w-full rounded-xl border border-[#E7E5E4] bg-white p-2.5 text-xs text-[#1C1917] focus:border-[#A16207] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -430,14 +430,14 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 rounded-xl bg-[#14261F] py-3 text-xs font-semibold text-white shadow-sm hover:bg-[#0E1B15]"
+                    className="flex-1 rounded-xl bg-[#1C1917] py-3 text-xs font-semibold text-white shadow-sm hover:bg-[#0C0A09]"
                   >
                     {loading ? "Enregistrement..." : editingProduct ? "Mettre à jour" : "Publier sur la boutique"}
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab("list")}
-                    className="rounded-xl border border-[#E8E0D4] bg-white px-5 py-3 text-xs font-medium text-[#6A5A4A]"
+                    className="rounded-xl border border-[#E7E5E4] bg-white px-5 py-3 text-xs font-medium text-[#57534E]"
                   >
                     Annuler
                   </button>
@@ -448,21 +448,21 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
             {/* TAB 2: PRODUCT LIST */}
             {activeTab === "list" && (
               <div className="mt-6 space-y-3">
-                <p className="text-xs font-semibold text-[#2B2620]">
+                <p className="text-xs font-semibold text-[#1C1917]">
                   Catalogue actuel ({products.length} produits)
                 </p>
-                <div className="divide-y divide-[#E8E0D4] rounded-2xl border border-[#E8E0D4] bg-white overflow-hidden max-h-96 overflow-y-auto">
+                <div className="divide-y divide-[#E7E5E4] rounded-2xl border border-[#E7E5E4] bg-white overflow-hidden max-h-96 overflow-y-auto">
                   {products.map((p) => (
-                    <div key={p.id} className="flex items-center justify-between p-3.5 hover:bg-[#F8F4EC]/50 transition">
+                    <div key={p.id} className="flex items-center justify-between p-3.5 hover:bg-[#FAFAF9]/50 transition">
                       <div className="flex items-center gap-3">
                         <img
-                          src={p.img || p.imageUrl || "/images/product-serum-eclat.jpg"}
+                          src={p.img || p.imageUrl || "/images/product-bazin-riche.jpg"}
                           alt={p.name}
-                          className="h-11 w-11 rounded-lg object-cover border border-[#E8E0D4]"
+                          className="h-11 w-11 rounded-lg object-cover border border-[#E7E5E4]"
                         />
                         <div>
-                          <p className="font-semibold text-xs text-[#2B2620]">{p.name}</p>
-                          <p className="text-[11px] text-[#8A7A6A]">
+                          <p className="font-semibold text-xs text-[#1C1917]">{p.name}</p>
+                          <p className="text-[11px] text-[#78716C]">
                             {typeof p.price === "number" ? `${p.price.toLocaleString("fr-FR")} FCFA` : p.price} • {p.cat || p.category}
                           </p>
                         </div>
@@ -471,14 +471,14 @@ export default function AdminModal({ isOpen, onClose, products, onRefreshProduct
                       <div className="flex items-center gap-1.5">
                         <button
                           onClick={() => startEdit(p)}
-                          className="rounded-lg p-2 text-[#6A5A4A] hover:bg-[#F4EFE6] hover:text-[#B58A4A]"
+                          className="rounded-lg p-2 text-[#57534E] hover:bg-[#F5F3EF] hover:text-[#A16207]"
                           title="Modifier"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(p.id)}
-                          className="rounded-lg p-2 text-[#6A5A4A] hover:bg-red-50 hover:text-red-600"
+                          className="rounded-lg p-2 text-[#57534E] hover:bg-red-50 hover:text-red-600"
                           title="Supprimer"
                         >
                           <Trash2 size={15} />
