@@ -73,27 +73,27 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-md overflow-hidden rounded-3xl border border-[#E8E0D4] bg-[#F8F4EC] p-6 shadow-2xl sm:p-8">
+      <div className="relative w-full max-w-md overflow-hidden rounded-3xl border border-[#E7E5E4] bg-[#FAFAF9] p-6 shadow-2xl sm:p-8">
         
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
           aria-label="Fermer la boîte de dialogue"
-          className="absolute top-5 right-5 rounded-full p-2 text-[#8A7A6A] transition hover:bg-[#E8E0D4]/60 hover:text-[#2B2620]"
+          className="absolute top-5 right-5 rounded-full p-2 text-[#78716C] transition hover:bg-[#E7E5E4]/60 hover:text-[#1C1917]"
         >
           <X size={18} />
         </button>
 
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#14261F] text-[#B58A4A] shadow-xs">
+          <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#1C1917] text-[#A16207] shadow-xs">
             <Sparkles size={20} />
           </div>
-          <h2 className="mt-3.5 font-serif text-2xl font-normal text-[#2B2620]">
+          <h2 className="mt-3.5 font-serif text-2xl font-normal text-[#1C1917]">
             {mode === "login" ? "Bienvenue chez Lim'Elle" : "Créer votre compte"}
           </h2>
-          <p className="mt-1 text-xs text-[#6A5A4A]">
+          <p className="mt-1 text-xs text-[#57534E]">
             {mode === "login"
               ? "Connectez-vous pour retrouver vos commandes et coordonnées."
               : "Rejoignez l'univers Lim'Elle et simplifiez vos commandes."}
@@ -101,7 +101,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
         </div>
 
         {/* Mode Switch Tabs */}
-        <div className="mt-6 flex rounded-xl bg-[#E8E0D4]/60 p-1">
+        <div className="mt-6 flex rounded-xl bg-[#E7E5E4]/60 p-1">
           <button
             type="button"
             onClick={() => {
@@ -110,8 +110,8 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
             }}
             className={`flex-1 rounded-lg py-2 text-xs font-semibold transition ${
               mode === "login"
-                ? "bg-white text-[#2B2620] shadow-xs"
-                : "text-[#6A5A4A] hover:text-[#2B2620]"
+                ? "bg-white text-[#1C1917] shadow-xs"
+                : "text-[#57534E] hover:text-[#1C1917]"
             }`}
           >
             Se connecter
@@ -124,8 +124,8 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
             }}
             className={`flex-1 rounded-lg py-2 text-xs font-semibold transition ${
               mode === "register"
-                ? "bg-white text-[#2B2620] shadow-xs"
-                : "text-[#6A5A4A] hover:text-[#2B2620]"
+                ? "bg-white text-[#1C1917] shadow-xs"
+                : "text-[#57534E] hover:text-[#1C1917]"
             }`}
           >
             Créer un compte
@@ -143,32 +143,32 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
         <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
           {mode === "register" && (
             <div>
-              <label className="block text-xs font-medium text-[#2B2620]">Nom complet *</label>
+              <label className="block text-xs font-medium text-[#1C1917]">Nom complet *</label>
               <div className="relative mt-1">
-                <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+                <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
                 <input
                   type="text"
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="Awa Diallo"
-                  className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                  className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
                 />
               </div>
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-medium text-[#2B2620]">Adresse email *</label>
+            <label className="block text-xs font-medium text-[#1C1917]">Adresse email *</label>
             <div className="relative mt-1">
-              <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+              <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="votre.email@exemple.com"
-                className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
               />
             </div>
           </div>
@@ -176,28 +176,28 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
           {mode === "register" && (
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-[#2B2620]">Téléphone</label>
+                <label className="block text-xs font-medium text-[#1C1917]">Téléphone</label>
                 <div className="relative mt-1">
-                  <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+                  <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+227 90 00 00 00"
-                    className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                    className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#2B2620]">Ville</label>
+                <label className="block text-xs font-medium text-[#1C1917]">Ville</label>
                 <div className="relative mt-1">
-                  <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+                  <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
                   <input
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="Niamey, Dakar..."
-                    className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                    className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
                   />
                 </div>
               </div>
@@ -205,9 +205,9 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
           )}
 
           <div>
-            <label className="block text-xs font-medium text-[#2B2620]">Mot de passe *</label>
+            <label className="block text-xs font-medium text-[#1C1917]">Mot de passe *</label>
             <div className="relative mt-1">
-              <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+              <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
               <input
                 type="password"
                 required
@@ -215,16 +215,16 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
               />
             </div>
           </div>
 
           {mode === "register" && (
             <div>
-              <label className="block text-xs font-medium text-[#2B2620]">Confirmer le mot de passe *</label>
+              <label className="block text-xs font-medium text-[#1C1917]">Confirmer le mot de passe *</label>
               <div className="relative mt-1">
-                <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A7A6A]" />
+                <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
                 <input
                   type="password"
                   required
@@ -232,7 +232,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-[#E8E0D4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#2B2620] placeholder:text-[#8A7A6A]/60 focus:border-[#B58A4A] focus:outline-none focus:ring-1 focus:ring-[#B58A4A]"
+                  className="w-full rounded-xl border border-[#E7E5E4] bg-white py-2.5 pl-9 pr-3 text-xs text-[#1C1917] placeholder:text-[#78716C]/60 focus:border-[#A16207] focus:outline-none focus:ring-1 focus:ring-[#A16207]"
                 />
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#14261F] py-3 text-xs font-semibold text-white shadow-md transition hover:bg-[#0E1B15] disabled:opacity-60"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#1C1917] py-3 text-xs font-semibold text-white shadow-md transition hover:bg-[#0C0A09] disabled:opacity-60"
           >
             {isSubmitting ? (
               <>
@@ -257,7 +257,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
         </form>
 
         {/* Footer info */}
-        <div className="mt-5 text-center text-[11px] text-[#8A7A6A]">
+        <div className="mt-5 text-center text-[11px] text-[#78716C]">
           {mode === "login" ? (
             <p>
               Pas encore de compte ?{" "}
@@ -267,7 +267,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
                   setMode("register");
                   setError("");
                 }}
-                className="font-semibold text-[#B58A4A] hover:underline"
+                className="font-semibold text-[#A16207] hover:underline"
               >
                 Inscrivez-vous
               </button>
@@ -281,7 +281,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login", onAu
                   setMode("login");
                   setError("");
                 }}
-                className="font-semibold text-[#B58A4A] hover:underline"
+                className="font-semibold text-[#A16207] hover:underline"
               >
                 Connectez-vous
               </button>

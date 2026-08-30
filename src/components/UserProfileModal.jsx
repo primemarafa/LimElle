@@ -36,24 +36,24 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-3xl border border-[#E8E0D4] bg-[#F8F4EC] shadow-2xl">
+      <div className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-3xl border border-[#E7E5E4] bg-[#FAFAF9] shadow-2xl">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#E8E0D4] p-5 sm:p-6">
+        <div className="flex items-center justify-between border-b border-[#E7E5E4] p-5 sm:p-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#14261F] text-[#B58A4A]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1C1917] text-[#A16207]">
               <User size={20} />
             </div>
             <div>
-              <h2 className="font-serif text-xl font-normal text-[#2B2620]">{user.fullName}</h2>
-              <p className="text-xs text-[#6A5A4A]">{user.email}</p>
+              <h2 className="font-serif text-xl font-normal text-[#1C1917]">{user.fullName}</h2>
+              <p className="text-xs text-[#57534E]">{user.email}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fermer"
-            className="rounded-full p-2 text-[#8A7A6A] hover:bg-[#E8E0D4]/60 hover:text-[#2B2620]"
+            className="rounded-full p-2 text-[#78716C] hover:bg-[#E7E5E4]/60 hover:text-[#1C1917]"
           >
             <X size={18} />
           </button>
@@ -63,19 +63,19 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
         <div className="flex-1 space-y-6 overflow-y-auto p-5 sm:p-6">
           
           {/* User Details */}
-          <div className="rounded-2xl border border-[#E8E0D4] bg-white p-4 text-xs">
-            <h3 className="font-semibold text-[#2B2620]">Mes Coordonnées</h3>
-            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 text-[#6A5A4A]">
+          <div className="rounded-2xl border border-[#E7E5E4] bg-white p-4 text-xs">
+            <h3 className="font-semibold text-[#1C1917]">Mes Coordonnées</h3>
+            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 text-[#57534E]">
               <div className="flex items-center gap-2">
-                <Phone size={14} className="text-[#B58A4A]" />
+                <Phone size={14} className="text-[#A16207]" />
                 <span>{user.phone || "Non renseigné"}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-[#B58A4A]" />
+                <MapPin size={14} className="text-[#A16207]" />
                 <span>{user.city || "Non renseignée"}</span>
               </div>
               <div className="flex items-center gap-2 col-span-full">
-                <Calendar size={14} className="text-[#B58A4A]" />
+                <Calendar size={14} className="text-[#A16207]" />
                 <span>Membre depuis {new Date(user.createdAt).toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}</span>
               </div>
             </div>
@@ -84,14 +84,14 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
           {/* Orders History */}
           <div>
             <div className="flex items-center justify-between">
-              <h3 className="flex items-center gap-1.5 font-serif text-base font-normal text-[#2B2620]">
-                <Package size={16} className="text-[#B58A4A]" />
+              <h3 className="flex items-center gap-1.5 font-serif text-base font-normal text-[#1C1917]">
+                <Package size={16} className="text-[#A16207]" />
                 Historique de mes commandes ({userOrders.length})
               </h3>
             </div>
 
             {userOrders.length === 0 ? (
-              <div className="mt-3 rounded-2xl border border-dashed border-[#E8E0D4] bg-white/60 p-6 text-center text-xs text-[#8A7A6A]">
+              <div className="mt-3 rounded-2xl border border-dashed border-[#E7E5E4] bg-white/60 p-6 text-center text-xs text-[#78716C]">
                 <p>Vous n'avez pas encore passé de commande avec ce compte.</p>
               </div>
             ) : (
@@ -99,20 +99,20 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
                 {userOrders.map((ord) => (
                   <div
                     key={ord.reference}
-                    className="rounded-2xl border border-[#E8E0D4] bg-white p-4 shadow-2xs transition hover:border-[#B58A4A]/50"
+                    className="rounded-2xl border border-[#E7E5E4] bg-white p-4 shadow-2xs transition hover:border-[#A16207]/50"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="font-mono text-xs font-bold text-[#2B2620]">{ord.reference}</span>
-                        <p className="mt-0.5 text-[11px] text-[#8A7A6A]">
+                        <span className="font-mono text-xs font-bold text-[#1C1917]">{ord.reference}</span>
+                        <p className="mt-0.5 text-[11px] text-[#78716C]">
                           {new Date(ord.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })}
                         </p>
                       </div>
                       {getStatusBadge(ord.status)}
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between border-t border-[#E8E0D4]/60 pt-2.5 text-xs">
-                      <span className="font-bold text-[#2B2620]">
+                    <div className="mt-3 flex items-center justify-between border-t border-[#E7E5E4]/60 pt-2.5 text-xs">
+                      <span className="font-bold text-[#1C1917]">
                         {ord.total?.toLocaleString("fr-FR")} FCFA
                       </span>
                       <div className="flex items-center gap-2">
@@ -121,7 +121,7 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
                             href={api.invoiceUrl(ord.lookupToken)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#B58A4A] hover:underline"
+                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#A16207] hover:underline"
                           >
                             Facture <ExternalLink size={11} />
                           </a>
@@ -137,7 +137,7 @@ export default function UserProfileModal({ isOpen, onClose, onSelectOrder }) {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#E8E0D4] bg-[#F3EDE2]/40 p-4 text-right">
+        <div className="border-t border-[#E7E5E4] bg-[#F3EDE2]/40 p-4 text-right">
           <button
             type="button"
             onClick={handleLogout}

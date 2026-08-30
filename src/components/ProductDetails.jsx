@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, Minus, Plus, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Minus, Plus, ShoppingBag, Package } from "lucide-react";
 import { formatXof, buildGlobalPrice } from "../utils/limelle";
 import WhatsAppButton from "./WhatsAppButton";
 
@@ -17,22 +17,22 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
 
   return (
     <section className="view-transition mx-auto max-w-5xl px-5 pb-16 pt-8">
-      <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#6A5A4A] hover:text-[#2B2620]">
+      <button onClick={onBack} className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#57534E] transition-colors duration-300 hover:text-[#1C1917]">
         <ArrowLeft size={17} /> Retour au catalogue
       </button>
-      <div className="grid gap-8 md:grid-cols-2">
-        <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-3xl object-cover shadow-sm bg-[#F4EFE6]" />
+      <div className="grid gap-10 md:grid-cols-2">
+        <img src={product.img} alt={product.name} className="aspect-[3/4] w-full rounded-[1.5rem] object-cover shadow-sm bg-[#F5F3EF]" />
         <div>
-          <div className="inline-flex rounded-full bg-[#F4EFE6] px-3.5 py-1 text-xs font-bold text-[#B58A4A]">{product.badge}</div>
-          <h1 className="mt-4 font-serif text-3xl font-medium text-[#2B2620] md:text-4xl">{product.name}</h1>
-          <p className="mt-3 text-sm leading-relaxed text-[#6A5A4A]">{product.description ?? "Produit sélectionné avec soin par Lim'Elle. Les détails sont confirmés avant paiement."}</p>
+          <div className="inline-flex rounded-lg bg-[#1C1917]/80 px-3 py-1.5 text-[10px] font-semibold text-white backdrop-blur-sm">{product.badge}</div>
+          <h1 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-[#1C1917] md:text-4xl">{product.name}</h1>
+          <p className="mt-3 text-sm leading-relaxed text-[#57534E]">{product.description ?? "Article sélectionné avec soin par Lim'Elle. Les détails sont confirmés avant paiement."}</p>
           {/* Prix & Remise éventuelle */}
           <div className="mt-5 flex items-baseline gap-3">
-            <div className="text-2xl font-bold text-[#14261F] md:text-3xl">
+            <div className="text-2xl font-bold text-[#1C1917] md:text-3xl">
               {formatXof(totalEstimate)}
             </div>
             {product.originalPrice && product.originalPrice > product.price && (
-              <span className="text-base text-[#8A7A6A] line-through">
+              <span className="text-base text-[#A8A29E] line-through">
                 {formatXof(product.originalPrice * quantity)}
               </span>
             )}
@@ -42,28 +42,47 @@ export default function ProductDetails({ product, onBack, onAddToCart }) {
               </span>
             )}
           </div>
-          <p className="mt-1 text-xs text-[#8A7A6A]">
-            📦 Sélectionné à <strong>Dakar</strong>, expédié et livré à <strong>Niamey</strong> (fret GP inclus).
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-[#78716C]">
+            <Package size={12} className="text-[#A16207]" aria-hidden="true" />
+            Sélectionné à <strong className="text-[#1C1917]">Dakar</strong>, expédié et livré à <strong className="text-[#1C1917]">Niamey</strong> (fret GP inclus).
           </p>
 
-          {product.sizes?.length > 0 && <div className="mt-6"><label className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Contenance / Format</label><div className="mt-2 flex flex-wrap gap-2">{product.sizes.map((item) => <button type="button" key={item} onClick={() => setSize(item)} className={`rounded-xl border px-4 py-2 text-xs font-bold transition ${size === item ? "border-[#B58A4A] bg-[#B58A4A] text-white" : "border-[#E8E0D4] bg-white text-[#2B2620]"}`}>{item}</button>)}</div></div>}
+          {product.sizes?.length > 0 && (
+            <div className="mt-6">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]">Taille / Format</label>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {product.sizes.map((item) => (
+                  <button type="button" key={item} onClick={() => setSize(item)} className={`rounded-xl border px-4 py-2 text-xs font-semibold transition-all duration-300 ${size === item ? "border-[#A16207] bg-[#A16207] text-white shadow-sm" : "border-[#E7E5E4] bg-white text-[#1C1917] hover:border-[#A16207]/40"}`}>{item}</button>
+                ))}
+              </div>
+            </div>
+          )}
 
-          {product.colors?.length > 0 && <div className="mt-5"><label className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Variante</label><div className="mt-2 flex flex-wrap gap-2">{product.colors.map((item) => <button type="button" key={item} onClick={() => setColor(item)} className={`rounded-xl border px-4 py-2 text-xs font-bold transition ${color === item ? "border-[#B58A4A] bg-[#B58A4A] text-white" : "border-[#E8E0D4] bg-white text-[#2B2620]"}`}>{item}</button>)}</div></div>}
+          {product.colors?.length > 0 && (
+            <div className="mt-5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#1C1917]">Variante</label>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {product.colors.map((item) => (
+                  <button type="button" key={item} onClick={() => setColor(item)} className={`rounded-xl border px-4 py-2 text-xs font-semibold transition-all duration-300 ${color === item ? "border-[#A16207] bg-[#A16207] text-white shadow-sm" : "border-[#E7E5E4] bg-white text-[#1C1917] hover:border-[#A16207]/40"}`}>{item}</button>
+                ))}
+              </div>
+            </div>
+          )}
 
-          <div className="mt-6 flex items-center justify-between rounded-2xl bg-white border border-[#E8E0D4] p-3.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#2B2620]">Quantité</span>
+          <div className="mt-6 flex items-center justify-between rounded-[1.25rem] bg-white border border-[#E7E5E4] p-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#1C1917]">Quantité</span>
             <div className="flex items-center gap-3">
-              <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="rounded-lg bg-[#F4EFE6] p-2 hover:bg-[#EAE4D8]"><Minus size={15} /></button>
+              <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="rounded-xl bg-[#F5F3EF] p-2 transition-colors duration-300 hover:bg-[#E7E5E4]"><Minus size={15} /></button>
               <strong className="min-w-6 text-center text-sm">{quantity}</strong>
-              <button type="button" onClick={() => setQuantity(quantity + 1)} className="rounded-lg bg-[#F4EFE6] p-2 hover:bg-[#EAE4D8]"><Plus size={15} /></button>
+              <button type="button" onClick={() => setQuantity(quantity + 1)} className="rounded-xl bg-[#F5F3EF] p-2 transition-colors duration-300 hover:bg-[#E7E5E4]"><Plus size={15} /></button>
             </div>
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={handleAdd} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#14261F] px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-[#0E1B15]">
+            <button type="button" onClick={handleAdd} className="btn-shimmer inline-flex items-center justify-center gap-2 rounded-xl bg-[#1C1917] px-5 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#0C0A09] hover:shadow-lg">
               <ShoppingBag size={17} /> Ajouter au panier
             </button>
-            <WhatsAppButton message={message} className="bg-[#25D366] text-white rounded-xl py-3.5 font-bold shadow-md hover:bg-[#20BA5A]">
-              Commander en 1 clic sur WhatsApp
+            <WhatsAppButton message={message} className="bg-[#25D366] text-white rounded-xl py-3.5 font-semibold shadow-md transition-all duration-300 hover:bg-[#20BA5A] hover:shadow-lg">
+              Commander sur WhatsApp
             </WhatsAppButton>
           </div>
         </div>
