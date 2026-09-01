@@ -37,7 +37,7 @@ export default function BrandHero({ onCatalogue }) {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="relative min-h-[500px] w-full overflow-hidden rounded-3xl sm:min-h-[560px] lg:min-h-[620px]">
           
-          {/* Integrated Model Image on the right / full width with soft gradient transition */}
+          {/* Integrated Model Image on the right / full width with crisp, clear rendering */}
           <div className="absolute inset-0 z-0">
             <img
               src="/images/hero-portrait.jpg"
@@ -45,13 +45,12 @@ export default function BrandHero({ onCatalogue }) {
               className="h-full w-full object-cover object-[70%_center] sm:object-[75%_center] lg:object-[85%_center]"
               loading="eager"
             />
-            {/* Seamless Subtle Left Fade Gradient to let the model image shine vibrantly */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F2EB] via-[#F7F2EB]/65 via-30% to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+            {/* Subtle, soft fade on the left only behind text for crisp image clarity */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F2EB]/90 via-[#F7F2EB]/35 via-40% to-transparent pointer-events-none" />
           </div>
 
           {/* Floating Luxury Tag (Top Right) */}
-          <div className="absolute top-6 right-6 z-20 hidden rounded-full border border-white/15 bg-[#1C1611]/85 px-6 py-4 text-center shadow-xl backdrop-blur-md sm:block">
+          <div className="absolute top-6 right-6 z-20 hidden rounded-full border border-white/20 bg-[#1C1611]/70 px-6 py-4 text-center shadow-lg backdrop-blur-xs sm:block">
             <p className="font-serif text-xs font-light leading-snug text-[#F8F4EC] sm:text-sm">
               L'élégance<br />
               au féminin,<br />
