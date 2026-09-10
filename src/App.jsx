@@ -192,7 +192,7 @@ function AppContent() {
   const openBoutique = () => { setFilter("all"); scrollTo("products"); };
 
   useEffect(() => {
-    const ids = ["accueil", "categories", "products", "comment-ca-marche", "sur-mesure", "apropos", "faq", "contact"];
+    const ids = ["accueil", "categories", "products", "sur-mesure", "apropos", "faq", "contact"];
     const handleScroll = () => {
       if (navOverride) return;
       const scrollPosition = window.scrollY + 120;
@@ -234,7 +234,6 @@ function AppContent() {
             <button onClick={() => scrollTo("accueil")} className={`${navLinkClass("accueil")} ${navUnderline("accueil")} cursor-pointer`}>Accueil</button>
             <button onClick={openCategories} className={`${navLinkClass("categories")} ${navUnderline("categories")} cursor-pointer`}>Catégories</button>
             <button onClick={openBoutique} className={`${navLinkClass("products")} ${navUnderline("products")} cursor-pointer`}>Boutique</button>
-            <button onClick={() => scrollTo("comment-ca-marche")} className={`${navLinkClass("comment-ca-marche")} ${navUnderline("comment-ca-marche")} cursor-pointer`}>Étapes</button>
             <button onClick={() => scrollTo("sur-mesure")} className={`${navLinkClass("sur-mesure")} ${navUnderline("sur-mesure")} cursor-pointer`}>Sur-Mesure</button>
             <button onClick={() => scrollTo("apropos")} className={`${navLinkClass("apropos")} ${navUnderline("apropos")} cursor-pointer`}>À propos</button>
             <button onClick={() => scrollTo("faq")} className={`${navLinkClass("faq")} ${navUnderline("faq")} cursor-pointer`}>FAQ</button>
@@ -298,7 +297,6 @@ function AppContent() {
               { id: "accueil", label: "Accueil" },
               { id: "categories", label: "Catégories" },
               { id: "products", label: "Boutique" },
-              { id: "comment-ca-marche", label: "Comment ça marche" },
               { id: "sur-mesure", label: "Demande Sur-Mesure" },
               { id: "apropos", label: "À propos" },
               { id: "faq", label: "FAQ & Questions" },
