@@ -11,8 +11,6 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    // Visible dans la console du navigateur (F12) pour diagnostiquer précisément
-    // ce qui a planté, plutôt que de deviner depuis une page blanche.
     console.error("Lim'Elle a rencontré une erreur :", error, info);
   }
 
@@ -20,9 +18,15 @@ export default class ErrorBoundary extends React.Component {
     if (this.state.error) {
       return (
         <div className="mx-auto max-w-xl px-5 py-24 text-center">
-          <p className="font-serif text-2xl text-[#173F34]">Un problème est survenu</p>
-          <p className="mt-3 text-sm text-[#8A7765]">Recharge la page. Si le problème persiste, ouvre la console du navigateur (F12) et copie le message d'erreur affiché.</p>
-          <button type="button" onClick={() => window.location.reload()} className="mt-6 rounded-full bg-[#173F34] px-6 py-3 text-sm font-bold text-white">Recharger la page</button>
+          <p className="font-serif text-2xl text-[#1C1917] dark:text-[#FAFAF9]">Un problème est survenu</p>
+          <p className="mt-3 text-sm text-[#57534E] dark:text-[#A8A29E]">Rechargez la page. Si le problème persiste, contactez notre conciergerie.</p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-6 rounded-xl bg-[#1C1917] dark:bg-[#A16207] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0C0A09]"
+          >
+            Recharger la page
+          </button>
         </div>
       );
     }
