@@ -10,7 +10,11 @@ export default function BrandLogo({ className = "h-8 w-auto", alt = "Lim'Elle" }
     <img
       src="/brand/limelle-logo-mark.png"
       alt={alt}
-      className={`${className} object-contain`}
+      width={494}
+      height={528}
+      loading="eager"
+      decoding="async"
+      className={`${className} object-contain select-none dark:brightness-125 dark:contrast-105 transition-[filter] duration-300`}
     />
   );
 }

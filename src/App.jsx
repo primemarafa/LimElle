@@ -223,7 +223,7 @@ function AppContent() {
       <header className="sticky top-0 z-50 border-b border-[#E7E5E4]/40 dark:border-[#292524]/60 glass">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <button onClick={() => scrollTo("accueil")} className="flex items-center gap-2.5 cursor-pointer">
-            <BrandLogo className="h-8 w-auto text-[#A16207]" />
+            <BrandLogo className="h-8 w-auto" />
             <div>
               <span className="text-lg font-semibold tracking-tight text-[#1C1917] dark:text-[#FAFAF9]">Lim'Elle</span>
               <span className="ml-1.5 hidden text-[10px] font-semibold text-[#A16207] sm:inline">L'élégance au féminin</span>
@@ -287,7 +287,7 @@ function AppContent() {
         <div className="fixed inset-0 z-[70] bg-[#FAFAF9] p-6 lg:hidden">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <BrandLogo className="h-7 w-auto text-[#A16207]" />
+              <BrandLogo className="h-7 w-auto" />
               <span className="font-serif text-lg font-semibold text-[#1C1917]">Lim'Elle</span>
             </div>
             <button type="button" aria-label="Fermer" onClick={() => setMenuOpen(false)} className="rounded-xl p-2 hover:bg-[#1C1917]/5"><X size={20} /></button>
@@ -403,7 +403,7 @@ function AppContent() {
       <footer className="border-t border-[#E7E5E4] bg-[#FAFAF9] px-5 py-16">
         <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2.5"><BrandLogo className="h-8 w-auto text-[#A16207]" /><span className="text-lg font-semibold text-[#1C1917]">Lim'Elle</span></div>
+            <div className="flex items-center gap-2.5"><BrandLogo className="h-8 w-auto" /><span className="text-lg font-semibold text-[#1C1917]">Lim'Elle</span></div>
             <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-[#A16207]">{LIMELLE_CONFIG.tagline}</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-[#78716C]">Votre destination mode et élégance de confiance au Sahel. Des articles d'exception pour sublimer votre style.</p>
             <div className="mt-5 flex items-center gap-3">
