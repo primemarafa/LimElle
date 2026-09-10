@@ -84,6 +84,8 @@ async function findOrderByLookupToken({ token, orderRepository, orders }) {
 }
 
 export function registerRoutes(app, { products, productRepository, orderRepository, userRepository = null, db = null, orders = new Map() }) {
+  app.get("/", async () => ({ status: "ok", service: "limelle-api", message: "API Lim'Elle active" }));
+
   app.get("/api/health", async () => ({ status: "ok", service: "limelle-api" }));
 
   app.get("/api/health/db", async (_request, reply) => {
