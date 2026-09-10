@@ -16,7 +16,7 @@ export default function AboutSection() {
             L'Élégance au Féminin, Naturellement
           </h2>
           <div className="mx-auto mt-5 flex justify-center">
-            <BrandLogo className="h-10 w-auto" />
+            <BrandLogo className="h-10 w-auto text-[#A16207]" />
           </div>
         </div>
 
